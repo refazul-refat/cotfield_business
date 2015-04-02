@@ -88,7 +88,7 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#customer-container .title').html(response.name);
+								$('#customer-container .name').html(response.name);
 								$('#customer-container .description').html(response.description);
 							}
 						}
@@ -104,7 +104,7 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#supplier-container .title').html(response.name);
+								$('#supplier-container .name').html(response.name);
 								$('#supplier-container .description').html(response.description);
 							}
 						}
@@ -120,7 +120,7 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#product-container .title').html(response.name);
+								$('#product-container .name').html(response.name);
 								$('#product-container .product_type').html(response.type);
 								$('#product-container .product_origin').html(response.origin);
 								$('#product-container .product_quantity').html(response.quantity+' '+response.unit_quantity);
