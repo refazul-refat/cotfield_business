@@ -769,5 +769,43 @@
     </div>
   </div>
 </div>
+<!-- Import Permit Modal -->
+<div class="modal fade" id="import_permit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Import Permit</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+		  <span class="input-group-btn">
+			<button class="btn btn-default" type="button">Import Permit No</button>
+		  </span>
+		  <input id='import_permit_no' type="text" class="form-control" placeholder="...">
+		</div><!-- /input-group -->
+		<div class="input-group">
+		  <span class="input-group-btn">
+			<button class="btn btn-default" type="button">Import Permit Date</button>
+		  </span>
+		  <input id='import_permit_date' type="text" class="form-control" placeholder="...">
+		</div><!-- /input-group -->
+		<script type='text/javascript'>
+			$( "#import_permit_date" ).datepicker({
+				beforeShow: function() {
+					setTimeout(function(){
+						$('.ui-datepicker').css('z-index', 99999999999999);
+					}, 0);
+				}
+			});
+		</script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button onclick="save_contract()" data-dismiss='modal' type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </BODY>
 </HTML>
