@@ -88,8 +88,8 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#customer-container .name').html(response.name);
-								$('#customer-container .description').html(response.description);
+								$('#customer-container .customer_name').html(response.name);
+								$('#customer-container .customer_description').html(response.description);
 							}
 						}
 					});
@@ -104,8 +104,8 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#supplier-container .name').html(response.name);
-								$('#supplier-container .description').html(response.description);
+								$('#supplier-container .supplier_name').html(response.name);
+								$('#supplier-container .supplier_description').html(response.description);
 							}
 						}
 					});
@@ -120,7 +120,7 @@
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
 							200:function(response){
-								$('#product-container .name').html(response.name);
+								$('#product-container .product_name').html(response.name);
 								$('#product-container .product_type').html(response.type);
 								$('#product-container .product_origin').html(response.origin);
 								$('#product-container .product_quantity').html(response.quantity+' '+response.unit_quantity);
@@ -519,6 +519,7 @@
 			<div class='containerr' id='product-container'>
 				<div class='title'>Product</div>
 				<div class='left'>
+					<div class='key'>Name</div><div class='product_name value'></div>
 					<div class='key'>Type</div><div class='product_type value'></div>
 					<div class='key'>Origin</div><div class='product_origin value'></div>
 					<div class='key'>Quantity</div><div class='product_quantity value'></div>
