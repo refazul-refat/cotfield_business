@@ -22,7 +22,7 @@
 		var setting = {
 			async: {
 				enable: true,
-				url: 'http://localhost/cotfield_api/v1/nodes/',
+				url: 'http://api.cotfield.com/v1/nodes/',
 				autoParam: ["id", "name=n", "level=lv"]
 			},
 			view: {
@@ -41,7 +41,7 @@
 				if(treeNode.item_type=='project'){
 					$('#project-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/projects/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/projects/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -83,7 +83,7 @@
 					project_id=parent.id;
 					$('#customer-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/customers/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/customers/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -99,7 +99,7 @@
 					project_id=parent.id;
 					$('#supplier-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/suppliers/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/suppliers/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -115,7 +115,7 @@
 					project_id=parent.id;
 					$('#product-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/products/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/products/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -134,7 +134,7 @@
 					project_id=parent.id;
 					$('#contract-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/contracts/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/contracts/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -152,7 +152,7 @@
 					project_id=parent.id;
 					$('#import_permit-container').show();
 					$.ajax({
-						url: 'http://localhost/cotfield_api/v1/import_permits/'+treeNode.item_id,
+						url: 'http://api.cotfield.com/v1/import_permits/'+treeNode.item_id,
 						method: 'GET',
 						data:{token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 						statusCode:{
@@ -205,7 +205,7 @@
 			var node=zTree.getSelectedNodes()[0];
 			
 			$.ajax({
-				url:'http://localhost/cotfield_api/v1/folders',
+				url:'http://api.cotfield.com/v1/folders',
 				method:'POST',
 				data:{name:'test folder',parent:node.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 				statusCode:{
@@ -219,7 +219,7 @@
 			var node=zTree.getSelectedNodes()[0];
 			
 			$.ajax({
-				url:'http://localhost/cotfield_api/v1/projects',
+				url:'http://api.cotfield.com/v1/projects',
 				method:'POST',
 				data:{name:'test project',parent:node.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 				statusCode:{
@@ -231,14 +231,14 @@
 		}
 		function save_customer(){
 			$.ajax({
-				url: 'http://localhost/cotfield_api/v1/customers',
+				url: 'http://api.cotfield.com/v1/customers',
 				method: 'POST',
 				data: {name:$('#customer_name').val(),description:$('#customer_description').val(),token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 				statusCode:{
 					201:function(response){
 						console.log(response);
 						$.ajax({
-							url: 'http://localhost/cotfield_api/v1/projects/'+project_id+'/customer',
+							url: 'http://api.cotfield.com/v1/projects/'+project_id+'/customer',
 							method: 'POST',
 							data: {object_id:response.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 							statusCode:{
@@ -259,14 +259,14 @@
 		}
 		function save_supplier(){
 			$.ajax({
-				url: 'http://localhost/cotfield_api/v1/suppliers',
+				url: 'http://api.cotfield.com/v1/suppliers',
 				method: 'POST',
 				data: {name:$('#supplier_name').val(),description:$('#supplier_description').val(),token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 				statusCode:{
 					201:function(response){
 						console.log(response);
 						$.ajax({
-							url: 'http://localhost/cotfield_api/v1/projects/'+project_id+'/supplier',
+							url: 'http://api.cotfield.com/v1/projects/'+project_id+'/supplier',
 							method: 'POST',
 							data: {object_id:response.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 							statusCode:{
@@ -287,7 +287,7 @@
 		}
 		function save_product(){
 			$.ajax({
-				url: 'http://localhost/cotfield_api/v1/products',
+				url: 'http://api.cotfield.com/v1/products',
 				method: 'POST',
 				data: {name:$('#product_name').val(),
 						type:$('#product_type').val(),
@@ -301,7 +301,7 @@
 					201:function(response){
 						console.log(response);
 						$.ajax({
-							url: 'http://localhost/cotfield_api/v1/projects/'+project_id+'/product',
+							url: 'http://api.cotfield.com/v1/projects/'+project_id+'/product',
 							method: 'POST',
 							data: {object_id:response.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 							statusCode:{
@@ -322,7 +322,7 @@
 		}
 		function save_contract(){
 			$.ajax({
-				url: 'http://localhost/cotfield_api/v1/contracts',
+				url: 'http://api.cotfield.com/v1/contracts',
 				method: 'POST',
 				data: {no:$('#contract_no').val(),
 						initiate_date:$('#contract_initiate_date').val(),
@@ -334,7 +334,7 @@
 					201:function(response){
 						console.log(response);
 						$.ajax({
-							url: 'http://localhost/cotfield_api/v1/projects/'+project_id+'/contract',
+							url: 'http://api.cotfield.com/v1/projects/'+project_id+'/contract',
 							method: 'POST',
 							data: {object_id:response.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 							statusCode:{
@@ -355,7 +355,7 @@
 		}
 		function save_import_permit(){
 			$.ajax({
-				url: 'http://localhost/cotfield_api/v1/import_permits',
+				url: 'http://api.cotfield.com/v1/import_permits',
 				method: 'POST',
 				data: {no:$('#import_permit_no').val(),
 						date:$('#import_permit_date').val(),
@@ -364,7 +364,7 @@
 					201:function(response){
 						console.log(response);
 						$.ajax({
-							url: 'http://localhost/cotfield_api/v1/projects/'+project_id+'/import_permit',
+							url: 'http://api.cotfield.com/v1/projects/'+project_id+'/import_permit',
 							method: 'POST',
 							data: {object_id:response.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
 							statusCode:{
