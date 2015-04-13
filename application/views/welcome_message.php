@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="assets/js/bootstrap/bootstrap.min.js"></script>
 	<script type="text/javascript" src="assets/js/moment.min.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/js/cotfield.js"></script>
 	<script type="text/javascript" src="assets/js/ztree/jquery.ztree.core-3.5.js"></script>
 	
 	<!--
@@ -203,17 +204,7 @@
 		});
 		function new_folder(){
 			var node=zTree.getSelectedNodes()[0];
-			
-			$.ajax({
-				url:'http://api.cotfield.com/v1/folders',
-				method:'POST',
-				data:{name:'test folder',parent:node.id,token:'xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z'},
-				statusCode:{
-					201:function(response){
-						console.log(response);
-					}
-				}
-			});
+			Folder.create('new folder',node.id);
 		}
 		function new_project(){
 			var node=zTree.getSelectedNodes()[0];

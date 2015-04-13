@@ -1,0 +1,9 @@
+#content{
+	margin-left: 240px;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	overflow: hidden;
+	background: url('images/home_bg_optimized.png') no-repeat center top, url('images/home_bg_optimized_repeat.png') repeat center;
+}

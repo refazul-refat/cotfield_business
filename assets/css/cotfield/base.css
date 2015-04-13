@@ -1,0 +1,65 @@
+@font-face{
+	font-family: SchoolMedium;
+	src: url('ag_schoolbook_medium_a-webfont.ttf');
+}
+@font-face{
+	font-family: SchoolRegular;
+	src: url('ag_schoolbook_regular_a-webfont.ttf');
+}
+*{
+
+}
+body{
+	margin: 0px;
+}
+a{
+	color: #8a8a8a;
+	text-decoration: none;
+	cursor: pointer;
+}
+ul{
+	list-style: none;
+}
+a:hover{
+	text-decoration: none;
+}
+/* Overlay Section */
+.overlay
+{
+	margin-left: 250px;
+	transition: all 300ms;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: black;
+	opacity: 0.65;
+	color: #333333;
+}
+
+
+.loader{
+    position: absolute;
+	left: 50%;
+	top: 50%;
+    width: 50px;
+	height: 50px;
+    float:left;
+	
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.loader-image
+{
+	background: url('images/ajax-loader.gif') no-repeat center top;
+	width: 32px;
+	height: 32px;
+}

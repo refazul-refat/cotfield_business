@@ -1,0 +1,68 @@
+#nav
+{
+	margin: 10px 0px 10px 30px;
+	position: fixed;
+	top: 10px;
+	z-index: 10000;
+	overflow-y:scroll;
+}
+#nav .bg
+{
+	background: black;
+	height: 0px;
+	width: 240px;
+	position: absolute;
+	z-index: -1;
+	left: -7px;
+	top: 12px;
+	transition: all 200ms;
+}
+#nav a:hover .bg, #nav a.active .bg
+{
+	height: 24px;
+	top: 0px;
+}
+#nav .sublinks{
+	margin-top: -5px;
+}
+#nav .sub-active
+{
+	color: black;
+}
+#nav .links
+{
+	margin-bottom: 15px;
+}
+#nav > a
+{
+	display: block;
+	font: 18px/22px SchoolMedium;
+	letter-spacing: 1px;
+	height: 20px;	
+	position: relative;
+
+}
+#nav li a
+{
+	display: block;
+	font: 10px/12px SchoolRegular;
+	letter-spacing: 0;
+	position: relative;	
+	transition: all 300ms;
+	height: 20px;	
+}
+#nav > a:hover,#nav > a.active
+{
+	color: white;
+}
+
+#nav li a:hover,#nav li a:active
+{
+	color: black;
+}
+#svgContainer svg{
+	width: 406px;
+  	position: fixed;
+  	z-index: 1000;
+  	height: 100%;
+}
