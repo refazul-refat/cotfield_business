@@ -1,48 +1,128 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['intro','customer','supplier','product','contract'];
+var steps=['intro','customer','supplier','product','contract','import_permit','lc'];
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 var Config={
 	customer:{
 		step:1,
-		html_render_id:'customer',
+		id:'customer',
+		caption:'Customer',
 		fields:{
-			name:{html_render_id:'name',html_render_class:'name',html_save_target_id:'customer_name'},
-			description:{html_render_id:'description',html_render_class:'description',html_save_target_id:'customer_description'}
+			name:{class:'name',caption:'Customer Name'},
+			description:{class:'description',caption:'Customer Description'}
 		}
 	},
 	supplier:{
 		step:2,
-		html_render_id:'supplier',
+		id:'supplier',
+		caption:'Supplier',
 		fields:{
-			name:{html_render_id:'name',html_render_class:'name',html_save_target_id:'supplier_name'},
-			description:{html_render_id:'description',html_render_class:'description',html_save_target_id:'supplier_description'}
+			name:{class:'name',caption:'Supplier Name'},
+			description:{class:'description',caption:'Supplier Description'}
 		}
 	},
 	product:{
 		step:3,
-		html_render_id:'product',
+		id:'product',
+		caption:'Product',
 		fields:{
-			name:{html_render_id:'name',html_render_class:'name'},
-			type:{html_render_id:'type',html_render_class:'type'},
-			origin:{html_render_id:'origin',html_render_class:'origin'},
-			quantity:{html_render_id:'quantity',html_render_class:'quantity'},
-			unit_quantity:{html_render_id:'unit_quantity',html_render_class:'unit_quantity'},
-			unit_price:{html_render_id:'unit_price',html_render_class:'unit_price'},
-			unit_price_currency:{html_render_id:'unit_price_currency',html_render_class:'unit_price_currency'}
+			name:{class:'name',caption:'Product Name'},
+			type:{class:'type',caption:'Product Type'},
+			origin:{class:'origin',caption:'Product Origin'},
+			quantity:{class:'quantity',caption:'Product Quantity'},
+			unit_quantity:{class:'unit_quantity'},
+			unit_price:{class:'unit_price',caption:'Product Unit Price'},
+			unit_price_currency:{class:'unit_price_currency'}
 		}
 	},
 	contract:{
 		step:4,
-		html_render_id:'contract',
+		id:'contract',
+		caption:'Contract',
 		fields:{
-			no:{html_render_id:'no',html_render_class:'no'},
-			initiate_date:{html_render_id:'initiate_date',html_render_class:'initiate_date'},
-			agreement_date:{html_render_id:'agreement_date',html_render_class:'agreement_date'},
-			commission_rate:{html_render_id:'commission_rate',html_render_class:'commission_rate'},
-			commission_rate_unit:{html_render_id:'commission_rate_unit',html_render_class:'commission_rate_unit'}
+			no:{class:'no'},
+			initiate_date:{class:'initiate_date'},
+			agreement_date:{class:'agreement_date'},
+			commission_rate:{class:'commission_rate'},
+			commission_rate_unit:{class:'commission_rate_unit'}
+		}
+	},
+	import_permit:{
+		step:5,
+		id:'import_permit',
+		caption:'Import Permit',
+		fields:{
+			no:{class:'no'},
+			date:{class:'date'}
+		}
+	},
+	lc:{
+		step:6,
+		id:'lc',
+		caption:'LC',
+		fields:{
+			no:{class:'no'},
+			issue_date:{class:'issue_date'},
+			type:{class:'type'},
+			opening_bank:{class:'opening_bank'},
+			receiving_bank:{class:'receiving_bank'}
+		}
+	},
+	shipment:{
+		step:7,
+		id:'shipment',
+		caption:'Shipment',
+		fields:{
+			shipment_date:{class:'shipment_date'},
+			type:{class:'type'},
+			partial_shipment:{class:'partial_shipment'},
+			transshipment:{class:'transshipment'},
+			loading_port:{class:'loading_port'},
+			discharge_port:{class:'discharge_port'}
+		}
+	},
+	transhipment:{
+		step:8,
+		id:'transshipment',
+		caption:'Transshipment',
+		fields:{
+			original_document_arrival:{class:'original_document_arrival'},
+			payment_notification:{class:'payment_notification'},
+			vessel_track_no:{class:'vessel_track_no'},
+			transshipment_date:{class:'transshipment_date'},
+			transshipment_port:{class:'transshipment_port'},
+			buyer_notification:{class:'buyer_notification'}
+		}
+	},
+	controller:{
+		step:9,
+		id:'controller',
+		caption:'Controller',
+		fields:{
+			controller_company:{class:'controller_company'},
+			weight_finalization_area:{class:'weight_finalization_area'},
+			final_weight:{class:'final_weight'},
+			final_weight_unit:{class:'final_weight_unit'},
+			weight_claim:{class:'weight_claim'},
+			weight_claim_unit:{class:'weight_claim_unit'},
+			unit_price:{class:'unit_price'},
+			unit_price_currency:{class:'unit_price_currency'},
+			claim_amount:{class:'claim_amount'},
+			claim_amount_unit:{class:'claim_amount_unit'}
+		}
+	},
+	payment:{
+		step:10,
+		id:'payment',
+		caption:'Payment',
+		fields:{
+			supplier_clearance:{class:'supplier_clearance'},
+			commission_amount:{class:'commission_amount'},
+			commission_amount_unit:{class:'commission_amount_unit'},
+			receiving_date:{class:'receiving_date'},
+			late_payment:{class:'late_payment'}
 		}
 	}
 };
@@ -61,8 +141,8 @@ var Project={
 		});
 	},
 	render:function(a,target){
-		$(target).children('.name').html(a.name);
-		$(target).children('.description').html(a.description);
+		$('#'+$(target).attr('id')+' .name').html(a.name);
+		$('#'+$(target).attr('id')+' .description').html(a.description);
 		$(target).siblings().remove();
 		
 		var current_step=a.current_step;
@@ -72,16 +152,28 @@ var Project={
 			for(var i in Config){
 				if(Config.hasOwnProperty(i)){
 					if(Config[i].step==s){
-						var p=$('<div>',{id:Config[i].html_render_id,class:'page'}).appendTo($(target).parent());
+						var p=$('<div>',{id:Config[i].id,class:'page'}).appendTo($(target).parent());
+						var h=$('<div>',{class:'header'}).appendTo(p).text(Config[i].caption);
+						var c=$('<div>',{class:'content'}).appendTo(p);
 						for(var f in Config[i].fields){
 							if(Config[i].fields.hasOwnProperty(f)){
-								p.append($('<div>',{class:Config[i].fields[f].html_render_class}));
+								if(Config[i].fields[f].caption){
+									var caption=$('<div>',{class:'caption'}).text(Config[i].fields[f].caption);
+									var value=$('<div>',{class:'value '+Config[i].fields[f].class});
+									var unit_container=$('<div>',{class:'unit-container'}).append(caption).append(value);
+									$(c).append(unit_container);
+								}
+								else{
+									var value=$('<div>',{class:'value '+Config[i].fields[f].class+' dependent'});
+									$(c).children('.unit-container').last().append(value);
+								}
 							}
 						}
 						p.css('height',$(window).height());
 						if(current_step>=s){
+							steps.push(i);
 							window[i.ucfirst()].load(a.id,function(response,t){
-								window[t.ucfirst()].render(response,$('#'+Config[t].html_render_id));
+								window[t.ucfirst()].render(response,$('#'+Config[t].id));
 								if(current_step==Config[t].step)Final.init(steps);
 							});
 						}
@@ -137,6 +229,7 @@ Step.prototype.save=function(a,callback){
 	});
 };
 Step.prototype.assign=function(a,b,callback){
+	var that=this;
 	$.extend(a,{token:token});
 	$.ajax({
 		url:api_base+'projects/'+b+'/'+that.name,
@@ -154,8 +247,8 @@ Step.prototype.render=function(a,target){
 	var fields=that.fields;
 	for(var i in fields){
 		if(fields.hasOwnProperty(i)){
-			var selector='.'+fields[i].html_render_class;
-			$(target).children(selector).html(a[i]);
+			var selector='#'+$(target).attr('id')+' .'+fields[i].class;
+			$(selector).html(a[i]);
 		}
 	}
 };
@@ -180,6 +273,8 @@ var Customer=new Step('customer',Config.customer.fields);
 var Supplier=new Step('supplier',Config.supplier.fields);
 var Product=new Step('product',Config.product.fields);
 var Contract=new Step('contract',Config.contract.fields);
+var Import_permit=new Step('import_permit',Config.import_permit.fields);
+var Lc=new Step('lc',Config.lc.fields);
 
 
 
@@ -271,9 +366,10 @@ var Menu={
 };
 var Final={
 	init:function(a){
+		console.log(a);
 		$('.overlay').hide();
 		$('.current').removeClass('current');
-		var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z]/)[0]:undefined;
+		var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z_]/)[0]:undefined;
 		if(hash!=undefined && $.inArray(hash,a)>-1){
 			$('#'+hash).addClass('current');
 			$('html, body').animate({
@@ -389,6 +485,30 @@ $('#next').click(function(event){
 			else if(current=='contract'){
 				Contract.save({no:$('#contract_no').val(),initiate_date:$('#contract_initiate_date').val(),agreement_date:$('#contract_agreement_date').val(),commission_rate:$('#contract_commission_rate').val(),commission_rate_unit:'lbs'},function(response){
 					Contract.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='import_permit'){
+				Import_permit.save({no:$('#import_permit_no').val(),date:$('#import_permit_date').val()},function(response){
+					Import_permit.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='lc'){
+				Lc.save({no:$('#lc_no').val(),issue_date:$('#lc_issue_date').val(),type:$('#lc_type').val(),opening_bank:$('#lc_opening_bank').val(),receiving_bank:$('#lc_receiving_bank').val()},function(response){
+					Lc.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
 						$('.overlay').show();

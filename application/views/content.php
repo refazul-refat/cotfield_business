@@ -1,8 +1,17 @@
 <div id='content'>
 	<div style='float:right;width:75%;'>
 		<div id="intro" class="current page">
-			<div class='name'>Test Project</div>
-			<div class='description'>Sample Description goes here</div>
+			<div class='header'>Project</div>
+			<div class='content'>
+				<div class='unit-container'>
+					<div class='caption'>Project Name</div>
+					<div class='value name'>Test Project</div>
+				</div>
+				<div class='unit-container'>
+					<div class='caption'>Project Description</div>
+					<div class='value description'>Sample Description goes here</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div style='position:fixed;bottom:10px;right:100px;'>
@@ -189,6 +198,84 @@
 						  <li><a href="#">KGS</a></li>
 						</ul>
 					</div><!-- /btn-group -->
+				</div><!-- /input-group -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-action="save">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="import_permit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Import Permit</h4>
+			</div>
+			<div class="modal-body">
+				<h6>Setup Import Permit</h6>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Import Permit No</button>
+					</span>
+					<input id='import_permit_no' type="text" class="form-control" placeholder="">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Import Permit Date</button>
+					</span>
+					<input id='import_permit_date' type="text" data-type='date' class="form-control" placeholder="">
+				</div><!-- /input-group -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-action="save">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="lc-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">LC</h4>
+			</div>
+			<div class="modal-body">
+				<h6>Setup LC</h6>
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">LC No</button>
+					</span>
+					<input id='lc_no' type="text" class="form-control" placeholder="">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">LC Issue Date</button>
+					</span>
+					<input id='lc_issue_date' type="text" data-type='date' class="form-control" placeholder="">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">LC Type</button>
+					</span>
+					<input id='lc_type' type="text" class="form-control" placeholder="">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">LC Opening Bank</button>
+					</span>
+					<input id='lc_opening_bank' type="text" class="form-control" placeholder="">
+				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">LC Receiving Bank</button>
+					</span>
+					<input id='lc_receiving_bank' type="text" class="form-control" placeholder="">
 				</div><!-- /input-group -->
 			</div>
 			<div class="modal-footer">

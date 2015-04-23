@@ -7,3 +7,37 @@
 	overflow: hidden;
 	background: url('images/home_bg_optimized.png') no-repeat center top, url('images/home_bg_optimized_repeat.png') repeat center;
 }
+.caption{
+	display: inline-block;
+	font-weight: bold;
+	vertical-align: top;
+	width: 40%;
+}
+.value{
+	display: inline-block;
+	overflow: hidden;
+	max-height: 140px;
+	color: #656565;
+}
+.unit-container{
+	margin: 0px 0px;
+}
+.dependent{
+	margin-left: 5px;
+	width: inherit;
+}
+.page{
+	
+}
+.content{
+	padding-top: 25px;
+	padding-bottom: 25px;
+	border: 1px dashed #ccc;
+	padding-left: 25px;
+	width: 80%;
+	margin-top: 10px;
+}
+.header{
+	font-size: 40px;
+	padding-top: 70px;
+}
