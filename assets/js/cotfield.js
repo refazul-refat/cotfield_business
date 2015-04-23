@@ -42,11 +42,12 @@ var Config={
 		id:'contract',
 		caption:'Contract',
 		fields:{
-			no:{class:'no'},
-			initiate_date:{class:'initiate_date'},
-			agreement_date:{class:'agreement_date'},
-			commission_rate:{class:'commission_rate'},
-			commission_rate_unit:{class:'commission_rate_unit'}
+			no:{class:'no',caption:'Contract No'},
+			initiate_date:{class:'initiate_date',caption:'Contract Initiate Date'},
+			agreement_date:{class:'agreement_date',caption:'Date of Agreement'},
+			commission_rate:{class:'commission_rate',caption:'Commission Rate'},
+			commission_rate_unit:{class:'commission_rate_unit'},
+			contract_copy:{class:'contract_copy',type:'document',caption:'Contract Copy'}
 		}
 	},
 	import_permit:{
@@ -54,8 +55,8 @@ var Config={
 		id:'import_permit',
 		caption:'Import Permit',
 		fields:{
-			no:{class:'no'},
-			date:{class:'date'}
+			no:{class:'no',caption:'Import Permit No'},
+			date:{class:'date',caption:'Import Permit Date'}
 		}
 	},
 	lc:{
@@ -524,3 +525,13 @@ $('#prev').click(function(event){
 		location.href=location.href.split('#')[0]+'#'+$('.current').attr('id');
 	}
 });
+Dropzone.autoDiscover = false;
+$(function() {
+	// Now that the DOM is fully loaded, create the dropzone, and setup the
+	// event listeners
+	var myDropzone = new Dropzone("#my-dropzone");
+	myDropzone.on("success", function(file) {
+		$('#contract_copy').val(file.xhr.responseText);
+		/* Maybe display some more file information on your page */
+	});
+})

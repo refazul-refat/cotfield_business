@@ -199,6 +199,13 @@
 						</ul>
 					</div><!-- /btn-group -->
 				</div><!-- /input-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Contract Copy</button>
+					</span>
+					<input type='hidden' name='contract_copy' value='' id='contract_copy'/>
+					<form action="http://localhost/cotfield_api/v1/upload" class="dropzone" id="my-dropzone"></form>
+				</div><!-- /input-group -->
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
