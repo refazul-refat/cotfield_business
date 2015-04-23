@@ -5,6 +5,7 @@
 	left: 0;
 	bottom: 0;
 	overflow: hidden;
+	position: absolute;
 	background: url('images/home_bg_optimized.png') no-repeat center top, url('images/home_bg_optimized_repeat.png') repeat center;
 }
 .caption{
@@ -27,7 +28,10 @@
 	width: inherit;
 }
 .page{
-	
+	display:none;
+}
+.current{
+	display: block;
 }
 .content{
 	padding-top: 25px;
