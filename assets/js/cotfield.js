@@ -422,6 +422,7 @@ $('#next').click(function(event){
 	if($('.current').next().length){
 			$('.current').hide().next().fadeIn();
 			$('.current').removeClass('current').next().addClass('current');
+			location.href=location.href.split('#')[0]+'#'+$('.current').attr('id');
 	}
 	else{
 		var last=$('.current').attr('id');
@@ -520,5 +521,6 @@ $('#prev').click(function(event){
 	if($('.current').prev().length){
 		$('.current').hide().prev().fadeIn();
 		$('.current').removeClass('current').prev().addClass('current');
+		location.href=location.href.split('#')[0]+'#'+$('.current').attr('id');
 	}
 });
