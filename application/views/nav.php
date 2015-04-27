@@ -22,13 +22,13 @@
 				<li><a href="http://www.rozaproperties.com/available-jobs" id="available-jobs" class="">Available Jobs</a></li>																																						
 			</ul>
 		</div>					
-	<a href="http://www.rozaproperties.com/gallery" class="links "><span class="bg"></span>Gallery</a>
+	<a href="javascript:void()" class="links "><span class="bg"></span>Gallery</a>
 		<div class="sublinks" style="display: none;">
 			
 		</div>
 </div>
 <div style='position: fixed;z-index: 10000;bottom: 10px;left: 28px;'>
-	<button class='btn btn-success'>Create New Project</button>
+	<button id="create_project" class='btn btn-success'>Create New Project</button>
 </div>
 <div id="svgContainer">
 </div>
