@@ -42,12 +42,12 @@ var Config={
 		id:'contract',
 		caption:'Contract',
 		fields:{
-			no:{class:'no',caption:'Contract No'},
-			initiate_date:{class:'initiate_date',caption:'Contract Initiate Date'},
-			agreement_date:{class:'agreement_date',caption:'Date of Agreement'},
-			commission_rate:{class:'commission_rate',caption:'Commission Rate'},
-			commission_rate_unit:{class:'commission_rate_unit'},
-			contract_copy:{class:'contract_copy',type:'document',caption:'Contract Copy'}
+			no:{class:'no',caption:'Contract No',save_id:'contract_no',type:'string'},
+			initiate_date:{class:'initiate_date',caption:'Contract Initiate Date',save_id:'contract_initiate_date',type:'date'},
+			agreement_date:{class:'agreement_date',caption:'Date of Agreement',save_id:'contract_agreement_date',type:'date'},
+			commission_rate:{class:'commission_rate',caption:'Commission Rate',save_id:'contract_commission_rate',type:'number'},
+			commission_rate_unit:{class:'commission_rate_unit',save_id:'contract_commission_rate_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
+			copy:{class:'copy',caption:'Contract Copy',save_id:'contract_copy',type:'document'}
 		}
 	},
 	import_permit:{
@@ -64,11 +64,11 @@ var Config={
 		id:'lc',
 		caption:'LC',
 		fields:{
-			no:{class:'no'},
-			issue_date:{class:'issue_date'},
-			type:{class:'type'},
-			opening_bank:{class:'opening_bank'},
-			receiving_bank:{class:'receiving_bank'}
+			no:{class:'no',caption:'LC No'},
+			issue_date:{class:'issue_date',caption:'Issue Date'},
+			type:{class:'type',caption:'LC Type'},
+			opening_bank:{class:'opening_bank',caption:'Opening Bank'},
+			receiving_bank:{class:'receiving_bank',caption:'Receiving Bank'}
 		}
 	},
 	shipment:{
@@ -529,9 +529,121 @@ Dropzone.autoDiscover = false;
 $(function() {
 	// Now that the DOM is fully loaded, create the dropzone, and setup the
 	// event listeners
-	var myDropzone = new Dropzone("#my-dropzone");
-	myDropzone.on("success", function(file) {
-		$('#contract_copy').val(file.xhr.responseText);
-		/* Maybe display some more file information on your page */
+	
+});
+
+$(document).ready(function(){
+	for(var item in Config){
+		if(Config.hasOwnProperty(item)){
+			var modal=$('<div>',{id:Config[item].id+'-modal',class:'modal fade'});
+			var modal_dialog=$('<div>',{class:'modal-dialog'});
+			var modal_content=$('<div>',{class:'modal-content'});
+			var modal_body=$('<div>',{class:'modal-body'});
+			
+			//////////////////////////////////////////////////////////////////////////////
+			/*
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Contract</h4>
+			</div>
+			*/
+			var modal_header=$('<div>',{class:'modal-header'});
+			var close_button=$('<button>',{class:'close'}).attr('data-dismiss','modal').append('<span aria-hidden="true">&times;</span>').appendTo(modal_header);
+			var modal_title=$('<h4>',{class:'modal-title'}).text('Contract').appendTo(modal_header);
+			//////////////////////////////////////////////////////////////////////////////
+			
+			
+			//////////////////////////////////////////////////////////////////////////////
+			/*
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-action="save">Save changes</button>
+			</div>
+			*/
+			var modal_footer=$('<div>',{class:'modal-footer'});
+			var cancel_button=$('<button>',{class:'btn btn-default'}).attr('type','button').attr('data-dismiss','modal').text('Cancel').appendTo(modal_footer);
+			var save_button=$('<button>',{class:'btn btn-primary'}).attr('type','button').attr('data-action','save').text('Save Changes').appendTo(modal_footer);
+			//////////////////////////////////////////////////////////////////////////////
+			
+			
+			//////////////////////////////////////////////////////////////////////////////
+			/*
+			<div class="input-group">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="button">No</button>
+				</span>
+				<input id='contract_no' type="text" class="form-control" placeholder="">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Unit <span class="caret"></span></button>
+					<ul class="dropdown-menu dropdown-menu-right" role="menu">
+					  <li><a href="#">LBS</a></li>
+					  <li><a href="#">KGS</a></li>
+					</ul>
+				</div><!-- /btn-group -->
+				<div class="input-group">
+					<span class="input-group-btn">
+					<button class="btn btn-default" type="button">Contract Copy</button>
+					</span>
+					<input type='hidden' name='contract_copy' value='' id='contract_copy'/>
+					<form action="http://localhost/cotfield_api/v1/upload" class="dropzone" id="my-dropzone"></form>
+				</div><!-- /input-group -->
+			</div><!-- /input-group -->
+			*/
+			for(var i in Config[item].fields){
+				if(Config[item].fields.hasOwnProperty(i)){
+					var field=Config[item].fields[i];
+					var input_group=$('<div>',{class:'input-group'});
+					var input_group_button=$('<div>',{class:'input-group-btn'}).appendTo(input_group);
+					var button=$('<button>',{class:'btn btn-default'}).attr('type','button').text(field.caption).appendTo(input_group_button);
+					
+					if(field.type=='string' || field.type=='number')$('<input>',{id:field.save_id}).attr('type','text').attr('class','form-control').appendTo(input_group);
+					else if(field.type=='date')$('<input>',{id:field.save_id,class:'form-control'}).addClass('date').attr('type','text').appendTo(input_group);
+					else if(field.type=='select'){
+						
+						var last=$(modal_body).children().last();
+						var input_group_button=$('<div>',{class:'input-group-btn'}).appendTo(last);
+						var button=$('<button>',{class:'btn btn-default dropdown-toggle'}).attr('type','button').attr('data-toggle','dropdown').append('<span id="caption-'+field.save_id+'">Unit</span> <span class="caret"></span>').appendTo(input_group_button);
+						var list=$('<ul>',{class:'options dropdown-menu dropdown-menu-right'}).attr('data-target',field.save_id).appendTo(input_group_button);
+						for(var option in field.options){
+							$('<li>',{}).append('<a data-value="'+option+'">'+field.options[option].caption+'</a>').appendTo(list);
+						}
+						var t=$('<input>',{id:field.save_id}).attr('type','hidden').appendTo(input_group_button);
+						
+						
+					}
+					else if(field.type=='document'){
+					
+						$('<input>',{id:field.save_id,name:field.save_id}).attr('type','hidden').appendTo(input_group);
+						$('<form>',{class:'dropzone',id:'dropzone-'+field.save_id}).attr('action','http://localhost/cotfield_api/v1/upload').attr('data-target',field.save_id).appendTo(input_group);
+					}
+					
+					if(field.type!='select')$(modal_body).append(input_group);
+				}
+			}
+			//////////////////////////////////////////////////////////////////////////////
+			
+			
+			$(modal_content).append(modal_header).append(modal_body).append(modal_footer);
+			$(modal_dialog).append(modal_content);
+			$(modal).append(modal_dialog);
+			
+			$(document.getElementsByTagName('body')[0]).append(modal);
+		}
+	}
+	$('.dropzone').each(function(e){
+		var id=$(this).attr('id');
+		var target=$(this).attr('data-target');
+		var myDropzone = new Dropzone(document.getElementById(id));
+		myDropzone.on("success", function(file) {
+			$('#'+target).val(file.xhr.responseText);
+			/* Maybe display some more file information on your page */
+		});
 	});
-})
+	$('.options').each(function(e){
+		var target=$(this).attr('data-target');
+		$(this).children('li').click(function(evt){
+			$('#'+target).val($(evt.target).attr('data-value'));
+			$('#caption-'+target).text($(evt.target).text());
+		});
+	});
+});
