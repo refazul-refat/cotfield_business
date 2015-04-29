@@ -89,13 +89,13 @@ var Config={
 		id:'document',
 		caption:'Documents',
 		fields:{
-			commercial_invoice:{class:'commercial_invoice',caption:'Commercial Invoice',save_id:'commercial_invoice',type:'document'}
-			packing_list:{class:'packing_list',caption:'Packing List',save_id:'packing_list',type:'document'}
-			lading_bill:{class:'lading_bill',caption:'Bill of Lading',save_id:'lading_bill',type:'document'}
-			phytosanitary_certificate:{class:'phytosanitary_certificate',caption:'Phytosanitary Certificate',save_id:'phytosanitary_certificate',type:'document'}
-			origin_certificate:{class:'origin_certificate',caption:'Origin Certificate',save_id:'origin_certificate',type:'document'}
-			shipment_advice:{class:'shipment_advice',caption:'Shipment Advice',save_id:'shipment_advice',type:'document'}
-			controller_letter:{class:'controller_letter',caption:'Controller Letter',save_id:'controller_letter',type:'document'}
+			commercial_invoice:{class:'commercial_invoice',caption:'Commercial Invoice',save_id:'commercial_invoice',type:'document'},
+			packing_list:{class:'packing_list',caption:'Packing List',save_id:'packing_list',type:'document'},
+			lading_bill:{class:'lading_bill',caption:'Bill of Lading',save_id:'lading_bill',type:'document'},
+			phytosanitary_certificate:{class:'phytosanitary_certificate',caption:'Phytosanitary Certificate',save_id:'phytosanitary_certificate',type:'document'},
+			origin_certificate:{class:'origin_certificate',caption:'Origin Certificate',save_id:'origin_certificate',type:'document'},
+			shipment_advice:{class:'shipment_advice',caption:'Shipment Advice',save_id:'shipment_advice',type:'document'},
+			controller_letter:{class:'controller_letter',caption:'Controller Letter',save_id:'controller_letter',type:'document'},
 			fumigation_letter:{class:'fumigation_letter',caption:'Fumigation Letter',save_id:'fumigation_letter',type:'document'}
 		}
 	},
@@ -461,8 +461,62 @@ $(document).ready(function(){
 	if(getParameterByName('pid')!=null){
 		Project.load(getParameterByName('pid'),function(response){Project.render(response,$('#intro'));});
 	}
-	else
-		$('#big_button').show();
+	else{
+		var pics={
+			1:{src:'assets/images/1.jpg'},
+			2:{src:'assets/images/2.jpg'},
+			3:{src:'assets/images/3.jpg'}
+		};
+		var gallery=$('#gallery');
+		for(var i in pics){
+			if(pics.hasOwnProperty(i)){
+				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo(gallery);
+			}
+		}
+		$('.slide').each(function(){
+			$(this).height($(window).height());
+		});
+		$('.slide').first().addClass('active');
+		var flag=false;
+		$('#up').click(function(){
+			if(flag==false){
+				flag=true;
+			}
+			else return;
+			if($('.slide.active').prev().length){
+				var h=$(window).height();
+				$('#gallery').animate({top:'+='+h},500,function(){
+					$('.slide.active').removeClass('active').prev().addClass('active');
+					if($('.slide.active').prev().length){
+						$('#up').css('visibility','visible');
+					}
+					else
+						$('#up').css('visibility','hidden');
+					$('#down').css('visibility','visible');
+					flag=false;
+				});
+			}
+		});
+		$('#down').click(function(){
+			if(flag==false){
+				flag=true;
+			}
+			else return;
+			if($('.slide.active').next().length){
+				var h=-$(window).height();
+				$('#gallery').animate({top:'+='+h},500,function(){
+					$('.slide.active').removeClass('active').next().addClass('active');
+					if($('.slide.active').next().length){
+						$('down').css('visibility','visible');
+					}
+					else
+						$('#down').css('visibility','hidden');
+					$('#up').css('visibility','visible');
+					flag=false;
+				});
+			}
+		});
+	}
 	$('.links').each(function(e){
 		$(this).click(function(evt){
 			$('.sublinks').slideUp('fast');
@@ -472,6 +526,9 @@ $(document).ready(function(){
 });
 $(window).resize(function(){
 	$('.page').each(function(){
+		$(this).height($(window).height());
+	});
+	$('.slide').each(function(){
 		$(this).height($(window).height());
 	});
 	$('#nav').height($(window).height()-100);

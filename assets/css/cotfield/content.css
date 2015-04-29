@@ -45,3 +45,52 @@
 	font-size: 40px;
 	padding-top: 70px;
 }
+
+
+
+
+#content nav
+{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	width: 46px;
+	height: 94px;
+	z-index: 1000;
+	margin-top: -48px;
+}
+#content nav #up
+{
+	background: url('images/home_top_button.png') 0px 0px;
+	transition: background 200ms;
+	position: relative;
+	width: 43px;
+	height: 43px;		
+	
+}
+#content nav #up:hover
+{
+	background: url("images/home_top_button.png") 0px -43px;
+}
+#content nav #down:hover
+{
+	 background: url("images/home_bottom_button.png") 0px 43px;
+}
+#content nav #down
+{
+	background: url('images/home_bottom_button.png') 0px 0px;
+	transition: background 200ms;
+	position: relative;
+	width: 43px;
+	height: 43px;		
+}
+.breaker
+{
+	height: 2px;
+}
+.slide{
+	position: relative;
+}
+#gallery{
+	position: relative;
+}

@@ -1,4 +1,12 @@
 <div id='content'>
+	<nav>
+		<div id="up" style="visibility: hidden;"></div>
+		<div class="breaker"></div>
+		<div id="down" style="visibility: visible;"></div>
+		<div class="breaker"></div>
+	</nav>
+	<div id='gallery'>
+	</div>
 	<div style='float:right;width:75%;'>
 		<div id="intro" class="current page" style='display:none;'>
 			<div class='header'>Project</div>
