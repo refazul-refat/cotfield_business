@@ -90,6 +90,13 @@ var Config={
 		caption:'Documents',
 		fields:{
 			commercial_invoice:{class:'commercial_invoice',caption:'Commercial Invoice',save_id:'commercial_invoice',type:'document'}
+			packing_list:{class:'packing_list',caption:'Packing List',save_id:'packing_list',type:'document'}
+			lading_bill:{class:'lading_bill',caption:'Bill of Lading',save_id:'lading_bill',type:'document'}
+			phytosanitary_certificate:{class:'phytosanitary_certificate',caption:'Phytosanitary Certificate',save_id:'phytosanitary_certificate',type:'document'}
+			origin_certificate:{class:'origin_certificate',caption:'Origin Certificate',save_id:'origin_certificate',type:'document'}
+			shipment_advice:{class:'shipment_advice',caption:'Shipment Advice',save_id:'shipment_advice',type:'document'}
+			controller_letter:{class:'controller_letter',caption:'Controller Letter',save_id:'controller_letter',type:'document'}
+			fumigation_letter:{class:'fumigation_letter',caption:'Fumigation Letter',save_id:'fumigation_letter',type:'document'}
 		}
 	},
 	transshipment:{
@@ -581,7 +588,7 @@ $('#next').click(function(event){
 				});
 			}
 			else if(current=='document'){
-				Document.save({commercial_invoice:$('#commercial_invoice').val()},function(response){
+				Document.save({commercial_invoice:$('#commercial_invoice').val(),packing_list:$('#packing_list').val(),lading_bill:$('#lading_bill').val(),phytosanitary_certificate:$('#phytosanitary_certificate').val(),origin_certificate:$('#origin_certificate').val(),shipment_advice:$('#shipment_advice').val(),controller_letter:$('#controller_letter').val(),fumigation_letter:$('#fumigation_letter').val()},function(response){
 					Document.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
