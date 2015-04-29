@@ -3,31 +3,14 @@
 </div>
 <div id="nav">
 	<a href="javascript:;" class="links "><span class="bg"></span>Projects</a>
-	<a href="javascript:;" class="links "><span class="bg"></span>Corporate Partner</a>
-		<div class="sublinks" style="display: none;">
-			<ul>
-				<li><a href="http://www.rozaproperties.com/idlc" id="idlc" class="">IDLC</a></li>
-				<li><a href="http://www.rozaproperties.com/idlc" id="dbh" class="">DBH</a></li>																																					
-			</ul>
-		</div>
-	<a href="javascript:;" class="links "><span class="bg"></span>Business</a>						
-		<div class="sublinks" style="display: none;">
-			<ul>
-				<li><a href="http://www.rozaproperties.com/residential" id="residential" class="">Residential</a></li>
-				<li><a href="http://www.rozaproperties.com/commercial" id="commercial" class="">Commercial</a></li>															
-			</ul>
-		</div>
-	
-	<a href="javascript:;" class="links "><span class="bg"></span>Career</a>
+	<a href="javascript:;" class="links " id="notifications"><span class="bg"></span>Notifications</a>
+	<a href="javascript:;" class="links "><span class="bg"></span>Customers</a>
+	<a href="javascript:void()" class="links "><span class="bg"></span>Gallery</a>
 		<div class="sublinks" style="display: none;">
 			<ul>
 				<li><a href="http://www.rozaproperties.com/career-opportunity" id="career-opportunity" class="">Career Opportunity</a></li>
 				<li><a href="http://www.rozaproperties.com/available-jobs" id="available-jobs" class="">Available Jobs</a></li>																																						
 			</ul>
-		</div>					
-	<a href="javascript:void()" class="links "><span class="bg"></span>Gallery</a>
-		<div class="sublinks" style="display: none;">
-			
 		</div>
 </div>
 <div style='position: fixed;z-index: 10000;bottom: 10px;left: 28px;'>

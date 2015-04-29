@@ -19,10 +19,14 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('nav');
-		$this->load->view('content');
-		$this->load->view('footer');
+		if($this->session->userdata('uid')){
+			$this->load->view('header');
+			$this->load->view('nav');
+			$this->load->view('content');
+			$this->load->view('footer');
+		}
+		else
+			$this->load->view('login');
 	}
 }
 

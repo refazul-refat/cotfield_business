@@ -1,13 +1,15 @@
 <div id='content'>
-	<nav>
-		<div id="up" style="visibility: hidden;"></div>
-		<div class="breaker"></div>
-		<div id="down" style="visibility: visible;"></div>
-		<div class="breaker"></div>
-	</nav>
-	<div id='gallery'>
+	<div class='candidate'>
+		<nav>
+			<div id="up" style="visibility: hidden;"></div>
+			<div class="breaker"></div>
+			<div id="down" style="visibility: visible;"></div>
+			<div class="breaker"></div>
+		</nav>
+		<div id='gallery'>
+		</div>
 	</div>
-	<div style='float:right;width:75%;'>
+	<div class='candidate' style='float:right;width:75%;'>
 		<div id="intro" class="current page" style='display:none;'>
 			<div class='header'>Project</div>
 			<div class='content'>
@@ -21,14 +23,16 @@
 				</div>
 			</div>
 		</div>
-		<div style='position: fixed;z-index: 1000;left:50%;top:50%;'>
-			<button id='big_button' class='create_project btn btn-success btn-lg' style='display:none;'>Create New Project</button>
+	</div>
+	<div class='candidate'>
+		<div style='position:fixed;bottom:10px;right:100px;'>
+			<button class='btn btn-success' id='prev' style='display:none;'>Prev</button>
+			<button class='btn btn-success' id='next' style='display:none;'>Next</button>
 		</div>
 	</div>
-	<div style='position:fixed;bottom:10px;right:100px;'>
-		<button class='btn btn-success' id='prev' style='display:none;'>Prev</button>
-		<button class='btn btn-success' id='next' style='display:none;'>Next</button>
-	</div>	
+	<div class='candidate' id='notifications-panel'>
+		
+	</div>
 </div>
 <div class="modal fade" id="project-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">

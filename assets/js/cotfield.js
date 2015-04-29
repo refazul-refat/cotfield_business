@@ -68,7 +68,8 @@ var Config={
 			issue_date:{class:'issue_date',caption:'Issue Date',save_id:'lc_issue_date',type:'date'},
 			type:{class:'type',caption:'LC Type',save_id:'lc_type',type:'select',options:{'a':{caption:'A'},'b':{caption:'B'}}},
 			opening_bank:{class:'opening_bank',caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{'dbbl':{caption:'DBBL'},'hsbc':{caption:'HSBC'}}},
-			receiving_bank:{class:'receiving_bank',caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{'standard_chartered':{caption:'Standard Chartered'},'brac':{caption:'BRAC'}}}
+			receiving_bank:{class:'receiving_bank',caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{'standard_chartered':{caption:'Standard Chartered'},'brac':{caption:'BRAC'}}},
+			maturity_notification:{class:'maturity_notification',caption:'Maturity Notification',save_id:'maturity_notification',type:'notification'}
 		}
 	},
 	shipment:{
@@ -105,11 +106,11 @@ var Config={
 		caption:'Transshipment',
 		fields:{
 			original_document_arrival:{class:'original_document_arrival',caption:'Original Document Arrival',save_id:'original_document_arrival',type:'date'},
-			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'date'},
+			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'notification'},
 			vessel_track_no:{class:'vessel_track_no',caption:'Vessel Track No',save_id:'vessel_track_no',type:'string'},
 			date:{class:'date',caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
 			port:{class:'port',caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
-			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'date'}
+			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'notification'}
 		}
 	},
 	port:{
@@ -546,6 +547,12 @@ $(document).ready(function(){
 			$(evt.target).next().slideDown('fast');
 		});
 	});
+	
+	$('#notifications').click(function(e){
+		$('.overlay').show();
+		$('.candidate').hide();
+		$('#notification-panel').show();
+	});
 });
 $(window).resize(function(){
 	$('.page').each(function(){
@@ -652,7 +659,7 @@ $('#next').click(function(event){
 				});
 			}
 			else if(current=='lc'){
-				Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val()},function(response){
+				Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notfication:$('#maturity_notification').val()},function(response){
 					Lc.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
@@ -826,7 +833,7 @@ $(document).ready(function(){
 					var button=$('<button>',{class:'btn btn-default'}).attr('type','button').text(field.caption).appendTo(input_group_button);
 					
 					if(field.type=='string' || field.type=='number')$('<input>',{id:field.save_id}).attr('type','text').attr('class','form-control').appendTo(input_group);
-					else if(field.type=='date'){
+					else if(field.type=='date' || field.type=='notification'){
 						$('<input>',{id:field.save_id,class:'form-control'}).addClass('date').attr('data-type','date').attr('type','text').appendTo(input_group);
 					}
 					else if(field.type=='select'){
@@ -886,8 +893,9 @@ $(document).ready(function(){
 			$('#caption-'+target).text($(evt.target).text());
 		});
 	});
-	$( "input[data-type='date']" ).datepicker({
+	$( "input[data-type='date']" ).datetimepicker({
 		dateFormat: 'yy-mm-dd',
+		timeFormat:  "HH:mm",
 		beforeShow: function() {
 			setTimeout(function(){
 				$('.ui-datepicker').css('z-index', 99999999999999);
