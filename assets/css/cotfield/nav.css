@@ -2,9 +2,8 @@
 {
 	margin: 10px 0px 10px 30px;
 	position: fixed;
-	top: 10px;
+	top: 100px;
 	z-index: 10000;
-	overflow-y:scroll;
 }
 #nav .bg
 {
@@ -65,4 +64,12 @@
   	position: fixed;
   	z-index: 1000;
   	height: 100%;
+}
+
+#logo{
+	position: fixed;
+	z-index: 1001;
+	width: 250px;
+	height: 150px;
+	left: 15px;
 }

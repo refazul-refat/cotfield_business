@@ -1,4 +1,7 @@
-<div id="nav">					
+<div id="logo">
+	<a href="<?php echo base_url();?>"><img src='assets/images/logo.png' width='100%' height='100%'/></a>
+</div>
+<div id="nav">
 	<a href="javascript:;" class="links "><span class="bg"></span>Projects</a>
 	<a href="javascript:;" class="links "><span class="bg"></span>Corporate Partner</a>
 		<div class="sublinks" style="display: none;">
