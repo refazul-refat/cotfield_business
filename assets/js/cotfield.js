@@ -1,6 +1,6 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['intro','customer','supplier','product','contract','import_permit','lc'];
+var steps=['intro','customer','supplier','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
@@ -76,54 +76,74 @@ var Config={
 		id:'shipment',
 		caption:'Shipment',
 		fields:{
-			shipment_date:{class:'shipment_date'},
-			type:{class:'type'},
-			partial_shipment:{class:'partial_shipment'},
-			transshipment:{class:'transshipment'},
-			loading_port:{class:'loading_port'},
-			discharge_port:{class:'discharge_port'}
+			date:{class:'date',caption:'Date of Shipment',save_id:'shipment_date',type:'date'},
+			type:{class:'type',caption:'Shipment Type',save_id:'shipment_type',type:'select',options:{road:{caption:'By Road'},air:{caption:'By Air'}}},
+			partial_shipment:{class:'partial_shipment',caption:'Partial Shipment',save_id:'partial_shipment',type:'select',options:{yes:{caption:'Allowed'},no:{caption:'Not Allowed'}}},
+			transshipment:{class:'transshipment',caption:'Transshipment',save_id:'transshipment',type:'select',options:{yes:{caption:'Allowed'},no:{caption:'Not Allowed'}}},
+			loading_port:{class:'loading_port',caption:'Port of Loading',save_id:'loading_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'},c:{caption:'C'}}},
+			discharge_port:{class:'discharge_port',caption:'Port of Discharge',save_id:'discharge_port',type:'select',type:'select',options:{d:{caption:'D'},e:{caption:'E'}}}
 		}
 	},
-	transhipment:{
+	document:{
 		step:8,
+		id:'document',
+		caption:'Documents',
+		fields:{
+			commercial_invoice:{class:'commercial_invoice',caption:'Commercial Invoice',save_id:'commercial_invoice',type:'document'}
+		}
+	},
+	transshipment:{
+		step:9,
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
-			original_document_arrival:{class:'original_document_arrival'},
-			payment_notification:{class:'payment_notification'},
-			vessel_track_no:{class:'vessel_track_no'},
-			transshipment_date:{class:'transshipment_date'},
-			transshipment_port:{class:'transshipment_port'},
-			buyer_notification:{class:'buyer_notification'}
+			original_document_arrival:{class:'original_document_arrival',caption:'Original Document Arrival',save_id:'original_document_arrival',type:'date'},
+			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'date'},
+			vessel_track_no:{class:'vessel_track_no',caption:'Vessel Track No',save_id:'vessel_track_no',type:'string'},
+			date:{class:'date',caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
+			port:{class:'port',caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
+			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'date'}
+		}
+	},
+	port:{
+		step:10,
+		id:'port',
+		caption:'Port',
+		fields:{
+			buyer_cnf:{class:'buyer_cnf',caption:'Buyer"s C&F',save_id:'buyer_cnf',type:'string'},
+			buyer_clearance:{class:'buyer_clearance',caption:'Buyer"s Clearance',save_id:'buyer_clearance',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
+			clearance_document:{class:'clearance_document',caption:'Clearance Document',save_id:'clearance_document',type:'document'}
 		}
 	},
 	controller:{
-		step:9,
+		step:11,
 		id:'controller',
 		caption:'Controller',
 		fields:{
-			controller_company:{class:'controller_company'},
-			weight_finalization_area:{class:'weight_finalization_area'},
-			final_weight:{class:'final_weight'},
-			final_weight_unit:{class:'final_weight_unit'},
-			weight_claim:{class:'weight_claim'},
-			weight_claim_unit:{class:'weight_claim_unit'},
-			unit_price:{class:'unit_price'},
-			unit_price_currency:{class:'unit_price_currency'},
-			claim_amount:{class:'claim_amount'},
-			claim_amount_unit:{class:'claim_amount_unit'}
+			company:{class:'company',caption:'Controller Company',save_id:'controller_company',type:'string'},
+			weight_finalization_area:{class:'weight_finalization_area',caption:'Weight Finalization Area',save_id:'weight_finalization_area',type:'select',options:{port:{caption:'Port'},warehouse:{caption:'Warehouse'}}},
+			final_weight:{class:'final_weight',caption:'Final Weight',save_id:'final_weight',type:'number'},
+			final_weight_unit:{class:'final_weight_unit',save_id:'final_weight_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
+			weight_claim:{class:'weight_claim',caption:'Weight Claim',save_id:'weight_claim',type:'number'},
+			weight_claim_unit:{class:'weight_claim_unit',save_id:'weight_claim_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
+			unit_price:{class:'unit_price',caption:'Unit Price',save_id:'unit_price',type:'number'},
+			unit_price_currency:{class:'unit_price_currency',save_id:'unit_price_currency',type:'select',options:{'usd':{caption:'USD'},'gbp':{caption:'GBP'},'inr':{caption:'INR'},'bdt':{caption:'BDT'}}},
+			claim_amount:{class:'claim_amount',caption:'Claim Amount',save_id:'claim_amount',type:'number'},
+			claim_amount_unit:{class:'claim_amount_unit',save_id:'claim_amount_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
+			landing_report:{class:'landing_report',save_id:'landing_report',type:'document'}
 		}
 	},
 	payment:{
-		step:10,
+		step:12,
 		id:'payment',
 		caption:'Payment',
 		fields:{
-			supplier_clearance:{class:'supplier_clearance'},
-			commission_amount:{class:'commission_amount'},
-			commission_amount_unit:{class:'commission_amount_unit'},
-			receiving_date:{class:'receiving_date'},
-			late_payment:{class:'late_payment'}
+			supplier_clearance:{class:'supplier_clearance',caption:'Supplier Clearance',save_id:'supplier_clearance',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
+			commission_amount:{class:'commission_amount',caption:'Commission Amount',save_id:'commission_amount',type:'number'},
+			commission_amount_unit:{class:'commission_amount_unit',save_id:'commission_amount_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
+			receiving_date:{class:'receiving_date',caption:'Receiving Date',save_id:'receiving_date',type:'date'},
+			late_payment:{class:'late_payment',caption:'Late Payment',save_id:'late_payment',type:'date'},
+			buyer_bank_payment:{class:'buyer_bank_payment',caption:'Buyer"s Bank Payment',save_id:'buyer_bank_payment',type:'document'}
 		}
 	}
 };
@@ -258,12 +278,13 @@ Step.prototype.assign=function(a,b,callback){
 		}
 	});
 };
-Step.prototype.render=function(a,target){
+Step.prototype.render=function(a,target){console.log(a);
 	var that=this;
 	var fields=that.fields;
 	for(var i in fields){
 		if(fields.hasOwnProperty(i)){
 			var selector='#'+$(target).attr('id')+' .'+fields[i].class;
+			console.log(selector,a[i]);
 			$(selector).html(a[i]);
 		}
 	}
@@ -291,6 +312,12 @@ var Product=new Step('product',Config.product.fields);
 var Contract=new Step('contract',Config.contract.fields);
 var Import_permit=new Step('import_permit',Config.import_permit.fields);
 var Lc=new Step('lc',Config.lc.fields);
+var Shipment=new Step('shipment',Config.shipment.fields);
+var Document=new Step('document',Config.document.fields);
+var Transshipment=new Step('transshipment',Config.transshipment.fields);
+var Port=new Step('port',Config.port.fields);
+var Controller=new Step('controller',Config.controller.fields);
+var Payment=new Step('payment',Config.payment.fields);
 
 
 
@@ -399,6 +426,8 @@ var Final={
 			$('#intro').fadeIn().addClass('current');
 		}
 		$('.modal').modal('hide');
+		$('#next').fadeIn();
+		$('#prev').fadeIn();
 		Customer.loadAsOption($('#customer-list'));
 		Supplier.loadAsOption($('#supplier-list'));
 	}
@@ -425,6 +454,8 @@ $(document).ready(function(){
 	if(getParameterByName('pid')!=null){
 		Project.load(getParameterByName('pid'),function(response){Project.render(response,$('#intro'));});
 	}
+	else
+		$('#big_button').show();
 	$('.links').each(function(e){
 		$(this).click(function(evt){
 			$('.sublinks').slideUp('fast');
@@ -528,6 +559,78 @@ $('#next').click(function(event){
 			else if(current=='lc'){
 				Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val()},function(response){
 					Lc.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='shipment'){
+				Shipment.save({shipment_date:$('#shipment_date').val(),shipment_type:$('#shipment_type').val(),partial_shipment:$('#partial_shipment').val(),transshipment:$('#transshipment').val(),loading_port:$('#loading_port').val(),discharge_port:$('#discharge_port').val()},function(response){
+					Shipment.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='document'){
+				Document.save({commercial_invoice:$('#commercial_invoice').val()},function(response){
+					Document.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='transshipment'){
+				Transshipment.save({original_document_arrival:$('#original_document_arrival').val(),payment_notification:$('#payment_notification').val(),vessel_track_no:$('#vessel_track_no').val(),transshipment_date:$('#transshipment_date').val(),transshipment_port:$('#transshipment_port').val(),buyer_notification:$('#buyer_notification').val()},function(response){
+					Transshipment.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='port'){
+				Port.save({buyer_cnf:$('#buyer_cnf').val(),buyer_clearance:$('#buyer_clearance').val(),clearance_document:$('#clearance_document').val()},function(response){
+					Port.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='controller'){
+				Controller.save({controller_company:$('#controller_company').val(),weight_finalization_area:$('#weight_finalization_area').val(),final_weight:$('#final_weight').val(),final_weight_unit:$('#final_weight_unit').val(),weight_claim:$('#weight_claim').val(),weight_claim_unit:$('#weight_claim_unit').val(),unit_price:$('#unit_price').val(),unit_price_currency:$('#unit_price_currency').val(),claim_amount:$('#claim_amount').val(),claim_amount_unit:$('#claim_amount_unit').val()},function(response){
+					Controller.assign({object_id:response.id},pid,function(r){
+						$(modal).modal('hide');
+						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+						$('.overlay').show();
+						Project.load(pid,function(response){
+							Project.render(response,$('#intro'));
+						});
+					});
+				});
+			}
+			else if(current=='payment'){
+				Payment.save({supplier_clearance:$('#supplier_clearance').val(),commission_amount:$('#commission_amount').val(),commission_amount_unit:$('#commission_amount_unit').val(),receiving_date:$('#receiving_date').val(),late_payment:$('#late_payment').val(),buyer_bank_payment:$('#buyer_bank_payment').val()},function(response){
+					Payment.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
 						$('.overlay').show();
@@ -684,12 +787,13 @@ $(document).ready(function(){
 		}
 	});
 });
-$('#create_project').click(function(){
+$('.create_project').click(function(){
 	var modal=$('#project-modal').modal('show');
 });
 $('[data-action=create-project]').click(function(e){
 	var modal=$('#project-modal').modal('show');
 	
+	$('#big_button').hide();
 	Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response1){
 		Project.load(response1.id,function(response2){
 			Project.render(response2,$('#intro'));

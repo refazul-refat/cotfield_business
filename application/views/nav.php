@@ -28,7 +28,7 @@
 		</div>
 </div>
 <div style='position: fixed;z-index: 10000;bottom: 10px;left: 28px;'>
-	<button id="create_project" class='btn btn-success'>Create New Project</button>
+	<button class='create_project btn btn-success'>Create New Project</button>
 </div>
 <div id="svgContainer">
 </div>
