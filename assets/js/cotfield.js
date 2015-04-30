@@ -1081,7 +1081,7 @@ $(document).ready(function(){
 					else if(field.type=='document'){
 					
 						$('<input>',{id:field.save_id,name:field.save_id}).attr('type','hidden').appendTo(input_group);
-						$('<form>',{class:'dropzone',id:'dropzone-'+field.save_id}).attr('action','http://localhost/cotfield_api/v1/upload').attr('data-target',field.save_id).appendTo(input_group);
+						$('<form>',{class:'dropzone',id:'dropzone-'+field.save_id}).attr('action','http://api.cotfield.com/v1/upload').attr('data-target',field.save_id).appendTo(input_group);
 					}
 					if(field.caption!=undefined)$(modal_body).append(input_group);
 				}
