@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="assets/css/jquery-ui-timepicker-addon.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/dropzone.css" type="text/css">
-		<link rel="stylesheet" href="assets/css/uikit.min.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/cotfield/base.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/cotfield/nav.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/cotfield/content.css" type="text/css">
@@ -18,6 +17,5 @@
 		<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="assets/js/jquery-ui-timepicker-addon.js"></script>
 		<script type="text/javascript" src="assets/js/dropzone.js"></script>
-		<script type="text/javascript" src="assets/js/uikit.min.js"></script>
 	</head>
 	<body>

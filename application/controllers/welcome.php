@@ -19,8 +19,6 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->session->set_userdata('uid',2);
-		$this->session->set_userdata('user','refat');
 		if($this->session->userdata('uid')){
 			$this->load->view('header');
 			$this->load->view('nav');
