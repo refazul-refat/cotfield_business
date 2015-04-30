@@ -694,7 +694,8 @@ $(document).ready(function(){
 		var pics={
 			1:{src:'assets/images/1.jpg'},
 			2:{src:'assets/images/2.jpg'},
-			3:{src:'assets/images/3.jpg'}
+			3:{src:'assets/images/3.jpg'},
+			4:{src:'assets/images/4.jpg'}
 		};
 		$('.candidate').hide();
 		$('#gallery-panel').show();
