@@ -170,6 +170,20 @@ var Project={
 			}
 		});
 	},
+	remove:function(a,callback){
+		$('.overlay').show();
+		$.ajax({
+			url:api_base+'projects/'+a,
+			data:{token:token,method:'delete'},
+			method:'POST',
+			dataType:'json',
+			statusCode:{
+				204:function(response){
+					callback(response);
+				}
+			}
+		});
+	},
 	load:function(a,callback){
 		$('.overlay').show();
 		$.ajax({
@@ -188,7 +202,7 @@ var Project={
 		$('#'+$(target).attr('id')+' .name').html(a.name);
 		$('#'+$(target).attr('id')+' .description').html(a.description);
 		$(target).siblings().remove();
-		
+				
 		var current_step=a.current_step;
 		var steps=[];
 		
@@ -197,7 +211,7 @@ var Project={
 				if(Config.hasOwnProperty(i)){
 					if(Config[i].step==s){
 						var p=$('<div>',{id:Config[i].id,class:'page'}).appendTo($(target).parent());
-						var h=$('<div>',{class:'header'}).appendTo(p).text(Config[i].caption);
+						var h=$('<div>',{class:'header'}).append(Config[i].caption+'<span class="glyphicon glyphicon-edit edit-button"></span>').appendTo(p);
 						var c=$('<div>',{class:'content'}).appendTo(p);
 						for(var f in Config[i].fields){
 							if(Config[i].fields.hasOwnProperty(f)){
@@ -237,9 +251,29 @@ var Project={
 };
 var Final={
 	init:function(a){
-		console.log(a);
-		$('#gallery').hide();
-		$('#content nav').hide();
+		$('#quick-nav').html('');
+		for(var i=0;i<a.length;i++){
+			var qnav=$('<div>',{class:'circle'}).attr('title',a[i]).attr('data-step',a[i]).appendTo($('#quick-nav'));
+			$(qnav).unbind('click');
+			$(qnav).click(function(){
+				$('.circle').removeClass('active');
+				$(this).addClass('active');
+				var step=$(this).attr('data-step');
+				var pid=getParameterByName('pid');
+				$('.overlay').show();
+				window[step.ucfirst()].load(pid,function(response,t){
+					$('.current').hide();
+					$('#'+step).addClass('current').fadeIn();
+					location.href=location.href.split('#')[0]+'#'+step;
+					$('.overlay').hide();
+					window[step.ucfirst()].render(response,$('#'+step));
+				});
+			});
+		}
+		$('.candidate').hide();
+		$('#project-panel').show();
+		$('#button-panel').show();
+		$('#quick-nav').show();
 		
 		$('.overlay').hide();
 		$('.page').hide();
@@ -247,6 +281,8 @@ var Final={
 		var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z_]/)[0]:undefined;
 		if(hash!=undefined && $.inArray(hash,a)>-1){
 			$('#'+hash).fadeIn().addClass('current');
+			$('.circle').removeClass('active');
+			$('[data-step="'+hash+'"]').addClass('active');
 			/*
 			$('html, body').animate({
 				scrollTop: $("#"+hash).offset().top
@@ -270,6 +306,177 @@ var Final={
 				window[current.ucfirst()].render(response,$('#'+current));
 			});
 		}
+		$('.edit-button').unbind('click');
+		$('.edit-button').click(function(e){
+			var current=$(this).parent().parent().attr('id');
+			if(current!='intro'){
+				$('#'+current+'-modal').modal('show');
+				for(var i in Config[current].fields){
+					$('#'+Config[current].fields[i].save_id).val($('#'+current+' .'+Config[current].fields[i].class).text());
+				}
+				var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+				$(modal).find('[data-action=save]').unbind('click');
+				$(modal).find('[data-action=save]').click(function(e){
+					var pid=$(modal).attr('data-pid');
+					if(current=='customer'){
+						if($('select[name="customer"]').val()==0 || $('select[name="customer"]').val()==undefined){
+							Customer.save({customer_name:$('#customer_name').val(),customer_description:$('#customer_description').val()},function(response){
+								Customer.assign({object_id:response.id},pid,function(r){
+									$(modal).modal('hide');
+									window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+									$('.overlay').show();
+									Project.load(pid,function(response){
+										Project.render(response,$('#intro'));
+									});
+								});
+							});
+						}
+						else{
+							console.log('zz');
+						}
+					}
+					else if(current=='supplier'){
+						if($('select[name="supplier"]').val()==0 || $('select[name="supplier"]').val()==undefined){
+							Supplier.save({supplier_name:$('#supplier_name').val(),supplier_description:$('#supplier_description').val()},function(response){
+								Supplier.assign({object_id:response.id},pid,function(r){
+									$(modal).modal('hide');
+									window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+									$('.overlay').show();
+									Project.load(pid,function(response){
+										Project.render(response,$('#intro'));
+									});
+								});
+							});
+						}
+						else{
+							console.log('zz');
+						}
+					}
+					else if(current=='product'){
+						Product.save({product_name:$('#product_name').val(),product_type:$('#product_type').val(),product_origin:$('#product_origin').val(),product_quantity:$('#product_quantity').val(),product_unit_quantity:'lbs',product_unit_price:$('#product_unit_price').val(),product_unit_price_currency:'usd'},function(response){
+							Product.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='contract'){
+						Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs'},function(response){
+							Contract.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='import_permit'){
+						Import_permit.save({import_permit_no:$('#import_permit_no').val(),import_permit_date:$('#import_permit_date').val()},function(response){
+							Import_permit.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='lc'){
+						Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notfication:$('#maturity_notification').val()},function(response){
+							Lc.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='shipment'){
+						Shipment.save({shipment_date:$('#shipment_date').val(),shipment_type:$('#shipment_type').val(),partial_shipment:$('#partial_shipment').val(),transshipment:$('#transshipment').val(),loading_port:$('#loading_port').val(),discharge_port:$('#discharge_port').val()},function(response){
+							Shipment.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='document'){
+						Document.save({commercial_invoice:$('#commercial_invoice').val(),packing_list:$('#packing_list').val(),lading_bill:$('#lading_bill').val(),phytosanitary_certificate:$('#phytosanitary_certificate').val(),origin_certificate:$('#origin_certificate').val(),shipment_advice:$('#shipment_advice').val(),controller_letter:$('#controller_letter').val(),fumigation_letter:$('#fumigation_letter').val()},function(response){
+							Document.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='transshipment'){
+						Transshipment.save({original_document_arrival:$('#original_document_arrival').val(),payment_notification:$('#payment_notification').val(),vessel_track_no:$('#vessel_track_no').val(),transshipment_date:$('#transshipment_date').val(),transshipment_port:$('#transshipment_port').val(),buyer_notification:$('#buyer_notification').val()},function(response){
+							Transshipment.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='port'){
+						Port.save({buyer_cnf:$('#buyer_cnf').val(),buyer_clearance:$('#buyer_clearance').val(),clearance_document:$('#clearance_document').val()},function(response){
+							Port.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='controller'){
+						Controller.save({controller_company:$('#controller_company').val(),weight_finalization_area:$('#weight_finalization_area').val(),final_weight:$('#final_weight').val(),final_weight_unit:$('#final_weight_unit').val(),weight_claim:$('#weight_claim').val(),weight_claim_unit:$('#weight_claim_unit').val(),unit_price:$('#unit_price').val(),unit_price_currency:$('#unit_price_currency').val(),claim_amount:$('#claim_amount').val(),claim_amount_unit:$('#claim_amount_unit').val()},function(response){
+							Controller.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+					else if(current=='payment'){
+						Payment.save({supplier_clearance:$('#supplier_clearance').val(),commission_amount:$('#commission_amount').val(),commission_amount_unit:$('#commission_amount_unit').val(),receiving_date:$('#receiving_date').val(),late_payment:$('#late_payment').val(),buyer_bank_payment:$('#buyer_bank_payment').val()},function(response){
+							Payment.assign({object_id:response.id},pid,function(r){
+								$(modal).modal('hide');
+								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
+								$('.overlay').show();
+								Project.load(pid,function(response){
+									Project.render(response,$('#intro'));
+								});
+							});
+						});
+					}
+				});
+			}
+		});
+
+		
 		Customer.loadAsOption($('#customer-list'));
 		Supplier.loadAsOption($('#supplier-list'));
 	}
@@ -489,9 +696,8 @@ $(document).ready(function(){
 			2:{src:'assets/images/2.jpg'},
 			3:{src:'assets/images/3.jpg'}
 		};
-		var gallery=$('#gallery');
-		$(gallery).show();
-		$('#content nav').show();
+		$('.candidate').hide();
+		$('#gallery-panel').show();
 		for(var i in pics){
 			if(pics.hasOwnProperty(i)){
 				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo(gallery);
@@ -547,12 +753,6 @@ $(document).ready(function(){
 			$(evt.target).next().slideDown('fast');
 		});
 	});
-	
-	$('#notifications').click(function(e){
-		$('.overlay').show();
-		$('.candidate').hide();
-		$('#notification-panel').show();
-	});
 });
 $(window).resize(function(){
 	$('.page').each(function(){
@@ -566,9 +766,26 @@ $(window).resize(function(){
 });
 
 //running=false;
+$('#remove').click(function(e){
+	var r=confirm('Are you sure?');
+	if(r==true)
+	{
+		Project.remove(getParameterByName('pid'),function(response){
+			$('.overlay').hide();
+			location.href=location.href.split('?')[0];
+		});
+	}
+});
+
+$('#notifications').click(function(e){
+	$('.overlay').show();
+	$('.candidate').hide();
+	$('#notification-panel').show();
+});
 
 $('#next').click(function(event){
 	if($('.current').next().length){
+		$('.active').removeClass('active').next().addClass('active');
 		var next=$('.current').next().attr('id');
 		var pid=getParameterByName('pid');
 		$('.overlay').show();
@@ -748,6 +965,7 @@ $('#next').click(function(event){
 
 $('#prev').click(function(event){
 	if($('.current').prev().length){
+		$('.active').removeClass('active').prev().addClass('active');
 		var prev=$('.current').prev().attr('id');
 		if(prev=='intro'){
 			$('.current').hide().prev().fadeIn();
@@ -908,8 +1126,7 @@ $('.create_project').click(function(){
 });
 $('[data-action=create-project]').click(function(e){
 	var modal=$('#project-modal').modal('show');
-	
-	$('#big_button').hide();
+
 	Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response1){
 		Project.load(response1.id,function(response2){
 			Project.render(response2,$('#intro'));

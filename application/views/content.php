@@ -1,5 +1,6 @@
 <div id='content'>
-	<div class='candidate'>
+	<div style='position: fixed;right: 0px;z-index: 1;background-color: #FFFFFF;padding: 5px;'><a href='index.php/logout'>Log Out</a></div>
+	<div class='candidate' id='gallery-panel'>
 		<nav>
 			<div id="up" style="visibility: hidden;"></div>
 			<div class="breaker"></div>
@@ -9,7 +10,7 @@
 		<div id='gallery'>
 		</div>
 	</div>
-	<div class='candidate' style='float:right;width:75%;'>
+	<div class='candidate' id='project-panel' style='float:right;width:75%;'>
 		<div id="intro" class="current page" style='display:none;'>
 			<div class='header'>Project</div>
 			<div class='content'>
@@ -24,13 +25,16 @@
 			</div>
 		</div>
 	</div>
-	<div class='candidate'>
+	<div class='candidate' id='quick-nav'>
+	</div>
+	<div class='candidate' id='button-panel'>
 		<div style='position:fixed;bottom:10px;right:100px;'>
-			<button class='btn btn-success' id='prev' style='display:none;'>Prev</button>
-			<button class='btn btn-success' id='next' style='display:none;'>Next</button>
+			<button class='btn btn-danger' id='remove'>Remove This Project</button>
+			<button class='btn btn-success' id='prev'>Prev</button>
+			<button class='btn btn-success' id='next'>Next</button>
 		</div>
 	</div>
-	<div class='candidate' id='notifications-panel'>
+	<div class='candidate' id='notification-panel'>
 		
 	</div>
 </div>
