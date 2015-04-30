@@ -365,7 +365,7 @@ var Final={
 						});
 					}
 					else if(current=='contract'){
-						Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs'},function(response){
+						Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs',contract_copy:$('#contract_copy').val()},function(response){
 							Contract.assign({object_id:response.id},pid,function(r){
 								$(modal).modal('hide');
 								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
@@ -853,7 +853,7 @@ $('#next').click(function(event){
 				});
 			}
 			else if(current=='contract'){
-				Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs'},function(response){
+				Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs',contract_copy:$('#contract_copy').val()},function(response){
 					Contract.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
