@@ -27,12 +27,10 @@
 	</div>
 	<div class='candidate' id='quick-nav'>
 	</div>
-	<div class='candidate' id='button-panel'>
-		<div style='position:fixed;bottom:10px;right:100px;'>
-			<button class='btn btn-danger' id='remove'>Remove This Project</button>
-			<button class='btn btn-success' id='prev'>Prev</button>
-			<button class='btn btn-success' id='next'>Next</button>
-		</div>
+	<div class='candidate' id='button-panel' style="position:fixed;bottom:10px;right:100px;">
+		<button class='btn btn-danger' id='remove'>Remove This Project</button>
+		<button class='btn btn-success' id='prev'>Prev</button>
+		<button class='btn btn-success' id='next'>Next</button>
 	</div>
 	<div class='candidate' id='notification-panel'>
 		
