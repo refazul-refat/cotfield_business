@@ -69,7 +69,7 @@ var Config={
 			type:{class:'type',caption:'LC Type',save_id:'lc_type',type:'select',options:{'a':{caption:'A'},'b':{caption:'B'}}},
 			opening_bank:{class:'opening_bank',caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{'dbbl':{caption:'DBBL'},'hsbc':{caption:'HSBC'}}},
 			receiving_bank:{class:'receiving_bank',caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{'standard_chartered':{caption:'Standard Chartered'},'brac':{caption:'BRAC'}}},
-			maturity_notification:{class:'maturity_notification',caption:'Maturity Notification',save_id:'maturity_notification',type:'notification'}
+			maturity_notification:{class:'maturity_notification',caption:'Maturity Notification',save_id:'maturity_notification',type:'date'}
 		}
 	},
 	shipment:{
@@ -106,11 +106,11 @@ var Config={
 		caption:'Transshipment',
 		fields:{
 			original_document_arrival:{class:'original_document_arrival',caption:'Original Document Arrival',save_id:'original_document_arrival',type:'date'},
-			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'notification'},
+			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'date'},
 			vessel_track_no:{class:'vessel_track_no',caption:'Vessel Track No',save_id:'vessel_track_no',type:'string'},
 			date:{class:'date',caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
 			port:{class:'port',caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
-			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'notification'}
+			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'date'}
 		}
 	},
 	port:{
@@ -389,7 +389,7 @@ var Final={
 						});
 					}
 					else if(current=='lc'){
-						Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notfication:$('#maturity_notification').val()},function(response){
+						Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notification:$('#maturity_notification').val()},function(response){
 							Lc.assign({object_id:response.id},pid,function(r){
 								$(modal).modal('hide');
 								window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
@@ -481,7 +481,18 @@ var Final={
 		Supplier.loadAsOption($('#supplier-list'));
 	}
 };
-
+function GetFilename(url)
+{
+   if (url)
+   {
+      var m = url.toString().match(/.*\/(.+?)\./);
+      if (m && m.length > 1)
+      {
+         return m[1];
+      }
+   }
+   return "";
+}
 var Step=function(name,fields){
 	this.name=name;
 	this.fields=fields;
@@ -543,8 +554,28 @@ Step.prototype.render=function(a,target){console.log(a);
 	for(var i in fields){
 		if(fields.hasOwnProperty(i)){
 			var selector='#'+$(target).attr('id')+' .'+fields[i].class;
-			console.log(selector,a[i]);
-			$(selector).html(a[i]);
+			if(fields[i].type=='document'){
+				var extension=a[i].split('.').pop();
+				var filename=GetFilename(a[i]);
+				var nodot=filename.replace(/\W/g, '')
+				//var icon=$('<a>',{target:'_blank',href:'https://docs.google.com/viewerng/viewer?url='+a[i]}).text(a[i]);
+				var icon=$('<div>',{}).text(filename);
+				$(icon).click(function(){
+					$('#'+nodot).show();
+					$('.global-overlay').show();
+					$('.global-overlay').unbind('click');
+					$('.global-overlay').click(function(){
+						$(this).hide();
+						$('#'+nodot).hide();
+					});
+				});
+				var link=$('<a>',{href:a[i],target:'_blank'}).text(filename);
+				$(selector).append(icon);
+				$(selector).append(link);
+				$('body').append('<iframe id="'+nodot+'" src="http://docs.google.com/gview?url='+a[i]+'&embedded=true" style="margin:5% 5% 0 5%;width:90%; height:100%;position:fixed;display:none;z-index:100000;" frameborder="0"></iframe>');
+			}
+			else
+				$(selector).html(a[i]);
 		}
 	}
 };
@@ -691,62 +722,104 @@ $(document).ready(function(){
 		$('#content nav').hide();
 	}
 	else{
-		var pics={
-			1:{src:'assets/images/1.jpg'},
-			2:{src:'assets/images/2.jpg'},
-			3:{src:'assets/images/3.jpg'},
-			4:{src:'assets/images/4.jpg'}
-		};
-		$('.candidate').hide();
-		$('#gallery-panel').show();
-		for(var i in pics){
-			if(pics.hasOwnProperty(i)){
-				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo(gallery);
+		if(getParameterByName('action')!=null){
+			var action=getParameterByName('action');
+			if(action=='notification'){
+				$('.overlay').show();
+				$('.candidate').hide();
+				$('#notification-panel').show();
+				$('#notification-panel').html('');
+				$.ajax({
+					url:api_base+'notifications',
+					method:'GET',
+					statusCode:{
+						200:function(response){
+							for(var i=0;i<response.length;i++){
+								var diff=(stringToDate(response[i].deadline) - new Date());
+								var days=parseInt(diff / (1000 * 60 * 60 * 24));
+								console.log(days,response[i].pid);
+								var panel=$('<div>',{});
+				
+								if(days<2){
+									$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
+								}
+								else if(days<4){
+									$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
+								}
+								else if(days<8){
+									$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
+								}
+								else{
+									$(panel).addClass('alert').addClass('alert-success').attr('role','alert');
+								}
+				
+								$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
+								$('#notification-panel').append(panel);
+							}
+							$('.overlay').hide();
+						}
+					}
+				});
 			}
 		}
-		$('.slide').each(function(){
-			$(this).height($(window).height());
-		});
-		$('.slide').first().addClass('active');
-		var flag=false;
-		$('#up').click(function(){
-			if(flag==false){
-				flag=true;
+		else{
+			var pics={
+				1:{src:'assets/images/1.jpg'},
+				2:{src:'assets/images/2.jpg'},
+				3:{src:'assets/images/3.jpg'},
+				4:{src:'assets/images/4.jpg'}
+			};
+			$('.candidate').hide();
+			$('#gallery-panel').show();
+			for(var i in pics){
+				if(pics.hasOwnProperty(i)){
+					var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo(gallery);
+				}
 			}
-			else return;
-			if($('.slide.active').prev().length){
-				var h=$(window).height();
-				$('#down').css('visibility','visible');
-				$('#gallery').animate({top:'+='+h},500,function(){
-					$('.slide.active').removeClass('active').prev().addClass('active');
-					if($('.slide.active').prev().length){
-						$('#up').css('visibility','visible');
-					}
-					else
-						$('#up').css('visibility','hidden');
-					flag=false;
-				});
-			}
-		});
-		$('#down').click(function(){
-			if(flag==false){
-				flag=true;
-			}
-			else return;
-			if($('.slide.active').next().length){
-				var h=-$(window).height();
-				$('#up').css('visibility','visible');
-				$('#gallery').animate({top:'+='+h},500,function(){
-					$('.slide.active').removeClass('active').next().addClass('active');
-					if($('.slide.active').next().length){
-						$('down').css('visibility','visible');
-					}
-					else
-						$('#down').css('visibility','hidden');
-					flag=false;
-				});
-			}
-		});
+			$('.slide').each(function(){
+				$(this).height($(window).height());
+			});
+			$('.slide').first().addClass('active');
+			var flag=false;
+			$('#up').click(function(){
+				if(flag==false){
+					flag=true;
+				}
+				else return;
+				if($('.slide.active').prev().length){
+					var h=$(window).height();
+					$('#down').css('visibility','visible');
+					$('#gallery').animate({top:'+='+h},500,function(){
+						$('.slide.active').removeClass('active').prev().addClass('active');
+						if($('.slide.active').prev().length){
+							$('#up').css('visibility','visible');
+						}
+						else
+							$('#up').css('visibility','hidden');
+						flag=false;
+					});
+				}
+			});
+			$('#down').click(function(){
+				if(flag==false){
+					flag=true;
+				}
+				else return;
+				if($('.slide.active').next().length){
+					var h=-$(window).height();
+					$('#up').css('visibility','visible');
+					$('#gallery').animate({top:'+='+h},500,function(){
+						$('.slide.active').removeClass('active').next().addClass('active');
+						if($('.slide.active').next().length){
+							$('down').css('visibility','visible');
+						}
+						else
+							$('#down').css('visibility','hidden');
+						flag=false;
+					});
+				}
+			});
+		}
 	}
 	$('.links').each(function(e){
 		$(this).click(function(evt){
@@ -777,11 +850,16 @@ $('#remove').click(function(e){
 		});
 	}
 });
+function stringToDate(s) {
+  var dateParts = s.split(' ')[0].split('-'); 
+  var timeParts = s.split(' ')[1].split(':');
+  var d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
+  d.setHours(timeParts[0], timeParts[1], timeParts[2])
 
+  return d
+}
 $('#notifications').click(function(e){
-	$('.overlay').show();
-	$('.candidate').hide();
-	$('#notification-panel').show();
+	location.href=location.href.split('?')[0]+'?action=notification';
 });
 
 $('#next').click(function(event){
@@ -877,7 +955,7 @@ $('#next').click(function(event){
 				});
 			}
 			else if(current=='lc'){
-				Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notfication:$('#maturity_notification').val()},function(response){
+				Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notification:$('#maturity_notification').val()},function(response){
 					Lc.assign({object_id:response.id},pid,function(r){
 						$(modal).modal('hide');
 						window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;

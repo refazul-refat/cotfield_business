@@ -20,6 +20,9 @@
 	max-height: 140px;
 	color: #656565;
 }
+.value.docuemnt{
+	position: absolute;
+}
 .unit-container{
 	margin: 0px 0px;
 }
@@ -38,7 +41,7 @@
 	padding-bottom: 25px;
 	border: 1px dashed #ccc;
 	padding-left: 25px;
-	width: 80%;
+	width: 90%;
 	margin-top: 10px;
 }
 .header{
@@ -137,4 +140,11 @@
 }
 .circle:hover {
 	box-shadow:inset 0 0 0 10px rgba(255,255,255,.5), inset 0 0 0 100px rgba(0,0,0,.5);
+}
+
+#notification-panel{
+	width: 70%;
+	float: right;
+	margin-top: 56px;
+	margin-right: 61px;
 }
