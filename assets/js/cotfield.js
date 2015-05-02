@@ -589,7 +589,7 @@ Step.prototype.render=function(a,target){console.log(a);
 					var filename=GetFilename(a[i]);
 					var nodot=filename.replace(/\W/g, '')
 					//var icon=$('<a>',{target:'_blank',href:'https://docs.google.com/viewerng/viewer?url='+a[i]}).text(a[i]);
-					var icon=$('<div>',{}).text(filename);
+					var icon=$('<div>',{}).css('display','inline-block').text(filename);
 					$(icon).click(function(){
 						$('#'+nodot).show();
 						$('.global-overlay').show();
@@ -599,10 +599,17 @@ Step.prototype.render=function(a,target){console.log(a);
 							$('#'+nodot).hide();
 						});
 					});
-					var link=$('<a>',{href:a[i],target:'_blank'}).text(filename);
-					$(selector).append(icon);
-					$(selector).append(link);
+					var link=$('<a>',{href:a[i],target:'_blank'}).css('display','inline-block').text(filename);
+					$(selector).html(a[i]);
+					$(selector).css('display','none');
+					$(selector).parent().append(icon);
+					$(selector).parent().append(link);
 					$('body').append('<iframe id="'+nodot+'" src="http://docs.google.com/gview?url='+a[i]+'&embedded=true" style="margin:5% 5% 0 5%;width:90%; height:100%;position:fixed;display:none;z-index:100000;" frameborder="0"></iframe>');
+				}
+				else if(fields[i].type=='date'){
+					$(selector).html(a[i]);
+					$(selector).css('display','none');
+					$(selector).parent().append($('<div>',{}).css('display','inline-block').css('color','#656565').html(moment(a[i]).format('MMMM Do YYYY')));
 				}
 				else
 					$(selector).html(a[i]);
