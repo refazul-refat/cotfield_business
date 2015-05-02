@@ -11,6 +11,7 @@
 }
 body{
 	margin: 0px;
+	font-family: schoolregular;
 }
 a{
 	color: #8a8a8a;
@@ -70,4 +71,8 @@ a:hover{
 	background-color: #000;
 	z-index: 10000;
 	opacity: 0.7;
+}
+@font-face {
+    font-family: digit;
+    src: url('../fonts/DS-DIGIB.TTF');
 }

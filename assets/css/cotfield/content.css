@@ -46,7 +46,7 @@
 }
 .header{
 	font-size: 40px;
-	padding-top: 70px;
+	padding-top: 120px;
 }
 
 
@@ -147,4 +147,8 @@
 	float: right;
 	margin-top: 56px;
 	margin-right: 61px;
+}
+#clock-panel,#breadcrumb-panel{
+	width: 75%;
+	float: right;
 }

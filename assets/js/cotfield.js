@@ -1,6 +1,6 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['intro','customer','supplier','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
+var steps=['intro','bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -228,7 +228,7 @@ var temp={
 };
 var Config={
 	bootstrap:{
-		step:1,
+		step:2,
 		id:'bootstrap',
 		caption:'Project',
 		fields:{
@@ -239,7 +239,7 @@ var Config={
 		}
 	},
 	product:{
-		step:2,
+		step:3,
 		id:'product',
 		caption:'Product',
 		fields:{
@@ -254,7 +254,7 @@ var Config={
 		}
 	},
 	contract:{
-		step:3,
+		step:4,
 		id:'contract',
 		caption:'Contract',
 		fields:{
@@ -267,7 +267,7 @@ var Config={
 		}
 	},
 	import_permit:{
-		step:4,
+		step:5,
 		id:'import_permit',
 		caption:'Import Permit',
 		fields:{
@@ -276,7 +276,7 @@ var Config={
 		}
 	},
 	lc:{
-		step:5,
+		step:6,
 		id:'lc',
 		caption:'LC',
 		fields:{
@@ -289,7 +289,7 @@ var Config={
 		}
 	},
 	shipment:{
-		step:6,
+		step:7,
 		id:'shipment',
 		caption:'Shipment',
 		fields:{
@@ -302,7 +302,7 @@ var Config={
 		}
 	},
 	document:{
-		step:7,
+		step:8,
 		id:'document',
 		caption:'Documents',
 		fields:{
@@ -317,7 +317,7 @@ var Config={
 		}
 	},
 	transshipment:{
-		step:8,
+		step:9,
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
@@ -330,7 +330,7 @@ var Config={
 		}
 	},
 	port:{
-		step:9,
+		step:10,
 		id:'port',
 		caption:'Port',
 		fields:{
@@ -340,7 +340,7 @@ var Config={
 		}
 	},
 	controller:{
-		step:10,
+		step:11,
 		id:'controller',
 		caption:'Controller',
 		fields:{
@@ -358,7 +358,7 @@ var Config={
 		}
 	},
 	payment:{
-		step:11,
+		step:12,
 		id:'payment',
 		caption:'Payment',
 		fields:{
@@ -387,8 +387,8 @@ var Project={
 			data:a,
 			statusCode:{
 				201:function(response){
-					location.href=location.href.split('?')[0]+'?pid='+response.id;
 					callback(response);
+					location.href=location.href.split('?')[0]+'?pid='+response.id+'#bootstrap';
 				}
 			}
 		});
@@ -410,7 +410,7 @@ var Project={
 	load:function(a,callback){
 		$('.overlay').show();
 		$.ajax({
-			url:api_base+'projects'+'/'+a+'?token='+token,
+			url:api_base+'projects/'+a+'/bootstrap?token='+token,
 			method:'GET',
 			dataType:'json',
 			statusCode:{
@@ -424,9 +424,12 @@ var Project={
 	
 		$('#'+$(target).attr('id')+' .name').html(a.name);
 		$('#'+$(target).attr('id')+' .description').html(a.description);
+		$('#pname').text(a.project.name);
+		$('#pname').attr('href',location.href.split('?')[0]+'?pid='+a.project.id+'#bootstrap');
 		$(target).siblings().remove();
-				
-		var current_step=a.current_step;
+		
+		console.log(a);
+		var current_step=a.project.current_step;
 		var steps=[];
 		
 		for(var s=1;s<=current_step;s++){
@@ -532,6 +535,36 @@ Step.prototype.assign=function(a,b,callback){
 		}
 	});
 };
+var Customer={
+	assign:function(a,b,callback){
+		$.extend(a,{token:token});
+		$.ajax({
+			url:api_base+'projects/'+b+'/customer',
+			method:'POST',
+			data:a,
+			statusCode:{
+				201:function(response){
+					callback(response);
+				}
+			}
+		});
+	}
+};
+var Supplier={
+	assign:function(a,b,callback){
+		$.extend(a,{token:token});
+		$.ajax({
+			url:api_base+'projects/'+b+'/supplier',
+			method:'POST',
+			data:a,
+			statusCode:{
+				201:function(response){
+					callback(response);
+				}
+			}
+		});
+	}
+};
 Step.prototype.render=function(a,target){console.log(a);
 	var that=this;
 	var fields=that.fields;
@@ -608,6 +641,7 @@ var Payment=new Step('payment',Config.payment.fields);
 ///////////////////////////////////////////////////////////////////////////////
 var Final={
 	init:function(a){
+		console.log(a);
 		var className='active-circle';
 		$('#quick-nav').html('');
 		for(var i=0;i<a.length;i++){
@@ -631,6 +665,8 @@ var Final={
 		$('.candidate').hide();
 		$('.overlay').hide();
 		$('#project-panel').fadeIn();
+		$('#clock-panel').fadeIn();
+		$('#breadcrumb-panel').fadeIn();
 		$('#button-panel').fadeIn();
 		$('#quick-nav').fadeIn();
 		
@@ -649,7 +685,7 @@ var Final={
 			*/
 		}
 		else{
-			$('#intro').fadeIn().addClass('current');
+			$('#bootstrap').fadeIn().addClass('current');
 		}
 		$('.modal').modal('hide');
 		
@@ -820,7 +856,7 @@ function modal(){
 			*/
 			var modal_footer=$('<div>',{class:'modal-footer'});
 			var cancel_button=$('<button>',{class:'btn btn-default'}).attr('type','button').attr('data-dismiss','modal').text('Cancel').appendTo(modal_footer);
-			var save_button=$('<button>',{class:'btn btn-primary'}).attr('type','button').attr('data-action','save').text('Save Changes').appendTo(modal_footer);
+			var save_button=$('<button>',{class:'btn btn-primary',id:'save-'+Config[item].id}).attr('type','button').attr('data-action','save').text('Save Changes').appendTo(modal_footer);
 			//////////////////////////////////////////////////////////////////////////////
 			
 			
@@ -879,6 +915,7 @@ function modal(){
 									dataType:'json',
 									statusCode:{
 										200:function(response){
+											console.log(response);
 											for(var option in response){
 												$('<option>',{}).attr('value',option).text(response[option].caption).appendTo($('#customer'));
 											}
@@ -916,6 +953,13 @@ function modal(){
 			$(document.getElementsByTagName('body')[0]).append(modal);
 		}
 	}
+	$('#save-bootstrap').click(function(e){
+
+		Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response1){
+			Customer.assign({object_id:1},response1.id,function(r){});
+			Supplier.assign({object_id:1},response1.id,function(r){});			
+		});
+	});
 	$('.dropzone').each(function(e){
 		var id=$(this).attr('id');
 		var target=$(this).attr('data-target');
@@ -956,7 +1000,7 @@ $(document).ready(function(){
 		$('.candidate').hide();
 		$('#project-panel').fadeIn();
 	}
-	else if(getParameterByName('action')=='notification'){
+	else if(getParameterByName('action')=='notifications'){
 		$('.overlay').show();
 		$('.candidate').hide();
 		$('#notification-panel').html('');
@@ -984,6 +1028,35 @@ $(document).ready(function(){
 			}
 		});
 	}
+	else if(getParameterByName('action')=='customers'){
+		$('.overlay').show();
+		$('.candidate').hide();
+		$('#notification-panel').html('');
+		$.ajax({
+			url:api_base+'notifications',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					for(var i=0;i<response.length;i++){
+						var diff=(stringToDate(response[i].deadline) - new Date());
+						var days=parseInt(diff / (1000 * 60 * 60 * 24));
+						var panel=$('<div>',{});
+		
+						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
+						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
+						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
+						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
+		
+						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
+						$('#notification-panel').append(panel);
+					}
+					$('.overlay').hide();
+					$('#notification-panel').fadeIn();
+				}
+			}
+		});
+	}
+	else if(getParameterByName('action')=='suppliers'){}
 	else{
 		$('.candidate').hide();
 		$('#gallery').html('');
@@ -1050,7 +1123,13 @@ $('#remove').click(function(e){
 	}
 });
 $('#notifications').click(function(e){
-	location.href=location.href.split('?')[0]+'?action=notification';
+	location.href=location.href.split('?')[0]+'?action=notifications';
+});
+$('#customers').click(function(e){
+	location.href=location.href.split('?')[0]+'?action=customers';
+});
+$('#suppliers').click(function(e){
+	location.href=location.href.split('?')[0]+'?action=suppliers';
 });
 $('#next').click(function(event){
 	if($('.current').next().length){
@@ -1080,6 +1159,7 @@ $('#next').click(function(event){
 });
 $('#prev').click(function(event){
 	if($('.current').prev().length){
+		if($('.current').prev().attr('id')=='intro')return;
 		var className='active-circle';
 		$('.'+className).removeClass(className).prev().addClass(className);
 		var prev=$('.current').prev().attr('id');
@@ -1095,14 +1175,5 @@ $('#prev').click(function(event){
 	}
 });
 $('.create_project').click(function(){
-	var modal=$('#project-modal').modal('show');
-});
-$('[data-action=create-project]').click(function(e){
-	var modal=$('#project-modal').modal('show');
-
-	Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response1){
-		Project.load(response1.id,function(response2){
-			Project.render(response2,$('#intro'));
-		});
-	});
+	var modal=$('#bootstrap-modal').modal('show');
 });

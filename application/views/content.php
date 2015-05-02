@@ -1,5 +1,6 @@
 <div id='content'>
 	<div style='position: fixed;right: 0px;z-index: 1;background-color: #FFFFFF;padding: 5px;'><a href='index.php/logout'>Log Out</a></div>
+	
 	<div class='candidate' id='gallery-panel'>
 		<nav>
 			<div id="up" style="visibility: hidden;"></div>
@@ -9,6 +10,27 @@
 		</nav>
 		<div id='gallery'>
 		</div>
+	</div>
+	<div class='candidate' id='clock-panel'>
+		<div id="clock" class="clock"><div style="font-size:20px;float:left;width:182px;">2. May 2015</div><div style="font-size:20px;float:left;">12:39:11</div><div style="clear:both;"></div></div>
+		<style>
+			.clock{
+				position: fixed;
+				font-family: digit;
+				top: 30px;
+			}
+		</style>
+		<script type='text/javascript'>
+		
+			function update() {
+			  $('#clock').html('<div style="font-size:20px;float:left;width:182px;">'+moment().format('D. MMMM YYYY')+'</div><div style="font-size:20px;float:left;">'+moment().format('H:mm:ss')+'</div><div style="clear:both;"></div>');
+			}
+			setInterval(update, 1000);
+
+		</script>
+	</div>
+	<div class='candidate' id='breadcrumb-panel'>
+		<div style='position:fixed;top: 65px;color: #075626;  font-size: 20px;font-family: schoolmedium;'>Projects > <a href='#bootstrap' id='pname'>Project Name</a></div>
 	</div>
 	<div class='candidate' id='project-panel' style='float:right;width:75%;'>
 		<div id="intro" class="current page" style='display:none;'>
@@ -35,33 +57,10 @@
 	<div class='candidate' id='notification-panel'>
 		
 	</div>
-</div>
-<div class="modal fade" id="project-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Project</h4>
-			</div>
-			<div class="modal-body">
-				<h6>Create new Project</h6>
-				<div class="input-group">
-					<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Project Name</button>
-					</span>
-					<input id='project_name' type="text" class="form-control" placeholder="">
-				</div><!-- /input-group -->
-				<div class="input-group">
-					<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Project Description</button>
-					</span>
-					<input id='project_description' type="text" class="form-control" placeholder="">
-				</div><!-- /input-group -->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-action="create-project">Create</button>
-			</div>
-		</div>
+	<div class='candidate' id='customers-panel'>
+		
+	</div>
+	<div class='candidate' id='suppliers-panel'>
+		
 	</div>
 </div>

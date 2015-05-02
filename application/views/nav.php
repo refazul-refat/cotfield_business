@@ -4,7 +4,13 @@
 <div id="nav">
 	<a href="javascript:;" class="links "><span class="bg"></span>Projects</a>
 	<a href="javascript:;" class="links " id="notifications"><span class="bg"></span>Notifications</a>
-	<a href="javascript:;" class="links "><span class="bg"></span>Customers</a>
+	<a href="javascript:;" class="links " id="customers"><span class="bg"></span>Customers</a>
+	<a href="javascript:;" class="links " id="suppliers"><span class="bg"></span>Suppliers</a>
+	<a href="javascript:;" class="links " id="progresses"><span class="bg"></span>Progress</a>
+	<!--
+	<a href="javascript:;" class="links "><span class="bg"></span>Activities</a>
+	-->
+	<!--
 	<a href="javascript:void()" class="links "><span class="bg"></span>Gallery</a>
 		<div class="sublinks" style="display: none;">
 			<ul>
@@ -12,10 +18,32 @@
 				<li><a href="http://www.rozaproperties.com/available-jobs" id="available-jobs" class="">Available Jobs</a></li>																																						
 			</ul>
 		</div>
+	-->
 </div>
-<div style='position: fixed;z-index: 10000;bottom: 10px;left: 28px;'>
+<div style='position: fixed;z-index: 10000;bottom: 120px;left: 28px;'>
 	<button class='create_project btn btn-success'>Create New Project</button>
 </div>
+<footer>
+	<nav id="internal">
+		<ul>
+			<li><a href="#">Newsletter</a></li>
+			<li><a href="http://www.rozaproperties.com/event" id="event">Event</a></li>
+			<li><a href="http://www.rozaproperties.com/location" id="location">Location</a></li>
+			<li><a href="http://www.rozaproperties.com/contact" id="contact">Contact</a></li>
+			<li><a href="http://www.rozaproperties.com/site-map" id="site-map">Site Map</a></li>
+			<li><a href="http://www.rozaproperties.com/legal-terms" id="legal-terms">Legal Terms</a></li>
+		</ul>
+	</nav>
+	<nav id="external">
+		<ul>
+			<li><a href="https://www.facebook.com/rozaproperties" target="_blank" class="facebook">Facebook</a></li>
+			<li><a href="https://twitter.com/RozaProperties" target="_blank" class="twitter">Twitter</a></li>
+			<li><a href="#" target="_blank" class="youtube">Youtube</a></li>
+			<li class="last-child"><a href="#" target="_blank" class="puig">Puig</a></li>							
+		</ul>
+	</nav>
+</footer>
+
 <div id="svgContainer">
 </div>
 <script type='text/javascript'>
