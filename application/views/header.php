@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title> ZTREE DEMO - Async</title>
+		<title>Cotfield - ERP</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<link rel="stylesheet" href="assets/css/jqueryui/jquery-ui.min.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/jqueryui/jquery-ui.theme.min.css" type="text/css">
