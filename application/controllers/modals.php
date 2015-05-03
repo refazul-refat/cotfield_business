@@ -63,19 +63,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Product Name</button>
 							</div>
-							<input id="product_name" type="text" class="form-control">
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Product Type</button>
-							</div>
-							<div>
-								<select id="product_type" class="form-control" name="product_type">
-									<option value="type1">Type 1</option>
-									<option value="type2">Type 2</option>
-									<option value="type3">Type 3</option>
-								</select>
-							</div>
+							<input id="product_name" type="text" class="form-control" value='Raw Cotton'>
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -83,9 +71,16 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="product_origin" class="form-control" name="product_origin">
-									<option value="origina">Origin A</option>
-									<option value="originb">Origin B</option>
-									<option value="originc">Origin C</option>
+									<option value="india">India</option>
+									<option value="china">China</option>
+									<option value="australia">Australia</option>
+									<option value="usa">USA</option>
+									<option value="pakistan">Pakistan</option>
+									<option value="brazil">Brazil</option>
+									<option value="uzbekistan">Uzbekistan</option>
+									<option value="turkey">Turkey</option>
+									<option value="argentina">Argentina</option>
+									<option value="turkmenistan">Turkmenistan</option>
 								</select>
 							</div>
 						</div>
@@ -95,8 +90,8 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="product_quality" class="form-control" name="product_quality">
-									<option value="sonkar6">Sankar 6</option>
-									<option value="premium">Premium</option>
+									<option value="shankar6organic">Shankar 6 Organic</option>
+									<option value="shankar6premium">Shankar 6 Premium</option>
 								</select>
 							</div>
 						</div>
@@ -106,12 +101,13 @@ class Modals extends CI_Controller {
 							</div>
 							<input id="product_quantity" type="text" class="form-control">
 							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">Unit</span> <span class="caret"></span></button>
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">M/TON</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_quantity">
 									<li class="item"><a data-value="mton">M/TON</a></li>
 									<li class="item"><a data-value="lbs">LBS</a></li>
+									<li class="item"><a data-value="kgs">KGS</a></li>
 								</ul>
-								<input id="product_unit_quantity" type="hidden">
+								<input id="product_unit_quantity" type="hidden" value='mton'>
 							</div>
 						</div>
 						<div class="input-group">
@@ -120,14 +116,14 @@ class Modals extends CI_Controller {
 							</div>
 							<input id="product_unit_price" type="text" class="form-control">
 							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">Unit</span> <span class="caret"></span></button>
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USD</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_price_currency">
 									<li class="item"><a data-value="usd">USD</a></li>
 									<li class="item"><a data-value="gbp">GBP</a></li>
 									<li class="item"><a data-value="inr">INR</a></li>
 									<li class="item"><a data-value="bdt">BDT</a></li>
 								</ul>
-								<input id="product_unit_price_currency" type="hidden">
+								<input id="product_unit_price_currency" type="hidden" value="usd">
 							</div>
 						</div>
 					</div>

@@ -135,8 +135,8 @@ Contract={
 							}
 						}
 					}
-					$('.edit-button').unbind('click');
-					$('.edit-button').click(function(e){
+					$('.edit-button[data-step="contract"]').unbind('click');
+					$('.edit-button[data-step="contract"]').click(function(e){
 						var current=$(this).attr('data-step');
 						
 						$('#'+current+'-modal').modal('show');

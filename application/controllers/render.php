@@ -29,7 +29,7 @@ class Render extends CI_Controller {
 	public function product(){
 		?>
 		<div>
-			<div class="header">Product<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Product<span data-step='product' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Product Name</div>

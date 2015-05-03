@@ -370,14 +370,13 @@ var Config={
 		id:'product',
 		caption:'Product',
 		fields:{
-			name:{class:'name',caption:'Product Name',save_id:'product_name',type:'string'},
-			type:{class:'type',caption:'Product Type',save_id:'product_type',type:'select',options:{'type1':{caption:'Type 1'},'type2':{caption:'Type 2'},'type3':{caption:'Type 3'}}},
-			origin:{class:'origin',caption:'Product Origin',save_id:'product_origin',type:'select',options:{'origina':{caption:'Origin A'},'originb':{caption:'Origin B'},'originc':{caption:'Origin C'}}},
-			quality:{class:'quality',caption:'Product Quality',save_id:'product_quality',type:'select',options:{sonkar6:{caption:'Sankar 6'},premium:{caption:'Premium'}}},
-			quantity:{class:'quantity',caption:'Product Quantity',save_id:'product_quantity',type:'number'},
-			unit_quantity:{class:'unit_quantity',save_id:'product_unit_quantity',type:'select',options:{'mton':{caption:'M/TON'},'lbs':{caption:'LBS'}}},
-			unit_price:{class:'unit_price',caption:'Product Unit Price',save_id:'product_unit_price',type:'number'},
-			unit_price_currency:{class:'unit_price_currency',save_id:'product_unit_price_currency',type:'select',options:{'usd':{caption:'USD'},'gbp':{caption:'GBP'},'inr':{caption:'INR'},'bdt':{caption:'BDT'}}}
+			product_name:{caption:'Product Name',save_id:'product_name',type:'string'},
+			product_origin:{caption:'Product Origin',save_id:'product_origin',type:'select',options:{}},
+			product_quality:{caption:'Product Quality',save_id:'product_quality',type:'select',options:{}},
+			product_quantity:{caption:'Product Quantity',save_id:'product_quantity',type:'number'},
+			product_unit_quantity:{save_id:'product_unit_quantity',type:'select',options:{}},
+			product_unit_price:{caption:'Product Unit Price',save_id:'product_unit_price',type:'number'},
+			product_unit_price_currency:{save_id:'product_unit_price_currency',type:'select',options:{}}
 		}
 	},
 	contract:{
