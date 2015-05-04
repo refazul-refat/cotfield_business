@@ -33,16 +33,24 @@
 		<div style='position:fixed;top: 65px;color: #075626;  font-size: 20px;font-family: schoolmedium;'>Projects > <a href='#bootstrap' id='pname'>Project Name</a></div>
 	</div>
 	<div class='candidate' id='project-panel' style='float:right;width:75%;'>
-		<div id="intro" class="current page" style='display:none;'>
-			<div class='header'>Project</div>
-			<div class='content'>
-				<div class='unit-container'>
-					<div class='caption'>Project Name</div>
-					<div class='value name'>Test Project</div>
+		<div id="bootstrap" class="page current">
+			<div class="header">Project<span data-step='bootstrap' class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="content">
+				<div class="unit-container">
+					<div class="caption">Project ID</div>
+					<div id="render-project_name" class="value"></div>
 				</div>
-				<div class='unit-container'>
-					<div class='caption'>Project Description</div>
-					<div class='value description'>Sample Description goes here</div>
+				<div class="unit-container">
+					<div class="caption">Project Description</div>
+					<div id='render-project_description' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Customer</div>
+					<div id='render-project_customer' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Supplier</div>
+					<div id='render-project_supplier' class="value"></div>
 				</div>
 			</div>
 		</div>

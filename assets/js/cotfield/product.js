@@ -89,13 +89,14 @@ Product={
 		});
 	},
 	render:function(object){
-		var target=$('#product');
+		var target=$('#project-panel');
 		$.ajax({
 			url:'index.php/render/product',
 			method:'GET',
 			statusCode:{
 				200:function(response){
-					$(target).html(response);
+					if(!$('#product').length)
+						$(target).append(response);
 					var fields=Config.product.fields;
 					for(var i in fields){
 						if(fields.hasOwnProperty(i)){
@@ -171,7 +172,7 @@ Product={
 			statusCode:{
 				200:function(response){
 					console.log('product modal loaded');
-					console.log(response);
+					//console.log(response);
 					if(typeof callback==='function')callback(response);
 				}
 			}

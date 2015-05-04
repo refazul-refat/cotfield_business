@@ -28,7 +28,7 @@ class Render extends CI_Controller {
 	}
 	public function product(){
 		?>
-		<div>
+		<div id="product" class="page">
 			<div class="header">Product<span data-step='product' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
@@ -59,7 +59,7 @@ class Render extends CI_Controller {
 	}
 	public function contract(){
 		?>
-		<div>
+		<div id="contract" class="page">
 			<div class="header">Contract<span data-step='contract' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
@@ -90,15 +90,19 @@ class Render extends CI_Controller {
 	public function import_permit(){
 		?>
 		<div id="import_permit" class="page">
-			<div class="header">Import Permit<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Import Permit<span data-step='import_permit' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Import Permit No</div>
-					<div class="value no"></div>
+					<div id="render-import_permit_no" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Import Permit Date</div>
-					<div class="value date"></div>
+					<div id="render-import_permit_date" class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Import Permit Copy</div>
+					<div id="render-import_permit_copy" class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -107,31 +111,35 @@ class Render extends CI_Controller {
 	public function lc(){
 		?>
 		<div id="lc" class="page">
-			<div class="header">LC<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">LC<span data-step='lc' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">LC No</div>
-					<div class="value no"></div>
+					<div id="render-lc_no" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Issue Date</div>
-					<div class="value issue_date"></div>
+					<div id="render-lc_issue_date" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">LC Type</div>
-					<div class="value type"></div>
+					<div id="render-lc_type" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Opening Bank</div>
-					<div class="value opening_bank"></div>
+					<div id="render-lc_opening_bank" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Receiving Bank</div>
-					<div class="value receiving_bank"></div>
+					<div id="render-lc_receiving_bank" class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">LC Copy</div>
+					<div id="render-lc_copy" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Maturity Notification</div>
-					<div class="value maturity_notification"></div>
+					<div id="render-lc_maturity_notification" class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -140,31 +148,31 @@ class Render extends CI_Controller {
 	public function shipment(){
 		?>
 		<div id="shipment" class="page">
-			<div class="header">Shipment<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Shipment<span data-step="shipment" class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Date of Shipment</div>
-					<div class="value date"></div>
+					<div id="render-shipment_date" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Shipment Type</div>
-					<div class="value type"></div>
+					<div id="render-shipment_type" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Partial Shipment</div>
-					<div class="value partial_shipment"></div>
+					<div id="render-shipment_partial" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Transshipment</div>
-					<div class="value transshipment"></div>
+					<div id="render-shipment_transshipment" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Port of Loading</div>
-					<div class="value loading_port"></div>
+					<div id="render-shipment_loading_port" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Port of Discharge</div>
-					<div class="value discharge_port"></div>
+					<div id="render-shipment_discharge_port" class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -173,39 +181,39 @@ class Render extends CI_Controller {
 	public function document(){
 		?>
 		<div id="document" class="page">
-			<div class="header">Documents<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Documents<span data-step='document' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Commercial Invoice</div>
-					<div class="value commercial_invoice"></div>
+					<div id="render-document_commercial_invoice" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Packing List</div>
-					<div class="value packing_list"></div>
+					<div id="render-document_packing_list" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Bill of Lading</div>
-					<div class="value lading_bill"></div>
+					<div id="render-document_lading_bill" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Phytosanitary Certificate</div>
-					<div class="value phytosanitary_certificate"></div>
+					<div id='render-document_phytosanitary_certificate' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Origin Certificate</div>
-					<div class="value origin_certificate"></div>
+					<div id='render-document_origin_certificate' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Shipment Advice</div>
-					<div class="value shipment_advice"></div>
+					<div id='render-document_shipment_advice' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Controller Letter</div>
-					<div class="value controller_letter"></div>
+					<div id='render-document_controller_letter' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Fumigation Letter</div>
-					<div class="value fumigation_letter"></div>
+					<div id='render-document_fumigation_letter' class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -214,31 +222,31 @@ class Render extends CI_Controller {
 	public function transshipment(){
 		?>
 		<div id="transshipment" class="page">
-			<div class="header">Transshipment<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Transshipment<span data-step="transshipment" class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Original Document Arrival</div>
-					<div class="value original_document_arrival"></div>
+					<div id="render-transshipment_original_document_arrival" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Payment Notification</div>
-					<div class="value payment_notification"></div>
+					<div id="render-transshipment_payment_notification" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Vessel Track No</div>
-					<div class="value vessel_track_no"></div>
+					<div id="render-transshipment_vessel_track_no" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Transshipment Date</div>
-					<div class="value date"></div>
+					<div id="render-transshipment_date" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Transshipment Port</div>
-					<div class="value port"></div>
+					<div id="render-transshipment_port" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Buyer Notification</div>
-					<div class="value buyer_notification"></div>
+					<div id="render-transshipment_buyer_notification" class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -247,19 +255,20 @@ class Render extends CI_Controller {
 	public function port(){
 		?>
 		<div id="port" class="page">
-			<div class="header">Port<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Port<span data-step='port' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
-					<div class="caption">Buyer"s C&amp;F</div>
-					<div class="value buyer_cnf"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Buyer"s Clearance</div>
-					<div class="value buyer_clearance"></div>
+					<div class="caption">Buyer's C & F</div>
+					<div id='render-port_buyer_cnf' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Clearance Document</div>
-					<div class="value clearance_document"></div>
+					<div id='render-port_clearance_document' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Invoice Weight</div>
+					<div id="render-port_invoice_weight" class="value"></div>
+					<div id="render-port_invoice_weight_unit" class="value dependent"></div>
 				</div>
 			</div>
 		</div>
@@ -268,36 +277,24 @@ class Render extends CI_Controller {
 	public function controller(){
 		?>
 		<div id="controller" class="page">
-			<div class="header">Controller<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Controller<span data-step='controller' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Controller Company</div>
-					<div class="value company"></div>
+					<div id="render-controller_company" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Weight Finalization Area</div>
-					<div class="value weight_finalization_area"></div>
+					<div id="render-controller_weight_finalization_area" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Final Weight</div>
-					<div class="value final_weight"></div>
-					<div class="value final_weight_unit dependent"></div>
+					<div id="render-controller_final_weight" class="value"></div>
+					<div id="render-controller_final_weight_unit" class="value dependent"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Weight Claim</div>
-					<div class="value weight_claim"></div>
-					<div class="value weight_claim_unit dependent"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Unit Price</div>
-					<div class="value unit_price"></div>
-					<div class="value unit_price_currency dependent"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Claim Amount</div>
-					<div class="value claim_amount"></div>
-					<div class="value claim_amount_unit dependent"></div>
-					<div class="value landing_report dependent"></div>
+					<div class="caption">Landing Report</div>
+					<div id='render-controller_landing_report' class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -306,28 +303,23 @@ class Render extends CI_Controller {
 	public function payment(){
 		?>
 		<div id="payment" class="page">
-			<div class="header">Payment<span class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Payment<span data-step='payment' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Supplier Clearance</div>
-					<div class="value supplier_clearance"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Commission Amount</div>
-					<div class="value commission_amount"></div>
-					<div class="value commission_amount_unit dependent"></div>
+					<div id='render-payment_supplier_clearance' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Receiving Date</div>
-					<div class="value receiving_date"></div>
+					<div id='render-payment_receiving_date' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Late Payment</div>
-					<div class="value late_payment"></div>
+					<div id='render-payment_late_payment' class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Buyer"s Bank Payment</div>
-					<div class="value buyer_bank_payment"></div>
+					<div class="caption">Payment Document</div>
+					<div id='render-payment_payment_document' class="value"></div>
 				</div>
 			</div>
 		</div>

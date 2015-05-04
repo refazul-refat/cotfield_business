@@ -29,6 +29,15 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="customer" class="form-control" name="customer">
+									<option value="1">Advance Trading</option>
+									<option value="2">Al- Haj Karim Textile Mills Ltd.</option>
+									<option value="3">Asia Composite Mills Ltd/ RMT Spinning Mills Ltd.</option>
+									<option value="4">Badar Spinning Mills Ltd./M.M Spinning Mills Ltd.</option>
+									<option value="5">Fariha Spinning Mills.</option>
+									<option value="6">G. R Traders</option>
+									<option value="7">Hajee Hashem Spinning Mills Ltd.</option>
+									<option value="8">Hajrat  Amanat Shah Spinning Mills Ltd.</option>
+									<option value="9">Mosharaf Composite Textile Mills Ltd</option>
 								</select>
 							</div>
 						</div>
@@ -37,7 +46,18 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Supplier</button>
 							</div>
 							<div>
-								<select id="supplier" class="form-control" name="supplier"></select>
+								<select id="supplier" class="form-control" name="supplier">
+									<option value="1">Olam International Ltd.</option>
+									<option value="2">Paul Rain hart AG. Switzerland</option>
+									<option value="3">Dhancot Fiber (PVT) Kolkata</option>
+									<option value="4">Sunny Trexim (PVT) Ltd. Kolkata</option>
+									<option value="5">DP Cotton, Gujarat</option>
+									<option value="6">Raghunath Agrotech, Adilabad</option>
+									<option value="7">Manjeet Cotton (PVT) Ltd. Aurangabad</option>
+									<option value="8">Agrocorp International PTE Ltd.</option>
+									<option value="9">Panasian Impex Privet Ltd.</option>
+									<option value="10">COTTON CORPORATION OF INDIAN</option>
+								</select>
 							</div>
 						</div>
 					</div>
@@ -71,16 +91,16 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="product_origin" class="form-control" name="product_origin">
-									<option value="india">India</option>
-									<option value="china">China</option>
-									<option value="australia">Australia</option>
-									<option value="usa">USA</option>
-									<option value="pakistan">Pakistan</option>
-									<option value="brazil">Brazil</option>
-									<option value="uzbekistan">Uzbekistan</option>
-									<option value="turkey">Turkey</option>
-									<option value="argentina">Argentina</option>
-									<option value="turkmenistan">Turkmenistan</option>
+									<option value="India">India</option>
+									<option value="China">China</option>
+									<option value="Australia">Australia</option>
+									<option value="USA">USA</option>
+									<option value="Pakistan">Pakistan</option>
+									<option value="Brazil">Brazil</option>
+									<option value="Uzbekistan">Uzbekistan</option>
+									<option value="Turkey">Turkey</option>
+									<option value="Argentina">Argentina</option>
+									<option value="Turkmenistan">Turkmenistan</option>
 								</select>
 							</div>
 						</div>
@@ -90,8 +110,8 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="product_quality" class="form-control" name="product_quality">
-									<option value="shankar6organic">Shankar 6 Organic</option>
-									<option value="shankar6premium">Shankar 6 Premium</option>
+									<option value="Shankar 6 Organic">Shankar 6 Organic</option>
+									<option value="Shankar 6 Premium">Shankar 6 Premium</option>
 								</select>
 							</div>
 						</div>
@@ -103,9 +123,9 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">M/TON</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_quantity">
-									<li class="item"><a data-value="mton">M/TON</a></li>
-									<li class="item"><a data-value="lbs">LBS</a></li>
-									<li class="item"><a data-value="kgs">KGS</a></li>
+									<li class="item"><a data-value="M/TON">M/TON</a></li>
+									<li class="item"><a data-value="LBS">LBS</a></li>
+									<li class="item"><a data-value="KGS">KGS</a></li>
 								</ul>
 								<input id="product_unit_quantity" type="hidden" value='mton'>
 							</div>
@@ -118,10 +138,10 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USD</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_price_currency">
-									<li class="item"><a data-value="usd">USD</a></li>
-									<li class="item"><a data-value="gbp">GBP</a></li>
-									<li class="item"><a data-value="inr">INR</a></li>
-									<li class="item"><a data-value="bdt">BDT</a></li>
+									<li class="item"><a data-value="USD">USD</a></li>
+									<li class="item"><a data-value="GBP">GBP</a></li>
+									<li class="item"><a data-value="INR">INR</a></li>
+									<li class="item"><a data-value="BDT">BDT</a></li>
 								</ul>
 								<input id="product_unit_price_currency" type="hidden" value="usd">
 							</div>
@@ -171,7 +191,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-contract_commission_rate_unit">%</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="contract_commission_rate_unit">
-									<li class="item"><a data-value="percent">%</a></li>
+									<li class="item"><a data-value="%">%</a></li>
 								</ul>
 								<input id="contract_commission_rate_unit" type="hidden" value='%'>
 							</div>
@@ -214,7 +234,16 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Import Permit Date</button>
 							</div>
-							<input id="import_permit_date" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="import_permit_date" class="form-control" data-type="date" type="text">
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Import Permit Copy</button>
+							</div>
+							<input id="import_permit_copy" name="import_permit_copy" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-import_permit_copy" action="http://api.cotfield.com/v1/upload" data-target="import_permit_copy">
+								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+							</form>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -245,7 +274,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Issue Date</button>
 							</div>
-							<input id="lc_issue_date" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="lc_issue_date" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -253,8 +282,9 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="lc_type" class="form-control" name="lc_type">
-									<option value="a">A</option>
-									<option value="b">B</option>
+									<option value="Deferred LC">Deferred LC</option>
+									<option value="Site LC">Site LC</option>
+									<option value="Upas LC">Upas LC</option>
 								</select>
 							</div>
 						</div>
@@ -264,8 +294,18 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="lc_opening_bank" class="form-control" name="lc_opening_bank">
-									<option value="dbbl">DBBL</option>
-									<option value="hsbc">HSBC</option>
+									<option value="Catholic Syrian Bank">Catholic Syrian Bank</option>
+									<option value="City Union Bank">City Union Bank</option>
+									<option value="Federal Bank">Federal Bank</option>
+									<option value="Jammu and Kashmir Bank">Jammu and Kashmir Bank</option>
+									<option value="U.P Agro Corporation Bank">U.P Agro Corporation Bank</option>
+									<option value="South Indian Bank">South Indian Bank</option>
+									<option value="Bank of India">Bank of India</option>
+									<option value="Bank of Maharashtra">Bank of Maharashtra</option>
+									<option value="Central Bank of India">Central Bank of India</option>
+									<option value="Corporation Bank">Corporation Bank</option>
+									<option value="Indian Overseas Bank">Indian Overseas Bank</option>
+									<option value="Oriental Bank of Commerce">Oriental Bank of Commerce</option>
 								</select>
 							</div>
 						</div>
@@ -275,16 +315,45 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="lc_receiving_bank" class="form-control" name="lc_receiving_bank">
-									<option value="standard_chartered">Standard Chartered</option>
-									<option value="brac">BRAC</option>
+									<option value="AB Bank Limited">AB Bank Limited</option>
+									<option value="Bangladesh Commerce Bank Limited">Bangladesh Commerce Bank Limited</option>
+									<option value="Bank Asia Limited">Bank Asia Limited</option>
+									<option value="BRAC Bank Limited">BRAC Bank Limited</option>
+									<option value="Dhaka Bank Limited">Dhaka Bank Limited</option>
+									<option value="Dutch Bangla Bank Limited">Dutch Bangla Bank Limited</option>
+									<option value="Eastern Bank Limited">Eastern Bank Limited</option>
+									<option value="IFIC Bank Limited">IFIC Bank Limited</option>
+									<option value="Jamuna Bank Limited">Jamuna Bank Limited</option>
+									<option value="Mercantile Bank Limited">Mercantile Bank Limited</option>
+									<option value="Midland Bank Limited">Midland Bank Limited</option>
+									<option value="Modhumoti Bank Limited">Modhumoti Bank Limited</option>
+									<option value="Mutual Trust Bank Limited">Mutual Trust Bank Limited</option>
+									<option value="National Bank Limited">National Bank Limited</option>
+									<option value="NCC Bank Limited">NCC Bank Limited</option>
+									<option value="NRB Bank Limited">NRB Bank Limited</option>
+									<option value="NRB Commercial Bank Limited">NRB Commercial Bank Limited</option>
+									<option value="NRB Global Bank Limited">NRB Global Bank Limited</option>
+									<option value="One Bank Limited">One Bank Limited</option>
+									<option value="Prime Bank Limited">Prime Bank Limited</option>
+									<option value="Pubali Bank Limited">Pubali Bank Limited</option>
+									<!--<option value="brac">BRAC</option>-->
 								</select>
 							</div>
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">LC Copy</button>
+							</div>
+							<input id="lc_copy" name="lc_copy" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-lc_copy" action="http://api.cotfield.com/v1/upload" data-target="lc_copy">
+								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+							</form>
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Maturity Notification</button>
 							</div>
-							<input id="maturity_notification" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="lc_maturity_notification" class="form-control" data-type="date" type="text">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -309,7 +378,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Date of Shipment</button>
 							</div>
-							<input id="shipment_date" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="shipment_date" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -317,8 +386,8 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="shipment_type" class="form-control" name="shipment_type">
-									<option value="road">By Road</option>
-									<option value="air">By Air</option>
+									<option value="By Road">By Road</option>
+									<option value="By Sea">By Sea</option>
 								</select>
 							</div>
 						</div>
@@ -327,9 +396,9 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Partial Shipment</button>
 							</div>
 							<div>
-								<select id="partial_shipment" class="form-control" name="partial_shipment">
-									<option value="yes">Allowed</option>
-									<option value="no">Not Allowed</option>
+								<select id="shipment_partial" class="form-control" name="shipment_partial">
+									<option value="Allowed">Allowed</option>
+									<option value="Not Allowed">Not Allowed</option>
 								</select>
 							</div>
 						</div>
@@ -338,9 +407,9 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Transshipment</button>
 							</div>
 							<div>
-								<select id="transshipment" class="form-control" name="transshipment">
-									<option value="yes">Allowed</option>
-									<option value="no">Not Allowed</option>
+								<select id="shipment_transshipment" class="form-control" name="shipment_transshipment">
+									<option value="Allowed">Allowed</option>
+									<option value="Not Allowed">Not Allowed</option>
 								</select>
 							</div>
 						</div>
@@ -349,10 +418,14 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Port of Loading</button>
 							</div>
 							<div>
-								<select id="loading_port" class="form-control" name="loading_port">
-									<option value="a">A</option>
-									<option value="b">B</option>
-									<option value="c">C</option>
+								<select id="shipment_loading_port" class="form-control" name="shipment_loading_port">
+									<option value="Port George IV">Port George IV</option>
+									<option value="Port of Geraldton">Port of Geraldton</option>
+									<option value="Geranium Harbour">Geranium Harbour</option>
+									<option value="Port Gregory">Port Gregory</option>
+									<option value="Port Grey">Port Grey</option>
+									<option value="Port Harding">Port Harding</option>
+									<option value="Port Hedland">Port Hedland</option>
 								</select>
 							</div>
 						</div>
@@ -361,9 +434,9 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Port of Discharge</button>
 							</div>
 							<div>
-								<select id="discharge_port" class="form-control" name="discharge_port">
-									<option value="d">D</option>
-									<option value="e">E</option>
+								<select id="shipment_discharge_port" class="form-control" name="shipment_discharge_port">
+									<option value="Port of Chittagong">Port of Chittagong</option>
+									<option value="Port of Mongla">Port of Mongla</option>
 								</select>
 							</div>
 						</div>
@@ -390,8 +463,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Commercial Invoice</button>
 							</div>
-							<input id="commercial_invoice" name="commercial_invoice" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-commercial_invoice" action="http://api.cotfield.com/v1/upload" data-target="commercial_invoice">
+							<input id="document_commercial_invoice" name="document_commercial_invoice" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_commercial_invoice" action="http://api.cotfield.com/v1/upload" data-target="document_commercial_invoice">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -399,8 +472,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Packing List</button>
 							</div>
-							<input id="packing_list" name="packing_list" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-packing_list" action="http://api.cotfield.com/v1/upload" data-target="packing_list">
+							<input id="document_packing_list" name="document_packing_list" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_packing_list" action="http://api.cotfield.com/v1/upload" data-target="document_packing_list">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -408,8 +481,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Bill of Lading</button>
 							</div>
-							<input id="lading_bill" name="lading_bill" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-lading_bill" action="http://api.cotfield.com/v1/upload" data-target="lading_bill">
+							<input id="document_lading_bill" name="document_lading_bill" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_lading_bill" action="http://api.cotfield.com/v1/upload" data-target="document_lading_bill">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -417,8 +490,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Phytosanitary Certificate</button>
 							</div>
-							<input id="phytosanitary_certificate" name="phytosanitary_certificate" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-phytosanitary_certificate" action="http://api.cotfield.com/v1/upload" data-target="phytosanitary_certificate">
+							<input id="document_phytosanitary_certificate" name="document_phytosanitary_certificate" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_phytosanitary_certificate" action="http://api.cotfield.com/v1/upload" data-target="document_phytosanitary_certificate">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -426,8 +499,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Origin Certificate</button>
 							</div>
-							<input id="origin_certificate" name="origin_certificate" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-origin_certificate" action="http://api.cotfield.com/v1/upload" data-target="origin_certificate">
+							<input id="document_origin_certificate" name="document_origin_certificate" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_origin_certificate" action="http://api.cotfield.com/v1/upload" data-target="document_origin_certificate">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -435,8 +508,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Shipment Advice</button>
 							</div>
-							<input id="shipment_advice" name="shipment_advice" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-shipment_advice" action="http://api.cotfield.com/v1/upload" data-target="shipment_advice">
+							<input id="document_shipment_advice" name="document_shipment_advice" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_shipment_advice" action="http://api.cotfield.com/v1/upload" data-target="document_shipment_advice">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -444,8 +517,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Controller Letter</button>
 							</div>
-							<input id="controller_letter" name="controller_letter" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-controller_letter" action="http://api.cotfield.com/v1/upload" data-target="controller_letter">
+							<input id="document_controller_letter" name="document_controller_letter" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_controller_letter" action="http://api.cotfield.com/v1/upload" data-target="document_controller_letter">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -453,8 +526,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Fumigation Letter</button>
 							</div>
-							<input id="fumigation_letter" name="fumigation_letter" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-fumigation_letter" action="http://api.cotfield.com/v1/upload" data-target="fumigation_letter">
+							<input id="document_fumigation_letter" name="document_fumigation_letter" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-document_fumigation_letter" action="http://api.cotfield.com/v1/upload" data-target="document_fumigation_letter">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
@@ -481,25 +554,25 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Original Document Arrival</button>
 							</div>
-							<input id="original_document_arrival" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="transshipment_original_document_arrival" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Payment Notification</button>
 							</div>
-							<input id="payment_notification" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="transshipment_payment_notification" class="form-control date hasDatepicker" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Vessel Track No</button>
 							</div>
-							<input id="vessel_track_no" type="text" class="form-control">
+							<input id="transshipment_vessel_track_no" type="text" class="form-control">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Transshipment Date</button>
 							</div>
-							<input id="transshipment_date" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="transshipment_date" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -507,8 +580,9 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="transshipment_port" class="form-control" name="transshipment_port">
-									<option value="a">A</option>
-									<option value="b">B</option>
+									<option value="Port of Colombo">Port of Colombo</option>
+									<option value="Port of Singapour">Port of Singapour</option>
+									<option value="Port Klang">Port Klang</option>
 								</select>
 							</div>
 						</div>
@@ -516,7 +590,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Buyer Notification</button>
 							</div>
-							<input id="buyer_notification" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="transshipment_buyer_notification" class="form-control" data-type="date" type="text">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -539,29 +613,33 @@ class Modals extends CI_Controller {
 					<div class="modal-body">
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Buyer"s C&amp;F</button>
+								<button class="btn btn-default" type="button">Buyer's C & F</button>
 							</div>
-							<input id="buyer_cnf" type="text" class="form-control">
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Buyer"s Clearance</button>
-							</div>
-							<div>
-								<select id="buyer_clearance" class="form-control" name="buyer_clearance">
-									<option value="a">A</option>
-									<option value="b">B</option>
-								</select>
-							</div>
+							<input id="port_buyer_cnf" type="text" class="form-control">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Clearance Document</button>
 							</div>
-							<input id="clearance_document" name="clearance_document" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-clearance_document" action="http://api.cotfield.com/v1/upload" data-target="clearance_document">
+							<input id="port_clearance_document" name="port_clearance_document" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-port_clearance_document" action="http://api.cotfield.com/v1/upload" data-target="port_clearance_document">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Invoice Weight</button>
+							</div>
+							<input id="port_invoice_weight" type="text" class="form-control">
+							<div class="input-group-btn">
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">Unit</span> <span class="caret"></span></button>
+								<ul class="options dropdown-menu dropdown-menu-right" data-target="port_invoice_weight_unit">
+									<li class="item"><a data-value="M/TONS">M/TONS</a></li>
+									<li class="item"><a data-value="LBS">LBS</a></li>
+									<li class="item"><a data-value="KGS">KGS</a></li>
+								</ul>
+								<input id="port_invoice_weight_unit" type="hidden">
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -593,7 +671,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Weight Finalization Area</button>
 							</div>
 							<div>
-								<select id="weight_finalization_area" class="form-control" name="weight_finalization_area">
+								<select id="controller_weight_finalization_area" class="form-control" name="controller_weight_finalization_area">
 									<option value="port">Port</option>
 									<option value="warehouse">Warehouse</option>
 								</select>
@@ -603,59 +681,25 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Final Weight</button>
 							</div>
-							<input id="final_weight" type="text" class="form-control">
+							<input id="controller_final_weight" type="text" class="form-control">
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">Unit</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="final_weight_unit">
-									<li class="item"><a data-value="lbs">LBS</a></li>
-									<li class="item"><a data-value="kgs">KGS</a></li>
+									<li class="item"><a data-value="M/TONS">M/TONS</a></li>
+									<li class="item"><a data-value="LBS">LBS</a></li>
+									<li class="item"><a data-value="KGS">KGS</a></li>
 								</ul>
-								<input id="final_weight_unit" type="hidden">
+								<input id="controller_final_weight_unit" type="hidden">
 							</div>
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Weight Claim</button>
+								<button class="btn btn-default" type="button">Landing Report</button>
 							</div>
-							<input id="weight_claim" type="text" class="form-control">
-							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-weight_claim_unit">Unit</span> <span class="caret"></span></button>
-								<ul class="options dropdown-menu dropdown-menu-right" data-target="weight_claim_unit">
-									<li class="item"><a data-value="lbs">LBS</a></li>
-									<li class="item"><a data-value="kgs">KGS</a></li>
-								</ul>
-								<input id="weight_claim_unit" type="hidden">
-							</div>
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Unit Price</button>
-							</div>
-							<input id="unit_price" type="text" class="form-control">
-							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-unit_price_currency">Unit</span> <span class="caret"></span></button>
-								<ul class="options dropdown-menu dropdown-menu-right" data-target="unit_price_currency">
-									<li class="item"><a data-value="usd">USD</a></li>
-									<li class="item"><a data-value="gbp">GBP</a></li>
-									<li class="item"><a data-value="inr">INR</a></li>
-									<li class="item"><a data-value="bdt">BDT</a></li>
-								</ul>
-								<input id="unit_price_currency" type="hidden">
-							</div>
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Claim Amount</button>
-							</div>
-							<input id="claim_amount" type="text" class="form-control">
-							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-claim_amount_unit">Unit</span> <span class="caret"></span></button>
-								<ul class="options dropdown-menu dropdown-menu-right" data-target="claim_amount_unit">
-									<li class="item"><a data-value="lbs">LBS</a></li>
-									<li class="item"><a data-value="kgs">KGS</a></li>
-								</ul>
-								<input id="claim_amount_unit" type="hidden">
-							</div>
+							<input id="controller_landing_report" name="controller_landing_report" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-controller_landing_report" action="http://api.cotfield.com/v1/upload" data-target="controller_landing_report">
+								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+							</form>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -681,44 +725,30 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Supplier Clearance</button>
 							</div>
 							<div>
-								<select id="supplier_clearance" class="form-control" name="supplier_clearance">
-									<option value="a">A</option>
-									<option value="b">B</option>
+								<select id="payment_supplier_clearance" class="form-control" name="supplier_clearance">
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
 								</select>
-							</div>
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Commission Amount</button>
-							</div>
-							<input id="commission_amount" type="text" class="form-control">
-							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-commission_amount_unit">Unit</span> <span class="caret"></span></button>
-								<ul class="options dropdown-menu dropdown-menu-right" data-target="commission_amount_unit">
-									<li class="item"><a data-value="lbs">LBS</a></li>
-									<li class="item"><a data-value="kgs">KGS</a></li>
-								</ul>
-								<input id="commission_amount_unit" type="hidden">
 							</div>
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Receiving Date</button>
 							</div>
-							<input id="receiving_date" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="payment_receiving_date" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Late Payment</button>
 							</div>
-							<input id="late_payment" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="payment_late_payment" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Buyer"s Bank Payment</button>
+								<button class="btn btn-default" type="button">Buyer's Bank Payment</button>
 							</div>
-							<input id="buyer_bank_payment" name="buyer_bank_payment" type="hidden">
-							<form class="dropzone dz-clickable" id="dropzone-buyer_bank_payment" action="http://api.cotfield.com/v1/upload" data-target="buyer_bank_payment">
+							<input id="payment_payment_document" name="payment_payment_document" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-payment_payment_document" action="http://api.cotfield.com/v1/upload" data-target="payment_payment_document">
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>

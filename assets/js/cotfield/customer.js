@@ -83,7 +83,7 @@ Customer={
 			statusCode:{
 				200:function(response){
 					console.log('customer modal loaded');
-					console.log('response');
+					//console.log(response);
 					if(typeof callback==='function')callback(response);
 				}
 			}

@@ -89,13 +89,14 @@ Contract={
 		});
 	},
 	render:function(object){
-		var target=$('#contract');
+		var target=$('#project-panel');
 		$.ajax({
 			url:'index.php/render/contract',
 			method:'GET',
 			statusCode:{
 				200:function(response){
-					$(target).html(response);
+					if(!$('#contract').length)
+						$(target).append(response);
 					var fields=Config.contract.fields;
 					for(var i in fields){
 						if(fields.hasOwnProperty(i)){
@@ -111,6 +112,7 @@ Contract={
 								$(selector).css('display','none');
 								var files=object[i.strip()].split(',');
 								for(var x=0;x<files.length;x++){
+									if(files[x]=='')continue;
 								
 									var extension=files[x].split('.').pop();
 									var filename=GetFilename(files[x]);
@@ -119,6 +121,7 @@ Contract={
 									var icon=$('<div>',{class:'doc-icons '+extension}).attr('data-target',nodot);
 									$(icon).click(function(){
 										$('#'+$(this).attr('data-target')).show();
+										console.log($(this).attr('data-target'));
 										$('.global-overlay').show();
 										$('.global-overlay').unbind('click');
 										$('.global-overlay').click(function(){
@@ -171,7 +174,7 @@ Contract={
 			statusCode:{
 				200:function(response){
 					console.log('contract modal loaded');
-					console.log(response);
+					//console.log(response);
 					if(typeof callback==='function')callback(response);
 				}
 			}

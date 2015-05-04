@@ -1,11 +1,17 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['intro','bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
+var steps=['bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
+var loaded_steps=[];
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
-String.prototype.strip=function(){
-	return this.split(/_(.+)?/)[1];
+String.prototype.strip=function(c){
+	if(typeof c==='undefined')
+		return this.split(/_(.+)?/)[1];
+	if(c==2){
+		var temp=this.split(/_(.+)?/)[1];
+		return temp.split(/_(.+)?/)[1];
+	}
 };
 function dropzone(){
 	$('.dropzone').each(function(e){
@@ -47,91 +53,6 @@ function optionpicker(){
 		});
 	});
 }
-$.getScript('assets/js/cotfield/customer.js',function(){
-	console.log('--Customer Loaded--');
-	$.getScript('assets/js/cotfield/supplier.js',function(){
-		console.log('--Supplier Loaded--');
-		$.getScript('assets/js/cotfield/bootstrap.js',function(){
-			console.log('--Bootstrap Loaded--');
-			$.getScript('assets/js/cotfield/product.js',function(){
-				console.log('--Product Loaded--');
-				$.getScript('assets/js/cotfield/contract.js',function(){
-					console.log('--Contract Loaded--');
-					$.getScript('assets/js/cotfield/import_permit.js',function(){
-						console.log('--Import Permit Loaded--');
-						$.getScript('assets/js/cotfield/lc.js',function(){
-							console.log('--LC Loaded--');
-							$.getScript('assets/js/cotfield/shipment.js',function(){
-								console.log('--Shipment Loaded--');
-								$.getScript('assets/js/cotfield/document.js',function(){
-									console.log('--Document Loaded--');
-									$.getScript('assets/js/cotfield/transshipment.js',function(){
-										console.log('--Transshipment Loaded--');
-										$.getScript('assets/js/cotfield/port.js',function(){
-											console.log('--Port Loaded--');
-											$.getScript('assets/js/cotfield/controller.js',function(){
-												console.log('--Controller Loaded--');
-												$.getScript('assets/js/cotfield/payment.js',function(){
-													console.log('--Payment Loaded--');
-													Payment.loadModal(function(response){
-														$('body').append(response);
-														datetimepicker();
-														optionpicker();
-														dropzone();
-													});
-												});
-												Controller.loadModal(function(response){
-													$('body').append(response);
-												});
-											});
-											Port.loadModal(function(response){
-												$('body').append(response);
-											});
-										});
-										Transshipment.loadModal(function(response){
-											$('body').append(response);
-										});
-									});
-									Document.loadModal(function(response){
-										$('body').append(response);
-									});
-								});
-								Shipment.loadModal(function(response){
-									$('body').append(response);
-								});
-							});
-							Lc.loadModal(function(response){
-								$('body').append(response);
-							});
-						});
-						Import_Permit.loadModal(function(response){
-							$('body').append(response);
-						});
-					});
-					Contract.loadModal(function(response){
-						$('body').append(response);
-					});
-					Contract.loadOf(getParameterByName('pid'),function(response){Contract.render(response)});
-				});
-				Product.loadModal(function(response){
-					$('body').append(response);
-				});
-				Product.loadOf(getParameterByName('pid'),function(response){Product.render(response)});
-				
-			});
-			Bootstrap.loadModal(function(response){
-				$('body').append(response);
-			});
-		});
-		Supplier.loadModal(function(response){
-			$('body').append(response);
-		});
-	});
-	Customer.loadModal(function(response){
-		$('body').append(response);
-	});
-});
-///////////////////////////////////////////////////////////////////////////////
 function getParameterByName(name){
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -154,180 +75,126 @@ function stringToDate(s){
 	d.setHours(timeParts[0], timeParts[1], timeParts[2]);
 	return d;
 }
-function save(modal,current,pid){
-	if(current=='customer'){
-		if($('select[name="customer"]').val()==0 || $('select[name="customer"]').val()==undefined){
-			/*
-			Customer.save({customer_name:$('#customer_name').val(),customer_description:$('#customer_description').val()},function(response){
-				Customer.assign({object_id:response.id},pid,function(r){
-					$(modal).modal('hide');
-					window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-					$('.overlay').show();
-					Project.load(pid,function(response){
-						Project.render(response,$('#intro'));
-					});
-				});
-			});
-			*/
-		}
-		else{
-			Customer.assign({object_id:$('select[name="customer"]').val()},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		}
+function detecthash(){
+	var className='active-circle';
+	var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z_]/)[0]:undefined;
+	if(hash!=undefined && $.inArray(hash,loaded_steps)>-1){
+		$('.current').removeClass('current');
+		$('#'+hash).fadeIn().addClass('current');
+		$('.circle').removeClass(className);
+		$('[data-step="'+hash+'"]').addClass(className);
 	}
-	else if(current=='supplier'){
-		if($('select[name="supplier"]').val()==0 || $('select[name="supplier"]').val()==undefined){
-			/*
-			Supplier.save({supplier_name:$('#supplier_name').val(),supplier_description:$('#supplier_description').val()},function(response){
-				Supplier.assign({object_id:response.id},pid,function(r){
-					$(modal).modal('hide');
-					window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-					$('.overlay').show();
-					Project.load(pid,function(response){
-						Project.render(response,$('#intro'));
-					});
-				});
-			});
-			*/
-		}
-		else{
-			Supplier.assign({object_id:$('select[name="supplier"]').val()},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		}
-	}
-	else if(current=='product'){
-		Product.save({product_name:$('#product_name').val(),product_type:$('#product_type').val(),product_origin:$('#product_origin').val(),product_quantity:$('#product_quantity').val(),product_unit_quantity:'lbs',product_unit_price:$('#product_unit_price').val(),product_unit_price_currency:'usd'},function(response){
-			Product.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='contract'){
-		Contract.save({contract_no:$('#contract_no').val(),contract_initiate_date:$('#contract_initiate_date').val(),contract_agreement_date:$('#contract_agreement_date').val(),contract_commission_rate:$('#contract_commission_rate').val(),contract_commission_rate_unit:'lbs',contract_copy:$('#contract_copy').val()},function(response){
-			Contract.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='import_permit'){
-		Import_permit.save({import_permit_no:$('#import_permit_no').val(),import_permit_date:$('#import_permit_date').val()},function(response){
-			Import_permit.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='lc'){
-		Lc.save({lc_no:$('#lc_no').val(),lc_issue_date:$('#lc_issue_date').val(),lc_type:$('#lc_type').val(),lc_opening_bank:$('#lc_opening_bank').val(),lc_receiving_bank:$('#lc_receiving_bank').val(),maturity_notification:$('#maturity_notification').val()},function(response){
-			Lc.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='shipment'){
-		Shipment.save({shipment_date:$('#shipment_date').val(),shipment_type:$('#shipment_type').val(),partial_shipment:$('#partial_shipment').val(),transshipment:$('#transshipment').val(),loading_port:$('#loading_port').val(),discharge_port:$('#discharge_port').val()},function(response){
-			Shipment.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='document'){
-		Document.save({commercial_invoice:$('#commercial_invoice').val(),packing_list:$('#packing_list').val(),lading_bill:$('#lading_bill').val(),phytosanitary_certificate:$('#phytosanitary_certificate').val(),origin_certificate:$('#origin_certificate').val(),shipment_advice:$('#shipment_advice').val(),controller_letter:$('#controller_letter').val(),fumigation_letter:$('#fumigation_letter').val()},function(response){
-			Document.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='transshipment'){
-		Transshipment.save({original_document_arrival:$('#original_document_arrival').val(),payment_notification:$('#payment_notification').val(),vessel_track_no:$('#vessel_track_no').val(),transshipment_date:$('#transshipment_date').val(),transshipment_port:$('#transshipment_port').val(),buyer_notification:$('#buyer_notification').val()},function(response){
-			Transshipment.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='port'){
-		Port.save({buyer_cnf:$('#buyer_cnf').val(),buyer_clearance:$('#buyer_clearance').val(),clearance_document:$('#clearance_document').val()},function(response){
-			Port.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='controller'){
-		Controller.save({controller_company:$('#controller_company').val(),weight_finalization_area:$('#weight_finalization_area').val(),final_weight:$('#final_weight').val(),final_weight_unit:$('#final_weight_unit').val(),weight_claim:$('#weight_claim').val(),weight_claim_unit:$('#weight_claim_unit').val(),unit_price:$('#unit_price').val(),unit_price_currency:$('#unit_price_currency').val(),claim_amount:$('#claim_amount').val(),claim_amount_unit:$('#claim_amount_unit').val()},function(response){
-			Controller.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
-	}
-	else if(current=='payment'){
-		Payment.save({supplier_clearance:$('#supplier_clearance').val(),commission_amount:$('#commission_amount').val(),commission_amount_unit:$('#commission_amount_unit').val(),receiving_date:$('#receiving_date').val(),late_payment:$('#late_payment').val(),buyer_bank_payment:$('#buyer_bank_payment').val()},function(response){
-			Payment.assign({object_id:response.id},pid,function(r){
-				$(modal).modal('hide');
-				window.location=location.href.split('?')[0]+'?pid='+pid+'#'+current;
-				$('.overlay').show();
-				Project.load(pid,function(response){
-					Project.render(response,$('#intro'));
-				});
-			});
-		});
+	else{
+		$('#bootstrap').fadeIn().addClass('current');
 	}
 }
+function load(callback){
+	var loaded=0,rendered=0;
+	$.getScript('assets/js/cotfield/customer.js',function(){
+		console.log('--Customer Loaded--');loaded+=1;
+		$.getScript('assets/js/cotfield/supplier.js',function(){
+			console.log('--Supplier Loaded--');loaded+=1;
+			$.getScript('assets/js/cotfield/bootstrap.js',function(){
+				console.log('--Bootstrap Loaded--');loaded+=1;
+				$.getScript('assets/js/cotfield/product.js',function(){
+					console.log('--Product Loaded--');loaded+=1;
+					$.getScript('assets/js/cotfield/contract.js',function(){
+						console.log('--Contract Loaded--');loaded+=1;
+						$.getScript('assets/js/cotfield/import_permit.js',function(){
+							console.log('--Import Permit Loaded--');loaded+=1;
+							$.getScript('assets/js/cotfield/lc.js',function(){
+								console.log('--LC Loaded--');loaded+=1;
+								$.getScript('assets/js/cotfield/shipment.js',function(){
+									console.log('--Shipment Loaded--');loaded+=1;
+									$.getScript('assets/js/cotfield/document.js',function(){
+										console.log('--Document Loaded--');loaded+=1;
+										$.getScript('assets/js/cotfield/transshipment.js',function(){
+											console.log('--Transshipment Loaded--');loaded+=1;
+											$.getScript('assets/js/cotfield/port.js',function(){
+												console.log('--Port Loaded--');loaded+=1;
+												$.getScript('assets/js/cotfield/controller.js',function(){
+													console.log('--Controller Loaded--');loaded+=1;
+													$.getScript('assets/js/cotfield/payment.js',function(){
+														console.log('--Payment Loaded--');loaded+=1;
+														Payment.loadModal(function(response){
+															$('body').append(response);
+														});
+														Payment.loadOf(getParameterByName('pid'),function(response){Payment.render(response);rendered+=1;});
+													});
+													Controller.loadModal(function(response){
+														$('body').append(response);
+													});
+													Controller.loadOf(getParameterByName('pid'),function(response){Controller.render(response);rendered+=1;});
+												});
+												Port.loadModal(function(response){
+													$('body').append(response);
+												});
+												Port.loadOf(getParameterByName('pid'),function(response){Port.render(response);rendered+=1;});
+											});
+											Transshipment.loadModal(function(response){
+												$('body').append(response);
+											});
+											Transshipment.loadOf(getParameterByName('pid'),function(response){Transshipment.render(response);rendered+=1;});
+										});
+										Document.loadModal(function(response){
+											$('body').append(response);
+										});
+										Document.loadOf(getParameterByName('pid'),function(response){Document.render(response);rendered+=1;});
+									});
+									Shipment.loadModal(function(response){
+										$('body').append(response);
+									});
+									Shipment.loadOf(getParameterByName('pid'),function(response){Shipment.render(response);rendered+=1;});
+								});
+								Lc.loadModal(function(response){
+									$('body').append(response);
+								});
+								Lc.loadOf(getParameterByName('pid'),function(response){Lc.render(response);rendered+=1;});
+							});
+							Import_permit.loadModal(function(response){
+								$('body').append(response);
+							});
+							Import_permit.loadOf(getParameterByName('pid'),function(response){Import_permit.render(response);rendered+=1;});
+						});
+						Contract.loadModal(function(response){
+							$('body').append(response);
+						});
+						Contract.loadOf(getParameterByName('pid'),function(response){Contract.render(response);rendered+=1;});
+					});
+					Product.loadModal(function(response){
+						$('body').append(response);
+					});
+					Product.loadOf(getParameterByName('pid'),function(response){Product.render(response);rendered+=1;});
+				});
+				Bootstrap.loadModal(function(response){
+					$('body').append(response);
+					$('#save-bootstrap').unbind('click');
+					$('#save-bootstrap').click(function(e){
+						Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
+							Customer.assign({object_id:$('#customer').val()},response.id,function(r){});
+							Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){});			
+						});
+					});
+				});
+			});
+			Supplier.loadModal(function(response){
+				$('body').append(response);
+			});
+		});
+		Customer.loadModal(function(response){
+			$('body').append(response);
+		});
+	});
+	var t=setInterval(function(){
+		console.log(loaded,rendered);
+		if(loaded==13 && rendered==0){
+			console.log('clearing timeout');
+			clearInterval(t);
+			callback();
+		}
+	},100);
+}
+///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 var temp={
 	customer:{
@@ -397,8 +264,9 @@ var Config={
 		id:'import_permit',
 		caption:'Import Permit',
 		fields:{
-			no:{class:'no',caption:'Import Permit No',save_id:'import_permit_no',type:'string'},
-			date:{class:'date',caption:'Import Permit Date',save_id:'import_permit_date',type:'date'}
+			import_permit_no:{caption:'Import Permit No',save_id:'import_permit_no',type:'string'},
+			import_permit_date:{caption:'Import Permit Date',save_id:'import_permit_date',type:'date'},
+			import_permit_copy:{caption:'Import Permit Copy',save_id:'import_permit_copy',type:'document'}
 		}
 	},
 	lc:{
@@ -406,12 +274,13 @@ var Config={
 		id:'lc',
 		caption:'LC',
 		fields:{
-			no:{class:'no',caption:'LC No',save_id:'lc_no',type:'string'},
-			issue_date:{class:'issue_date',caption:'Issue Date',save_id:'lc_issue_date',type:'date'},
-			type:{class:'type',caption:'LC Type',save_id:'lc_type',type:'select',options:{'a':{caption:'A'},'b':{caption:'B'}}},
-			opening_bank:{class:'opening_bank',caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{'dbbl':{caption:'DBBL'},'hsbc':{caption:'HSBC'}}},
-			receiving_bank:{class:'receiving_bank',caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{'standard_chartered':{caption:'Standard Chartered'},'brac':{caption:'BRAC'}}},
-			maturity_notification:{class:'maturity_notification',caption:'Maturity Notification',save_id:'maturity_notification',type:'date'}
+			lc_no:{caption:'LC No',save_id:'lc_no',type:'string'},
+			lc_issue_date:{caption:'Issue Date',save_id:'lc_issue_date',type:'date'},
+			lc_type:{caption:'LC Type',save_id:'lc_type',type:'select',options:{}},
+			lc_opening_bank:{caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{}},
+			lc_receiving_bank:{caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{}},
+			lc_copy:{caption:'LC Copy',save_id:'lc_copy',type:'document'},
+			lc_maturity_notification:{caption:'Maturity Notification',save_id:'lc_maturity_notification',type:'date'}
 		}
 	},
 	shipment:{
@@ -419,12 +288,12 @@ var Config={
 		id:'shipment',
 		caption:'Shipment',
 		fields:{
-			date:{class:'date',caption:'Date of Shipment',save_id:'shipment_date',type:'date'},
-			type:{class:'type',caption:'Shipment Type',save_id:'shipment_type',type:'select',options:{road:{caption:'By Road'},air:{caption:'By Air'}}},
-			partial_shipment:{class:'partial_shipment',caption:'Partial Shipment',save_id:'partial_shipment',type:'select',options:{yes:{caption:'Allowed'},no:{caption:'Not Allowed'}}},
-			transshipment:{class:'transshipment',caption:'Transshipment',save_id:'transshipment',type:'select',options:{yes:{caption:'Allowed'},no:{caption:'Not Allowed'}}},
-			loading_port:{class:'loading_port',caption:'Port of Loading',save_id:'loading_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'},c:{caption:'C'}}},
-			discharge_port:{class:'discharge_port',caption:'Port of Discharge',save_id:'discharge_port',type:'select',type:'select',options:{d:{caption:'D'},e:{caption:'E'}}}
+			shipment_date:{caption:'Date of Shipment',save_id:'shipment_date',type:'date'},
+			shipment_type:{caption:'Shipment Type',save_id:'shipment_type',type:'select',options:{}},
+			shipment_partial:{caption:'Partial Shipment',save_id:'shipment_partial',type:'select',options:{}},
+			shipment_transshipment:{caption:'Transshipment',save_id:'shipment_transshipment',type:'select',options:{}},
+			shipment_loading_port:{caption:'Port of Loading',save_id:'shipment_loading_port',type:'select',options:{}},
+			shipment_discharge_port:{caption:'Port of Discharge',save_id:'shipment_discharge_port',type:'select',type:'select',options:{}}
 		}
 	},
 	document:{
@@ -432,14 +301,14 @@ var Config={
 		id:'document',
 		caption:'Documents',
 		fields:{
-			commercial_invoice:{class:'commercial_invoice',caption:'Commercial Invoice',save_id:'commercial_invoice',type:'document'},
-			packing_list:{class:'packing_list',caption:'Packing List',save_id:'packing_list',type:'document'},
-			lading_bill:{class:'lading_bill',caption:'Bill of Lading',save_id:'lading_bill',type:'document'},
-			phytosanitary_certificate:{class:'phytosanitary_certificate',caption:'Phytosanitary Certificate',save_id:'phytosanitary_certificate',type:'document'},
-			origin_certificate:{class:'origin_certificate',caption:'Origin Certificate',save_id:'origin_certificate',type:'document'},
-			shipment_advice:{class:'shipment_advice',caption:'Shipment Advice',save_id:'shipment_advice',type:'document'},
-			controller_letter:{class:'controller_letter',caption:'Controller Letter',save_id:'controller_letter',type:'document'},
-			fumigation_letter:{class:'fumigation_letter',caption:'Fumigation Letter',save_id:'fumigation_letter',type:'document'}
+			document_commercial_invoice:{caption:'Commercial Invoice',save_id:'document_commercial_invoice',type:'document'},
+			document_packing_list:{caption:'Packing List',save_id:'document_packing_list',type:'document'},
+			document_lading_bill:{caption:'Bill of Lading',save_id:'document_lading_bill',type:'document'},
+			document_phytosanitary_certificate:{caption:'Phytosanitary Certificate',save_id:'document_phytosanitary_certificate',type:'document'},
+			document_origin_certificate:{caption:'Origin Certificate',save_id:'document_origin_certificate',type:'document'},
+			document_shipment_advice:{caption:'Shipment Advice',save_id:'document_shipment_advice',type:'document'},
+			document_controller_letter:{caption:'Controller Letter',save_id:'document_controller_letter',type:'document'},
+			document_fumigation_letter:{caption:'Fumigation Letter',save_id:'document_fumigation_letter',type:'document'}
 		}
 	},
 	transshipment:{
@@ -447,12 +316,12 @@ var Config={
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
-			original_document_arrival:{class:'original_document_arrival',caption:'Original Document Arrival',save_id:'original_document_arrival',type:'date'},
-			payment_notification:{class:'payment_notification',caption:'Payment Notification',save_id:'payment_notification',type:'date'},
-			vessel_track_no:{class:'vessel_track_no',caption:'Vessel Track No',save_id:'vessel_track_no',type:'string'},
-			date:{class:'date',caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
-			port:{class:'port',caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
-			buyer_notification:{class:'buyer_notification',caption:'Buyer Notification',save_id:'buyer_notification',type:'date'}
+			transshipment_original_document_arrival:{caption:'Original Document Arrival',save_id:'transshipment_original_document_arrival',type:'date'},
+			transshipment_payment_notification:{caption:'Payment Notification',save_id:'transshipment_payment_notification',type:'date'},
+			transshipment_vessel_track_no:{caption:'Vessel Track No',save_id:'transshipment_vessel_track_no',type:'string'},
+			transshipment_date:{caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
+			transshipment_port:{caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{}},
+			transshipment_buyer_notification:{caption:'Buyer Notification',save_id:'transshipment_buyer_notification',type:'date'}
 		}
 	},
 	port:{
@@ -460,9 +329,10 @@ var Config={
 		id:'port',
 		caption:'Port',
 		fields:{
-			buyer_cnf:{class:'buyer_cnf',caption:'Buyer"s C&F',save_id:'buyer_cnf',type:'string'},
-			buyer_clearance:{class:'buyer_clearance',caption:'Buyer"s Clearance',save_id:'buyer_clearance',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
-			clearance_document:{class:'clearance_document',caption:'Clearance Document',save_id:'clearance_document',type:'document'}
+			port_buyer_cnf:{caption:'Buyer"s C&F',save_id:'port_buyer_cnf',type:'string'},
+			port_clearance_document:{caption:'Clearance Document',save_id:'port_clearance_document',type:'document'},
+			port_invoice_weight:{caption:'Invoice Weight',save_id:'port_invoice_weight',type:'number'},
+			port_invoice_weight_unit:{save_id:'port_invoice_weight_unit',type:'select',options:{}}
 		}
 	},
 	controller:{
@@ -470,17 +340,11 @@ var Config={
 		id:'controller',
 		caption:'Controller',
 		fields:{
-			company:{class:'company',caption:'Controller Company',save_id:'controller_company',type:'string'},
-			weight_finalization_area:{class:'weight_finalization_area',caption:'Weight Finalization Area',save_id:'weight_finalization_area',type:'select',options:{port:{caption:'Port'},warehouse:{caption:'Warehouse'}}},
-			final_weight:{class:'final_weight',caption:'Final Weight',save_id:'final_weight',type:'number'},
-			final_weight_unit:{class:'final_weight_unit',save_id:'final_weight_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
-			weight_claim:{class:'weight_claim',caption:'Weight Claim',save_id:'weight_claim',type:'number'},
-			weight_claim_unit:{class:'weight_claim_unit',save_id:'weight_claim_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
-			unit_price:{class:'unit_price',caption:'Unit Price',save_id:'unit_price',type:'number'},
-			unit_price_currency:{class:'unit_price_currency',save_id:'unit_price_currency',type:'select',options:{'usd':{caption:'USD'},'gbp':{caption:'GBP'},'inr':{caption:'INR'},'bdt':{caption:'BDT'}}},
-			claim_amount:{class:'claim_amount',caption:'Claim Amount',save_id:'claim_amount',type:'number'},
-			claim_amount_unit:{class:'claim_amount_unit',save_id:'claim_amount_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
-			landing_report:{class:'landing_report',save_id:'landing_report',type:'document'}
+			controller_company:{caption:'Controller Company',save_id:'controller_company',type:'string'},
+			controller_weight_finalization_area:{caption:'Weight Finalization Area',save_id:'controller_weight_finalization_area',type:'select',options:{}},
+			controller_final_weight:{caption:'Final Weight',save_id:'controller_final_weight',type:'number'},
+			controller_final_weight_unit:{save_id:'controller_final_weight_unit',type:'select',options:{}},
+			controller_landing_report:{save_id:'controller_landing_report',type:'document'}
 		}
 	},
 	payment:{
@@ -488,12 +352,10 @@ var Config={
 		id:'payment',
 		caption:'Payment',
 		fields:{
-			supplier_clearance:{class:'supplier_clearance',caption:'Supplier Clearance',save_id:'supplier_clearance',type:'select',options:{a:{caption:'A'},b:{caption:'B'}}},
-			commission_amount:{class:'commission_amount',caption:'Commission Amount',save_id:'commission_amount',type:'number'},
-			commission_amount_unit:{class:'commission_amount_unit',save_id:'commission_amount_unit',type:'select',options:{'lbs':{caption:'LBS'},'kgs':{caption:'KGS'}}},
-			receiving_date:{class:'receiving_date',caption:'Receiving Date',save_id:'receiving_date',type:'date'},
-			late_payment:{class:'late_payment',caption:'Late Payment',save_id:'late_payment',type:'date'},
-			buyer_bank_payment:{class:'buyer_bank_payment',caption:'Buyer"s Bank Payment',save_id:'buyer_bank_payment',type:'document'}
+			payment_supplier_clearance:{caption:'Supplier Clearance',save_id:'payment_supplier_clearance',type:'select',options:{}},
+			payment_receiving_date:{caption:'Receiving Date',save_id:'payment_receiving_date',type:'date'},
+			payment_late_payment:{caption:'Late Payment',save_id:'payment_late_payment',type:'date'},
+			payment_payment_document:{caption:'Payment Document',save_id:'payment_payment_document',type:'document'}
 		}
 	}
 };
@@ -546,236 +408,41 @@ var Project={
 			}
 		});
 	},
-	render:function(a,target){
+	render:function(a){
 	
-		$('#'+$(target).attr('id')+' .name').html(a.name);
-		$('#'+$(target).attr('id')+' .description').html(a.description);
-		$('#pname').text(a.project.name);
-		$('#pname').attr('href',location.href.split('?')[0]+'?pid='+a.project.id+'#bootstrap');
-		$(target).siblings().remove();
+		$('#render-project_name').html(a.project.name);
+		$('#render-project_description').html(a.project.description);
+		$('#render-project_customer').html(a.customer.name);
+		$('#render-project_supplier').html(a.supplier.name);
+		load(function(){
+			var current_step=a.project.current_step;
 		
-		console.log(a);
-		var current_step=a.project.current_step;
-		var steps=[];
-		
-		for(var s=1;s<=current_step;s++){
-			for(var i in Config){
-				if(Config.hasOwnProperty(i)){
-					if(Config[i].step==s){
-						var p=$('<div>',{id:Config[i].id,class:'page'}).appendTo($(target).parent());
-						var h=$('<div>',{class:'header'}).append(Config[i].caption+'<span class="glyphicon glyphicon-edit edit-button"></span>').appendTo(p);
-						var c=$('<div>',{class:'content'}).appendTo(p);
-						for(var f in Config[i].fields){
-							if(Config[i].fields.hasOwnProperty(f)){
-								if(Config[i].fields[f].caption){
-									var caption=$('<div>',{class:'caption'}).text(Config[i].fields[f].caption);
-									var value=$('<div>',{class:'value '+Config[i].fields[f].class});
-									var unit_container=$('<div>',{class:'unit-container'}).append(caption).append(value);
-									//$(c).append(unit_container);
-								}
-								else{
-									var value=$('<div>',{class:'value '+Config[i].fields[f].class+' dependent'});
-									//$(c).children('.unit-container').last().append(value);
-								}
+			for(var s=1;s<=current_step;s++){
+				for(var i in Config){
+					if(Config.hasOwnProperty(i)){
+						if(Config[i].step==s){
+							if(current_step>=s){
+								loaded_steps.push(i);
 							}
-						}
-						p.css('height',$(window).height());
-						if(current_step>=s){
-							steps.push(i);
-							/*
-							window[i.ucfirst()].load(a.id,function(response,t){
-								window[t.ucfirst()].render(response,$('#'+Config[t].id));
-								if(current_step==Config[t].step)Final.init(steps);
-							});
-							*/
 						}
 					}
 				}
 			}
-		}
-		Final.init(steps);
-		/*
-		if(current_step==0){
-			Final.init(steps);
-		}
-		*/
+			setTimeout(function(){Final.init(loaded_steps);},3000);
+		});
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
-var Step=function(name,fields){
-	this.name=name;
-	this.fields=fields;
-};
-Step.prototype.load=function(a,callback){
-	var that=this;
-	$.ajax({
-		url:api_base+'projects'+'/'+a+'/'+that.name+'?token='+token,
-		method:'GET',
-		dataType:'json',
-		statusCode:{
-			200:function(response){
-				if(that.name!='bootstrap'){
-					$.ajax({
-						url:api_base+that.name+'s'+'/'+response.item_id+'?token='+token,
-						method:'GET',
-						dataType:'json',
-						statusCode:{
-							200:function(newresponse){
-								console.log(newresponse);
-								callback(newresponse,that.name);
-							}
-						}
-					});
-				}else{
-					callback(response,that.name);
-				}
-			}
-		}
-	});
-};
-Step.prototype.save=function(a,callback){
-	var that=this;
-	$.extend(a,{token:token});
-	$.ajax({
-		url:api_base+that.name+'s',
-		method:'POST',
-		data:a,
-		statusCode:{
-			201:function(response){
-				callback(response);
-			}
-		}
-	});
-};
-Step.prototype.assign=function(a,b,callback){
-	var that=this;
-	$.extend(a,{token:token});
-	$.ajax({
-		url:api_base+'projects/'+b+'/'+that.name,
-		method:'POST',
-		data:a,
-		statusCode:{
-			201:function(response){
-				callback(response);
-			}
-		}
-	});
-};
-var Customer={
-	assign:function(a,b,callback){
-		$.extend(a,{token:token});
-		$.ajax({
-			url:api_base+'projects/'+b+'/customer',
-			method:'POST',
-			data:a,
-			statusCode:{
-				201:function(response){
-					callback(response);
-				}
-			}
-		});
-	}
-};
-var Supplier={
-	assign:function(a,b,callback){
-		$.extend(a,{token:token});
-		$.ajax({
-			url:api_base+'projects/'+b+'/supplier',
-			method:'POST',
-			data:a,
-			statusCode:{
-				201:function(response){
-					callback(response);
-				}
-			}
-		});
-	}
-};
-Step.prototype.render=function(a,target){console.log(a);
-	var that=this;
-	var fields=that.fields;
-	for(var i in fields){
-		if(fields.hasOwnProperty(i)){
-			if(that.name=='bootstrap'){
-				var selector='#'+$(target).attr('id')+' .'+fields[i].class;
-				if(fields[i].class=='project_name')
-					$(selector).html(a.project.name);
-				else if(fields[i].class=='project_description')
-					$(selector).html(a.project.description);
-				else if(fields[i].class=='customer_name')
-					$(selector).html(a.customer.name);
-				else if(fields[i].class=='supplier_name')
-					$(selector).html(a.supplier.name);
-			}
-			else{
-			
-				var selector='#'+$(target).attr('id')+' .'+fields[i].class;
-				if(fields[i].type=='document'){
-					var extension=a[i].split('.').pop();
-					var filename=GetFilename(a[i]);
-					var nodot=filename.replace(/\W/g, '')
-					//var icon=$('<a>',{target:'_blank',href:'https://docs.google.com/viewerng/viewer?url='+a[i]}).text(a[i]);
-					var icon=$('<div>',{}).text(filename);
-					$(icon).click(function(){
-						$('#'+nodot).show();
-						$('.global-overlay').show();
-						$('.global-overlay').unbind('click');
-						$('.global-overlay').click(function(){
-							$(this).hide();
-							$('#'+nodot).hide();
-						});
-					});
-					var link=$('<a>',{href:a[i],target:'_blank'}).text(filename);
-					$(selector).append(icon);
-					$(selector).append(link);
-					$('body').append('<iframe id="'+nodot+'" src="http://docs.google.com/gview?url='+a[i]+'&embedded=true" style="margin:5% 5% 0 5%;width:90%; height:100%;position:fixed;display:none;z-index:100000;" frameborder="0"></iframe>');
-				}
-				else if(fields[i].type=='date'){
-					$(selector).html(a[i]);
-					$(selector).css('display','none');
-					$(selector).parent().append($('<div>',{}).css('display','inline-block').css('color','#656565').html(moment(a[i]).format('MMMM Do YYYY')));
-				}
-				else
-					$(selector).html(a[i]);
-			}
-		}
-	}
-};
-Step.prototype.loadAsOption=function(target){
-	var that=this;
-	$(target).html('');
-	$.ajax({
-		url:api_base+that.name+'s'+'?token='+token,
-		method:'GET',
-		dataType:'json',
-		statusCode:{
-			200:function(response){
-				$(target).append($('<option value="0">-Select-</option>'));
-				for(var i=0;i<response.length;i++){
-					$(target).append($('<option value="'+response[i].id+'">'+response[i].name+'</option>'));
-				}
-			}
-		}
-	});
-};
-/*
-var Bootstrap=new Step('bootstrap',Config.bootstrap.fields);
-var Product=new Step('product',Config.product.fields);
-var Contract=new Step('contract',Config.contract.fields);
-var Import_permit=new Step('import_permit',Config.import_permit.fields);
-var Lc=new Step('lc',Config.lc.fields);
-var Shipment=new Step('shipment',Config.shipment.fields);
-var Document=new Step('document',Config.document.fields);
-var Transshipment=new Step('transshipment',Config.transshipment.fields);
-var Port=new Step('port',Config.port.fields);
-var Controller=new Step('controller',Config.controller.fields);
-var Payment=new Step('payment',Config.payment.fields);
-*/
+
 ///////////////////////////////////////////////////////////////////////////////
 var Final={
 	init:function(a){
 		console.log(a);
-		var className='active-circle';
+		detecthash();
+		dropzone();
+		optionpicker();
+		datetimepicker();
+		resize();
 		$('#quick-nav').html('');
 		for(var i=0;i<a.length;i++){
 			var qnav=$('<div>',{class:'circle'}).attr('title',a[i]).attr('data-step',a[i]).appendTo($('#quick-nav'));
@@ -805,58 +472,7 @@ var Final={
 		$('#button-panel').fadeIn();
 		$('#quick-nav').fadeIn();
 		
-		
-		$('.page').hide();
-		$('.current').removeClass('current');
-		var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z_]/)[0]:undefined;
-		if(hash!=undefined && $.inArray(hash,a)>-1){
-			$('#'+hash).fadeIn().addClass('current');
-			$('.circle').removeClass(className);
-			$('[data-step="'+hash+'"]').addClass(className);
-			/*
-			$('html, body').animate({
-				scrollTop: $("#"+hash).offset().top
-			}, 100);
-			*/
-		}
-		else{
-			$('#bootstrap').fadeIn().addClass('current');
-		}
 		$('.modal').modal('hide');
-		
-		var current=$('.current').attr('id');
-		if(current!='intro'){
-			/*
-			var pid=getParameterByName('pid');
-			$('.overlay').show();
-			window[current.ucfirst()].load(pid,function(response,t){
-				location.href=location.href.split('#')[0]+'#'+current;
-				$('.overlay').hide();
-				window[current.ucfirst()].render(response,$('#'+current));
-			});
-			*/
-		}
-		/*
-		$('.edit-button').unbind('click');
-		$('.edit-button').click(function(e){
-			var current=$(this).parent().parent().attr('id');
-			if(current!='intro'){
-				$('#'+current+'-modal').modal('show');
-				for(var i in Config[current].fields){
-					$('#'+Config[current].fields[i].save_id).val($('#'+current+' .'+Config[current].fields[i].class).text());
-				}
-				var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
-				$(modal).find('[data-action=save]').unbind('click');
-				$(modal).find('[data-action=save]').click(function(e){
-					var pid=$(modal).attr('data-pid');
-					save(modal,current,pid);
-				});
-			}
-		});
-		*/
-		
-		//Customer.loadAsOption($('#customer-list'));
-		//Supplier.loadAsOption($('#supplier-list'));
 	}
 };
 var Folder={
@@ -923,7 +539,7 @@ var Menu={
 						$('[data-type=project]').click(function(e){
 							history.pushState({},'',location.href.split('?')[0]+'?pid='+$(e.target).attr('data-id'));
 							Project.load($(e.target).attr('data-id'),function(response){
-								Project.render(response,$('#intro'));
+								Project.render(response);
 							});
 						});
 					});
@@ -964,166 +580,7 @@ function menu(){
 		});
 	});
 }
-function modal(){
-	for(var item in Config){
-		if(Config.hasOwnProperty(item)){
-			var modal=$('<div>',{id:Config[item].id+'-modal',class:'modal fade'});
-			var modal_dialog=$('<div>',{class:'modal-dialog'});
-			var modal_content=$('<div>',{class:'modal-content'});
-			var modal_body=$('<div>',{class:'modal-body'});
-			
-			//////////////////////////////////////////////////////////////////////////////
-			/*
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Contract</h4>
-			</div>
-			*/
-			var modal_header=$('<div>',{class:'modal-header'});
-			var close_button=$('<button>',{class:'close'}).attr('data-dismiss','modal').append('<span aria-hidden="true">&times;</span>').appendTo(modal_header);
-			var modal_title=$('<h4>',{class:'modal-title'}).text(Config[item].caption).appendTo(modal_header);
-			//////////////////////////////////////////////////////////////////////////////
-			
-			
-			//////////////////////////////////////////////////////////////////////////////
-			/*
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" data-action="save">Save changes</button>
-			</div>
-			*/
-			var modal_footer=$('<div>',{class:'modal-footer'});
-			var cancel_button=$('<button>',{class:'btn btn-default'}).attr('type','button').attr('data-dismiss','modal').text('Cancel').appendTo(modal_footer);
-			var save_button=$('<button>',{class:'btn btn-primary',id:'save-'+Config[item].id}).attr('type','button').attr('data-action','save').text('Save Changes').appendTo(modal_footer);
-			//////////////////////////////////////////////////////////////////////////////
-			
-			
-			//////////////////////////////////////////////////////////////////////////////
-			/*
-			<div class="input-group">
-				<span class="input-group-btn">
-				<button class="btn btn-default" type="button">No</button>
-				</span>
-				<input id='contract_no' type="text" class="form-control" placeholder="">
-				<div class="input-group-btn">
-					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Unit <span class="caret"></span></button>
-					<ul class="dropdown-menu dropdown-menu-right" role="menu">
-					  <li><a href="#">LBS</a></li>
-					  <li><a href="#">KGS</a></li>
-					</ul>
-				</div><!-- /btn-group -->
-				<div class="input-group">
-					<span class="input-group-btn">
-					<button class="btn btn-default" type="button">Contract Copy</button>
-					</span>
-					<input type='hidden' name='contract_copy' value='' id='contract_copy'/>
-					<form action="http://localhost/cotfield_api/v1/upload" class="dropzone" id="my-dropzone"></form>
-				</div><!-- /input-group -->
-			</div><!-- /input-group -->
-			*/
-			for(var i in Config[item].fields){
-				if(Config[item].fields.hasOwnProperty(i)){
-					var field=Config[item].fields[i];
-					var input_group=$('<div>',{class:'input-group'});
-					var input_group_button=$('<div>',{class:'input-group-btn'}).appendTo(input_group);
-					var button=$('<button>',{class:'btn btn-default'}).attr('type','button').text(field.caption).appendTo(input_group_button);
-					
-					if(field.type=='string' || field.type=='number')$('<input>',{id:field.save_id}).attr('type','text').attr('class','form-control').appendTo(input_group);
-					else if(field.type=='date' || field.type=='notification'){
-						$('<input>',{id:field.save_id,class:'form-control'}).addClass('date').attr('data-type','date').attr('type','text').appendTo(input_group);
-					}
-					else if(field.type=='select'){
-						
-						var last=$(modal_body).children().last();
-						var wrapper;
-						if(field.caption){
-							wrapper=$('<div>',{});
-							$(wrapper).appendTo(input_group);
-							var list=$('<select>',{id:field.save_id,class:'form-control'}).attr('name',field.save_id).appendTo(wrapper);
-							
-							if(field.options){
-								for(var option in field.options){
-									$('<option>',{}).attr('value',option).text(field.options[option].caption).appendTo(list);
-								}
-							}
-							else if(field.source){
-								$.ajax({
-									url:field.source+'?token='+token,
-									method:'GET',
-									dataType:'json',
-									statusCode:{
-										200:function(response){
-											console.log(response);
-											for(var option in response){
-												$('<option>',{}).attr('value',option).text(response[option].caption).appendTo($('#customer'));
-											}
-										}
-									}
-								});
-							}
-						}
-						else{
-							wrapper=$('<div>',{class:'input-group-btn'});
-							$(wrapper).appendTo(last);
-							var button=$('<button>',{class:'btn btn-default dropdown-toggle'}).attr('type','button').attr('data-toggle','dropdown').append('<span id="caption-'+field.save_id+'">Unit</span> <span class="caret"></span>').appendTo(wrapper);
-							var list=$('<ul>',{class:'options dropdown-menu dropdown-menu-right'}).attr('data-target',field.save_id).appendTo(wrapper);
-							for(var option in field.options){
-								$('<li>',{class:'item'}).append('<a data-value="'+option+'">'+field.options[option].caption+'</a>').appendTo(list);
-							}
-							var t=$('<input>',{id:field.save_id}).attr('type','hidden').appendTo(wrapper);
-						}
-					}
-					else if(field.type=='document'){
-					
-						$('<input>',{id:field.save_id,name:field.save_id}).attr('type','hidden').appendTo(input_group);
-						$('<form>',{class:'dropzone',id:'dropzone-'+field.save_id}).attr('action','http://api.cotfield.com/v1/upload').attr('data-target',field.save_id).appendTo(input_group);
-					}
-					if(field.caption!=undefined)$(modal_body).append(input_group);
-				}
-			}
-			//////////////////////////////////////////////////////////////////////////////
-			
-			
-			$(modal_content).append(modal_header).append(modal_body).append(modal_footer);
-			$(modal_dialog).append(modal_content);
-			$(modal).append(modal_dialog);
-			
-			$(document.getElementsByTagName('body')[0]).append(modal);
-		}
-	}
-	$('#save-bootstrap').click(function(e){
 
-		Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response1){
-			Customer.assign({object_id:1},response1.id,function(r){});
-			Supplier.assign({object_id:1},response1.id,function(r){});			
-		});
-	});
-	$('.dropzone').each(function(e){
-		var id=$(this).attr('id');
-		var target=$(this).attr('data-target');
-		var myDropzone = new Dropzone(document.getElementById(id));
-		myDropzone.on("success", function(file) {
-			$('#'+target).val(file.xhr.responseText);
-			/* Maybe display some more file information on your page */
-		});
-	});
-	$('.options').each(function(e){
-		var target=$(this).attr('data-target');
-		$(this).children('.item').click(function(evt){
-			$('#'+target).val($(evt.target).attr('data-value'));
-			$('#caption-'+target).text($(evt.target).text());
-		});
-	});
-	$( "input[data-type='date']" ).datetimepicker({
-		dateFormat: 'yy-mm-dd',
-		timeFormat:  "HH:mm",
-		beforeShow: function() {
-			setTimeout(function(){
-				$('.ui-datepicker').css('z-index', 99999999999999);
-			}, 0);
-		}
-	});
-}
 $(window).resize(function(){
 	resize();
 });
@@ -1134,7 +591,7 @@ $(document).ready(function(){
 		$('#'+hash).addClass('current');
 	}
 	if(getParameterByName('pid')!=null){
-		Project.load(getParameterByName('pid'),function(response){Project.render(response,$('#intro'));});
+		Project.load(getParameterByName('pid'),function(response){Project.render(response);});
 		$('.candidate').hide();
 		$('#project-panel').fadeIn();
 	}
@@ -1243,8 +700,6 @@ $(document).ready(function(){
 		});
 	}
 	menu();
-	//modal();
-	resize();
 });
 ///////////////////////////////////////////////////////////////////////////////
 //running=false;
@@ -1270,18 +725,21 @@ $('#suppliers').click(function(e){
 	location.href=location.href.split('?')[0]+'?action=suppliers';
 });
 $('#next').click(function(event){
-	if($('.current').next().length){
+	var current=$('.current').attr('id');
+	var next=steps[steps.indexOf(current)+1];
+	if($.inArray(next,loaded_steps)>-1){
 		var className='active-circle';
+		$('.current').removeClass('current');
+		$('.page').hide();
+		$('#'+next).addClass('current');
 		$('.'+className).removeClass(className).next().addClass(className);
-		var next=$('.current').next().attr('id');
 		var pid=getParameterByName('pid');
 		$('.overlay').show();
-		window[next.ucfirst()].load(pid,function(response,t){
-			$('.current').hide().next().fadeIn();
-			$('.current').removeClass('current').next().addClass('current');
-			location.href=location.href.split('#')[0]+'#'+next;
+		location.href=location.href.split('#')[0]+'#'+next;
+		window[next.ucfirst()].loadOf(pid,function(response){
+			window[next.ucfirst()].render(response);
 			$('.overlay').hide();
-			window[next.ucfirst()].render(response,$('#'+next));
+			$('#'+next).fadeIn();
 		});
 	}
 	else{
@@ -1291,25 +749,44 @@ $('#next').click(function(event){
 		$(modal).find('[data-action=save]').unbind('click');
 		$(modal).find('[data-action=save]').click(function(e){
 			var pid=$(modal).attr('data-pid');
-			save(modal,current,pid);
+			var fields=Config[current].fields;
+			var object={}
+			for(var i in fields){
+				object[i]=$('#'+i).val();
+			}
+			window[current.ucfirst()].create(object,function(response){
+				window[current.ucfirst()].assign({object_id:response.id},pid,function(r){
+					window[current.ucfirst()].render(response);
+					$('.overlay').hide();
+					$('#'+current).fadeIn();
+				});
+			});
 		});
 	}
 });
 $('#prev').click(function(event){
-	if($('.current').prev().length){
-		if($('.current').prev().attr('id')=='intro')return;
+	var current=$('.current').attr('id');
+	var prev=steps[steps.indexOf(current)-1];
+	if($.inArray(prev,loaded_steps)>-1){
 		var className='active-circle';
-		$('.'+className).removeClass(className).prev().addClass(className);
-		var prev=$('.current').prev().attr('id');
+		$('.current').removeClass('current')
+		$('.page').hide();
+		$('#'+prev).addClass('current');
+		$('.'+className).removeClass(className).next().addClass(className);
 		var pid=getParameterByName('pid');
 		$('.overlay').show();
-		window[prev.ucfirst()].load(pid,function(response,t){
-			$('.current').hide().prev().fadeIn();
-			$('.current').removeClass('current').prev().addClass('current');
-			location.href=location.href.split('#')[0]+'#'+prev;
+		location.href=location.href.split('#')[0]+'#'+prev;
+		if(prev!='bootstrap'){
+			window[prev.ucfirst()].loadOf(pid,function(response){
+				window[prev.ucfirst()].render(response);
+				$('.overlay').hide();
+				$('#'+prev).fadeIn();
+			});
+		}
+		else{
 			$('.overlay').hide();
-			window[prev.ucfirst()].render(response,$('#'+prev));
-		});
+			$('#'+prev).fadeIn();
+		}
 	}
 });
 $('.create_project').click(function(){
