@@ -2,6 +2,7 @@ var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
 var steps=['bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
 var loaded_steps=[];
+var dropzone_once=false;
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -13,13 +14,22 @@ String.prototype.strip=function(c){
 		return temp.split(/_(.+)?/)[1];
 	}
 };
+Dropzone.autoDiscover = false;
 function dropzone(){
+	if(dropzone_once==true)
+		return;
 	$('.dropzone').each(function(e){
 		var id=$(this).attr('id');
 		var target=$(this).attr('data-target');
+		
 		var myDropzone = new Dropzone(document.getElementById(id));
+		console.log(myDropzone);
+		myDropzone.on("addedfile", function(file){
+			$('[data-action="save"]').prop('disabled',true);
+		});
 		myDropzone.on("success", function(file) {
 			$('#'+target).val($('#'+target).val()+','+file.xhr.responseText);
+			$('[data-action="save"]').prop('disabled',false);
 		});
 		if(!$(this).children().find('.remove-all-files').length){
 			var r=$('<button>',{class:'close remove-all-files'}).append('<span aria-hidden="true">×</span>').appendTo($(this));
@@ -32,6 +42,7 @@ function dropzone(){
 			});
 		}
 	});
+	dropzone_once=true;
 }
 function datetimepicker(){
 	$( "input[data-type='date']" ).datetimepicker({
@@ -75,124 +86,161 @@ function stringToDate(s){
 	d.setHours(timeParts[0], timeParts[1], timeParts[2]);
 	return d;
 }
-function detecthash(){
-	var className='active-circle';
+
+function detectHash(callback){
 	var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z_]/)[0]:undefined;
 	if(hash!=undefined && $.inArray(hash,loaded_steps)>-1){
+		$('.page').hide();
 		$('.current').removeClass('current');
 		$('#'+hash).fadeIn().addClass('current');
-		$('.circle').removeClass(className);
-		$('[data-step="'+hash+'"]').addClass(className);
+		$('.circle').removeClass('active-circle');
+		$('.circle[data-step="'+hash+'"]').addClass('active-circle');
 	}
 	else{
+		hash='bootstrap';
+		$('.page').hide();
 		$('#bootstrap').fadeIn().addClass('current');
 	}
+	if(typeof callback==='function')callback(hash);
 }
-function load(callback){
-	var loaded=0,rendered=0;
-	$.getScript('assets/js/cotfield/customer.js',function(){
-		console.log('--Customer Loaded--');loaded+=1;
-		$.getScript('assets/js/cotfield/supplier.js',function(){
-			console.log('--Supplier Loaded--');loaded+=1;
-			$.getScript('assets/js/cotfield/bootstrap.js',function(){
-				console.log('--Bootstrap Loaded--');loaded+=1;
-				$.getScript('assets/js/cotfield/product.js',function(){
-					console.log('--Product Loaded--');loaded+=1;
-					$.getScript('assets/js/cotfield/contract.js',function(){
-						console.log('--Contract Loaded--');loaded+=1;
-						$.getScript('assets/js/cotfield/import_permit.js',function(){
-							console.log('--Import Permit Loaded--');loaded+=1;
-							$.getScript('assets/js/cotfield/lc.js',function(){
-								console.log('--LC Loaded--');loaded+=1;
-								$.getScript('assets/js/cotfield/shipment.js',function(){
-									console.log('--Shipment Loaded--');loaded+=1;
-									$.getScript('assets/js/cotfield/document.js',function(){
-										console.log('--Document Loaded--');loaded+=1;
-										$.getScript('assets/js/cotfield/transshipment.js',function(){
-											console.log('--Transshipment Loaded--');loaded+=1;
-											$.getScript('assets/js/cotfield/port.js',function(){
-												console.log('--Port Loaded--');loaded+=1;
-												$.getScript('assets/js/cotfield/controller.js',function(){
-													console.log('--Controller Loaded--');loaded+=1;
-													$.getScript('assets/js/cotfield/payment.js',function(){
-														console.log('--Payment Loaded--');loaded+=1;
-														Payment.loadModal(function(response){
-															$('body').append(response);
-														});
-														Payment.loadOf(getParameterByName('pid'),function(response){Payment.render(response);rendered+=1;});
-													});
-													Controller.loadModal(function(response){
-														$('body').append(response);
-													});
-													Controller.loadOf(getParameterByName('pid'),function(response){Controller.render(response);rendered+=1;});
-												});
-												Port.loadModal(function(response){
-													$('body').append(response);
-												});
-												Port.loadOf(getParameterByName('pid'),function(response){Port.render(response);rendered+=1;});
-											});
-											Transshipment.loadModal(function(response){
-												$('body').append(response);
-											});
-											Transshipment.loadOf(getParameterByName('pid'),function(response){Transshipment.render(response);rendered+=1;});
-										});
-										Document.loadModal(function(response){
-											$('body').append(response);
-										});
-										Document.loadOf(getParameterByName('pid'),function(response){Document.render(response);rendered+=1;});
-									});
-									Shipment.loadModal(function(response){
-										$('body').append(response);
-									});
-									Shipment.loadOf(getParameterByName('pid'),function(response){Shipment.render(response);rendered+=1;});
-								});
-								Lc.loadModal(function(response){
-									$('body').append(response);
-								});
-								Lc.loadOf(getParameterByName('pid'),function(response){Lc.render(response);rendered+=1;});
-							});
-							Import_permit.loadModal(function(response){
-								$('body').append(response);
-							});
-							Import_permit.loadOf(getParameterByName('pid'),function(response){Import_permit.render(response);rendered+=1;});
-						});
-						Contract.loadModal(function(response){
-							$('body').append(response);
-						});
-						Contract.loadOf(getParameterByName('pid'),function(response){Contract.render(response);rendered+=1;});
-					});
-					Product.loadModal(function(response){
-						$('body').append(response);
-					});
-					Product.loadOf(getParameterByName('pid'),function(response){Product.render(response);rendered+=1;});
-				});
-				Bootstrap.loadModal(function(response){
-					$('body').append(response);
-					$('#save-bootstrap').unbind('click');
-					$('#save-bootstrap').click(function(e){
-						Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
-							Customer.assign({object_id:$('#customer').val()},response.id,function(r){});
-							Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){});			
-						});
-					});
-				});
-			});
-			Supplier.loadModal(function(response){
-				$('body').append(response);
-			});
-		});
-		Customer.loadModal(function(response){
-			$('body').append(response);
-		});
+function loadScripts(callback){
+	var loaded=0;
+	$.getScript('assets/js/cotfield/product.js',function(){
+		console.log('--Product Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/contract.js',function(){
+		console.log('--Contract Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/import_permit.js',function(){
+		console.log('--Import Permit Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/lc.js',function(){
+		console.log('--LC Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/shipment.js',function(){
+		console.log('--Shipment Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/document.js',function(){
+		console.log('--Document Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/transshipment.js',function(){
+		console.log('--Transshipment Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/port.js',function(){
+		console.log('--Port Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/controller.js',function(){
+		console.log('--Controller Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/payment.js',function(){
+		console.log('--Payment Loaded--');loaded+=1;
 	});
 	var t=setInterval(function(){
-		console.log(loaded,rendered);
-		if(loaded==13 && rendered==0){
-			console.log('clearing timeout');
+		console.log('--Loaded '+loaded+' Scripts so far--');
+		if(loaded==10){
+			console.log('----------All Scripts Loaded Successfully----------');
 			clearInterval(t);
-			callback();
+			if(typeof callback==='function')callback();
 		}
 	},100);
+}
+function loadPages(callback){
+	var rendered=0;
+	Bootstrap.render(undefined,function(){console.log('--Bootstrap Rendered--');rendered+=1;});
+	Product.render(undefined,function(){console.log('--Product Rendered--');rendered+=1;});
+	Contract.render(undefined,function(){console.log('--Contract Rendered--');rendered+=1;});
+	Lc.render(undefined,function(){console.log('--LC Rendered--');rendered+=1;});
+	Import_permit.render(undefined,function(){console.log('--Import Permit Rendered--');rendered+=1;});
+	Shipment.render(undefined,function(){console.log('--Shipment Rendered--');rendered+=1;});
+	Document.render(undefined,function(){console.log('--Document Rendered--');rendered+=1;});
+	Transshipment.render(undefined,function(){console.log('--Transshipment Rendered--');rendered+=1;});
+	Port.render(undefined,function(){console.log('--Port Rendered--');rendered+=1;});
+	Controller.render(undefined,function(){console.log('--Controller Rendered--');rendered+=1;});
+	Payment.render(undefined,function(){console.log('--Payment Rendered--');rendered+=1;});
+	var t=setInterval(function(){
+		console.log('--Loaded '+rendered+' Pages so far--');
+		if(rendered==11){
+			console.log('----------All Pages Loaded Successfully----------');
+			clearInterval(t);
+			if(typeof callback==='function')callback();
+		}
+	},100);
+}
+function loadModals(callback){
+	var rendered=0;
+	Product.loadModal(function(response){console.log('--Product Modal Rendered--');$('body').append(response);rendered+=1;});
+	Contract.loadModal(function(response){console.log('--Contract Modal Rendered--');$('body').append(response);rendered+=1;});
+	Lc.loadModal(function(response){console.log('--LC Modal Rendered--');$('body').append(response);rendered+=1;});
+	Import_permit.loadModal(function(response){console.log('--Import Permit Modal Rendered--');$('body').append(response);rendered+=1;});
+	Shipment.loadModal(function(response){console.log('--Shipment Modal Rendered--');$('body').append(response);rendered+=1;});
+	Document.loadModal(function(response){console.log('--Document Modal Rendered--');$('body').append(response);rendered+=1;});
+	Transshipment.loadModal(function(response){console.log('--Transshipment Modal Rendered--');$('body').append(response);rendered+=1;});
+	Port.loadModal(function(response){console.log('--Port Modal Rendered--');$('body').append(response);rendered+=1;});
+	Controller.loadModal(function(response){console.log('--Controller Modal Rendered--');$('body').append(response);rendered+=1;});
+	Payment.loadModal(function(response){console.log('--Payment Modal Rendered--');$('body').append(response);rendered+=1;});
+	var t=setInterval(function(){
+		console.log('--Loaded '+rendered+' Modals so far--');
+		if(rendered==10){
+			console.log('----------All Modals Loaded Successfully----------');
+			clearInterval(t);
+			if(typeof callback==='function')callback();
+		}
+	},100);
+	/*
+	Bootstrap.loadModal(function(response){
+		$('body').append(response);
+		$('#save-bootstrap').unbind('click');
+		$('#save-bootstrap').click(function(e){
+			Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
+				Customer.assign({object_id:$('#customer').val()},response.id,function(r){});
+				Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){});			
+			});
+		});
+	});
+	
+	Supplier.loadModal(function(response){
+		$('body').append(response);
+	});
+	Customer.loadModal(function(response){
+		$('body').append(response);
+	});
+	*/
+}
+function loadSteps(pid,callback){
+	Project.load(pid,function(response){
+		for(var s=1;s<=response.project.current_step;s++){
+			for(var i in Config){
+				if(Config.hasOwnProperty(i)){
+					if(response.project.current_step>=Config[i].step){
+						if(!($.inArray(i,loaded_steps)>-1))
+							loaded_steps.push(i);
+					}
+				}
+			}
+		}
+		//console.log(current_step);
+		//console.log(loaded_steps);
+		if(typeof callback==='function')callback();
+	});
+}
+function loadPage(hash,callback){
+	console.log(hash,getParameterByName('pid'));
+	if(hash=='bootstrap'){
+		window[hash.ucfirst()].loadOf(getParameterByName('pid'),function(r){
+			window[hash.ucfirst()].render(r,function(){
+				if(typeof callback==='function')callback();
+			});
+		});
+	}
+	else{
+		window[hash.ucfirst()].loadOf(getParameterByName('pid'),function(response){
+			window[hash.ucfirst()].load(response.item_id,function(r){
+				window[hash.ucfirst()].render(r,function(){
+					if(typeof callback==='function')callback();
+				});
+			});
+		});
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -222,7 +270,7 @@ var temp={
 };
 var Config={
 	bootstrap:{
-		step:2,
+		step:1,
 		id:'bootstrap',
 		caption:'Project',
 		fields:{
@@ -233,7 +281,7 @@ var Config={
 		}
 	},
 	product:{
-		step:3,
+		step:2,
 		id:'product',
 		caption:'Product',
 		fields:{
@@ -247,7 +295,7 @@ var Config={
 		}
 	},
 	contract:{
-		step:4,
+		step:3,
 		id:'contract',
 		caption:'Contract',
 		fields:{
@@ -260,7 +308,7 @@ var Config={
 		}
 	},
 	import_permit:{
-		step:5,
+		step:4,
 		id:'import_permit',
 		caption:'Import Permit',
 		fields:{
@@ -270,7 +318,7 @@ var Config={
 		}
 	},
 	lc:{
-		step:6,
+		step:5,
 		id:'lc',
 		caption:'LC',
 		fields:{
@@ -284,7 +332,7 @@ var Config={
 		}
 	},
 	shipment:{
-		step:7,
+		step:6,
 		id:'shipment',
 		caption:'Shipment',
 		fields:{
@@ -297,7 +345,7 @@ var Config={
 		}
 	},
 	document:{
-		step:8,
+		step:7,
 		id:'document',
 		caption:'Documents',
 		fields:{
@@ -312,7 +360,7 @@ var Config={
 		}
 	},
 	transshipment:{
-		step:9,
+		step:8,
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
@@ -325,7 +373,7 @@ var Config={
 		}
 	},
 	port:{
-		step:10,
+		step:9,
 		id:'port',
 		caption:'Port',
 		fields:{
@@ -336,7 +384,7 @@ var Config={
 		}
 	},
 	controller:{
-		step:11,
+		step:10,
 		id:'controller',
 		caption:'Controller',
 		fields:{
@@ -348,7 +396,7 @@ var Config={
 		}
 	},
 	payment:{
-		step:12,
+		step:11,
 		id:'payment',
 		caption:'Payment',
 		fields:{
@@ -376,7 +424,7 @@ var Project={
 			statusCode:{
 				201:function(response){
 					callback(response);
-					location.href=location.href.split('?')[0]+'?pid='+response.id+'#bootstrap';
+					//location.href=location.href.split('?')[0]+'?pid='+response.id+'#bootstrap';
 				}
 			}
 		});
@@ -409,41 +457,153 @@ var Project={
 		});
 	},
 	render:function(a){
-	
+	console.log('--rendering--');
 		$('#render-project_name').html(a.project.name);
 		$('#render-project_description').html(a.project.description);
 		$('#render-project_customer').html(a.customer.name);
 		$('#render-project_supplier').html(a.supplier.name);
-		load(function(){
-			var current_step=a.project.current_step;
-		
-			for(var s=1;s<=current_step;s++){
-				for(var i in Config){
-					if(Config.hasOwnProperty(i)){
-						if(Config[i].step==s){
-							if(current_step>=s){
-								loaded_steps.push(i);
-							}
-						}
-					}
-				}
-			}
-			setTimeout(function(){Final.init(loaded_steps);},3000);
+		loadScripts(function(){
+			loadPages(function(){
+				loadModals(function(){
+					loadSteps(getParameterByName('pid'),function(){
+						detectHash(function(hash){
+							loadPage(hash,function(){
+								Final.init();
+							});
+						});
+					});
+				});
+			});
 		});
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
+$(document).ready(function(){
+	var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z]/):undefined;
+	if(hash!=undefined){
+		$('.current').removeClass('current');
+		$('#'+hash).addClass('current');
+	}
+	if(getParameterByName('pid')!=null){
+		Project.load(getParameterByName('pid'),function(response){Project.render(response);});	
+	}
+	else if(getParameterByName('action')=='notifications'){
+		$('.overlay').show();
+		$('.candidate').hide();
+		$('#notification-panel').html('');
+		$.ajax({
+			url:api_base+'notifications',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					for(var i=0;i<response.length;i++){
+						var diff=(stringToDate(response[i].deadline) - new Date());
+						var days=parseInt(diff / (1000 * 60 * 60 * 24));
+						var panel=$('<div>',{});
+		
+						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
+						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
+						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
+						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
+		
+						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
+						$('#notification-panel').append(panel);
+					}
+					$('.overlay').hide();
+					$('#notification-panel').fadeIn();
+				}
+			}
+		});
+	}
+	else if(getParameterByName('action')=='customers'){
+		$('.overlay').show();
+		$('.candidate').hide();
+		$('#notification-panel').html('');
+		$.ajax({
+			url:api_base+'notifications',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					for(var i=0;i<response.length;i++){
+						var diff=(stringToDate(response[i].deadline) - new Date());
+						var days=parseInt(diff / (1000 * 60 * 60 * 24));
+						var panel=$('<div>',{});
+		
+						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
+						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
+						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
+						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
+		
+						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
+						$('#notification-panel').append(panel);
+					}
+					$('.overlay').hide();
+					$('#notification-panel').fadeIn();
+				}
+			}
+		});
+	}
+	else if(getParameterByName('action')=='suppliers'){}
+	else{
+		$('.candidate').hide();
+		$('#gallery').html('');
+		for(var i in pics){
+			if(pics.hasOwnProperty(i)){
+				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo($('#gallery'));
+			}
+		}
+		var running=false;
+		var activeClass='active-slide';
+		$('.slide').first().addClass(activeClass);
+		$('#gallery-panel').fadeIn();
+		$('#up').click(function(){
+			if(running==false)running=true;
+			else return;
+			if($('.slide'+'.'+activeClass).prev().length){
+				var h=$(window).height();
+				$('#down').css('visibility','visible');
+				$('#gallery').animate({top:'+='+h},500,function(){
+					$('.slide'+'.'+activeClass).removeClass(activeClass).prev().addClass(activeClass);
+					if($('.slide'+'.'+activeClass).prev().length){
+						$('#up').css('visibility','visible');
+					}
+					else
+						$('#up').css('visibility','hidden');
+					running=false;
+				});
+			}
+		});
+		$('#down').click(function(){
+			if(running==false)running=true;
+			else return;
+			if($('.slide'+'.'+activeClass).next().length){
+				var h=-$(window).height();
+				$('#up').css('visibility','visible');
+				$('#gallery').animate({top:'+='+h},500,function(){
+					$('.slide'+'.'+activeClass).removeClass(activeClass).next().addClass(activeClass);
+					if($('.slide'+'.'+activeClass).next().length){
+						$('down').css('visibility','visible');
+					}
+					else
+						$('#down').css('visibility','hidden');
+					running=false;
+				});
+			}
+		});
+	}
+	menu();
+	resize();
+});
 ///////////////////////////////////////////////////////////////////////////////
 var Final={
-	init:function(a){
-		console.log(a);
-		detecthash();
+	init:function(){
+		console.log('Final.init()');
 		dropzone();
 		optionpicker();
 		datetimepicker();
 		resize();
 		$('#quick-nav').html('');
+		/*
 		for(var i=0;i<a.length;i++){
 			var qnav=$('<div>',{class:'circle'}).attr('title',a[i]).attr('data-step',a[i]).appendTo($('#quick-nav'));
 			$(qnav).unbind('click');
@@ -452,7 +612,7 @@ var Final={
 				$(this).addClass(className);
 				var step=$(this).attr('data-step');
 				var pid=getParameterByName('pid');
-				/*
+				
 				$('.overlay').show();
 				window[step.ucfirst()].load(pid,function(response,t){
 					$('.current').removeClass('current');
@@ -461,20 +621,92 @@ var Final={
 					$('.overlay').hide();
 					window[step.ucfirst()].render(response,$('#'+step));
 				});
-				*/
+				
 			});
 		}
-		$('.candidate').hide();
+		*/
+		
 		$('.overlay').hide();
+		$('.modal').modal('hide');
 		$('#project-panel').fadeIn();
 		$('#clock-panel').fadeIn();
 		$('#breadcrumb-panel').fadeIn();
 		$('#button-panel').fadeIn();
 		$('#quick-nav').fadeIn();
-		
-		$('.modal').modal('hide');
 	}
 };
+$('#next').click(function(event){
+	var current=$('.current').attr('id');
+	var next=steps[steps.indexOf(current)+1];
+	var pid=getParameterByName('pid');
+	
+	if($.inArray(next,loaded_steps)>-1){
+		$('.current').removeClass('current');
+		$('.page').hide();
+		$('#'+next).addClass('current');
+		$('.active-circle').removeClass('active-circle').next().addClass('active-circle');
+		$('.overlay').show();
+		
+		location.href=location.href.split('#')[0]+'#'+next;
+		
+		loadPage(next,function(){
+			$('.overlay').hide();
+			$('#'+next).fadeIn();
+		});
+	}
+	else{
+		var last=$('.current').attr('id');
+		var current=steps[steps.indexOf(last)+1];
+		var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+		$(modal).find('[data-action=save]').unbind('click');
+		$(modal).find('[data-action=save]').click(function(e){
+			var pid=$(modal).attr('data-pid');
+			var fields=Config[current].fields;
+			var object={}
+			for(var i in fields){
+				object[i]=$('#'+i).val();
+			}
+			window[current.ucfirst()].create(object,function(response){
+				window[current.ucfirst()].assign({object_id:response.id},pid,function(r){
+					location.href=location.href.split('#')[0]+'#'+current;
+					loadSteps(getParameterByName('pid'),function(){
+						detectHash(function(hash){
+							loadPage(hash,function(){
+								Final.init();
+							});
+						});
+					});
+				});
+			});
+		});
+	}
+});
+$('#prev').click(function(event){
+	var current=$('.current').attr('id');
+	var prev=steps[steps.indexOf(current)-1];
+	var pid=getParameterByName('pid');
+	
+	if($.inArray(prev,loaded_steps)>-1){
+		$('.current').removeClass('current');
+		$('.page').hide();
+		$('#'+prev).addClass('current');
+		$('.active-circle').removeClass('active-circle').next().addClass('active-circle');
+		$('.overlay').show();
+		
+		location.href=location.href.split('#')[0]+'#'+prev;
+		
+		if(prev!='bootstrap'){
+			loadPage(prev,function(){
+				$('.overlay').hide();
+				$('#'+prev).fadeIn();
+			});
+		}
+		else{
+			$('.overlay').hide();
+			$('#'+prev).fadeIn();
+		}
+	}
+});
 var Folder={
 	create:function(a,b,callback){
 		$.ajax({
@@ -584,126 +816,10 @@ function menu(){
 $(window).resize(function(){
 	resize();
 });
-$(document).ready(function(){
-	var hash=location.href.split('#')[1]?location.href.split('#')[1].split(/[^A-Za-z]/):undefined;
-	if(hash!=undefined){
-		$('.current').removeClass('current');
-		$('#'+hash).addClass('current');
-	}
-	if(getParameterByName('pid')!=null){
-		Project.load(getParameterByName('pid'),function(response){Project.render(response);});
-		$('.candidate').hide();
-		$('#project-panel').fadeIn();
-	}
-	else if(getParameterByName('action')=='notifications'){
-		$('.overlay').show();
-		$('.candidate').hide();
-		$('#notification-panel').html('');
-		$.ajax({
-			url:api_base+'notifications',
-			method:'GET',
-			statusCode:{
-				200:function(response){
-					for(var i=0;i<response.length;i++){
-						var diff=(stringToDate(response[i].deadline) - new Date());
-						var days=parseInt(diff / (1000 * 60 * 60 * 24));
-						var panel=$('<div>',{});
-		
-						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
-						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
-						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
-						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
-		
-						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
-						$('#notification-panel').append(panel);
-					}
-					$('.overlay').hide();
-					$('#notification-panel').fadeIn();
-				}
-			}
-		});
-	}
-	else if(getParameterByName('action')=='customers'){
-		$('.overlay').show();
-		$('.candidate').hide();
-		$('#notification-panel').html('');
-		$.ajax({
-			url:api_base+'notifications',
-			method:'GET',
-			statusCode:{
-				200:function(response){
-					for(var i=0;i<response.length;i++){
-						var diff=(stringToDate(response[i].deadline) - new Date());
-						var days=parseInt(diff / (1000 * 60 * 60 * 24));
-						var panel=$('<div>',{});
-		
-						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
-						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
-						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
-						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
-		
-						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
-						$('#notification-panel').append(panel);
-					}
-					$('.overlay').hide();
-					$('#notification-panel').fadeIn();
-				}
-			}
-		});
-	}
-	else if(getParameterByName('action')=='suppliers'){}
-	else{
-		$('.candidate').hide();
-		$('#gallery').html('');
-		for(var i in pics){
-			if(pics.hasOwnProperty(i)){
-				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo($('#gallery'));
-			}
-		}
-		var running=false;
-		var activeClass='active-slide';
-		$('.slide').first().addClass(activeClass);
-		$('#gallery-panel').fadeIn();
-		$('#up').click(function(){
-			if(running==false)running=true;
-			else return;
-			if($('.slide'+'.'+activeClass).prev().length){
-				var h=$(window).height();
-				$('#down').css('visibility','visible');
-				$('#gallery').animate({top:'+='+h},500,function(){
-					$('.slide'+'.'+activeClass).removeClass(activeClass).prev().addClass(activeClass);
-					if($('.slide'+'.'+activeClass).prev().length){
-						$('#up').css('visibility','visible');
-					}
-					else
-						$('#up').css('visibility','hidden');
-					running=false;
-				});
-			}
-		});
-		$('#down').click(function(){
-			if(running==false)running=true;
-			else return;
-			if($('.slide'+'.'+activeClass).next().length){
-				var h=-$(window).height();
-				$('#up').css('visibility','visible');
-				$('#gallery').animate({top:'+='+h},500,function(){
-					$('.slide'+'.'+activeClass).removeClass(activeClass).next().addClass(activeClass);
-					if($('.slide'+'.'+activeClass).next().length){
-						$('down').css('visibility','visible');
-					}
-					else
-						$('#down').css('visibility','hidden');
-					running=false;
-				});
-			}
-		});
-	}
-	menu();
-});
+
 ///////////////////////////////////////////////////////////////////////////////
 //running=false;
-Dropzone.autoDiscover = false;
+
 ///////////////////////////////////////////////////////////////////////////////
 $('#remove').click(function(e){
 	var r=confirm('Are you sure?');
@@ -724,71 +840,23 @@ $('#customers').click(function(e){
 $('#suppliers').click(function(e){
 	location.href=location.href.split('?')[0]+'?action=suppliers';
 });
-$('#next').click(function(event){
-	var current=$('.current').attr('id');
-	var next=steps[steps.indexOf(current)+1];
-	if($.inArray(next,loaded_steps)>-1){
-		var className='active-circle';
-		$('.current').removeClass('current');
-		$('.page').hide();
-		$('#'+next).addClass('current');
-		$('.'+className).removeClass(className).next().addClass(className);
-		var pid=getParameterByName('pid');
-		$('.overlay').show();
-		location.href=location.href.split('#')[0]+'#'+next;
-		window[next.ucfirst()].loadOf(pid,function(response){
-			window[next.ucfirst()].render(response);
-			$('.overlay').hide();
-			$('#'+next).fadeIn();
-		});
-	}
-	else{
-		var last=$('.current').attr('id');
-		var current=steps[steps.indexOf(last)+1];
-		var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
-		$(modal).find('[data-action=save]').unbind('click');
-		$(modal).find('[data-action=save]').click(function(e){
-			var pid=$(modal).attr('data-pid');
-			var fields=Config[current].fields;
-			var object={}
-			for(var i in fields){
-				object[i]=$('#'+i).val();
-			}
-			window[current.ucfirst()].create(object,function(response){
-				window[current.ucfirst()].assign({object_id:response.id},pid,function(r){
-					window[current.ucfirst()].render(response);
-					$('.overlay').hide();
-					$('#'+current).fadeIn();
+$.getScript('assets/js/cotfield/bootstrap.js',function(){
+	console.log('--Bootstrap Loaded--');
+	Bootstrap.loadModal(function(response){
+		console.log('--Bootstrap Modal Rendered--');
+		$('body').append(response);
+		$('#save-bootstrap').unbind('click');
+		$('#save-bootstrap').click(function(e){
+			Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
+				Customer.assign({object_id:$('#customer').val()},response.id,function(r){
+					Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){
+						location.href=location.href.split('?')[0]+'?pid='+response.id;
+					});
 				});
 			});
 		});
-	}
-});
-$('#prev').click(function(event){
-	var current=$('.current').attr('id');
-	var prev=steps[steps.indexOf(current)-1];
-	if($.inArray(prev,loaded_steps)>-1){
-		var className='active-circle';
-		$('.current').removeClass('current')
-		$('.page').hide();
-		$('#'+prev).addClass('current');
-		$('.'+className).removeClass(className).next().addClass(className);
-		var pid=getParameterByName('pid');
-		$('.overlay').show();
-		location.href=location.href.split('#')[0]+'#'+prev;
-		if(prev!='bootstrap'){
-			window[prev.ucfirst()].loadOf(pid,function(response){
-				window[prev.ucfirst()].render(response);
-				$('.overlay').hide();
-				$('#'+prev).fadeIn();
-			});
-		}
-		else{
-			$('.overlay').hide();
-			$('#'+prev).fadeIn();
-		}
-	}
-});
-$('.create_project').click(function(){
-	var modal=$('#bootstrap-modal').modal('show');
+		$('.create_project').click(function(){
+			var modal=$('#bootstrap-modal').modal('show');
+		});
+	});
 });
