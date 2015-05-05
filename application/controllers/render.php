@@ -333,6 +333,10 @@ class Render extends CI_Controller {
 					<div class="caption">Payment Document</div>
 					<div id='render-payment_payment_document' class="value"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">Commission Amount</div>
+					<div id='render-payment_commission_amount' class="value"></div>
+				</div>
 			</div>
 		</div>
 		<?php

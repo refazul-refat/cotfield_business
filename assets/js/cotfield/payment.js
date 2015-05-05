@@ -190,6 +190,16 @@ Payment={
 				});
 			});
 		});
+		$.ajax({
+			url:api_base+'calculate/commission_amount/'+getParameterByName('pid'),
+			dataType:'json',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					$('#render-payment_commission_amount').text(parseFloat(response.commission_amount).toFixed(2)+' '+response.commission_amount_currecny);
+				}
+			}
+		});
 	},
 	loadModal:function(callback){
 		$.ajax({
