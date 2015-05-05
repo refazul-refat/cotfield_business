@@ -560,7 +560,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Payment Notification</button>
 							</div>
-							<input id="transshipment_payment_notification" class="form-control date hasDatepicker" data-type="date" type="text">
+							<input id="transshipment_payment_notification" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
