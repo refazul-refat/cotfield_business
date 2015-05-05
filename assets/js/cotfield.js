@@ -3,6 +3,8 @@ var api_base='http://api.cotfield.com/v1/';
 var steps=['bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
 var loaded_steps=[];
 var dropzone_once=false;
+var running=false;
+var stop_animate=false;
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -242,6 +244,39 @@ function loadPage(hash,callback){
 		});
 	}
 }
+function animate(){
+	var activeClass='active-slide';
+	$('.slide').first().addClass(activeClass);
+	$('#gallery-panel').fadeIn();
+	var t=setInterval(function(){
+		if(running==false)running=true;
+		else return;
+		if($('.slide'+'.'+activeClass).next().length){
+			var h=-$(window).height();
+			$('#up').css('visibility','visible');
+			$('#gallery').animate({top:'+='+h},500,function(){
+				$('.slide'+'.'+activeClass).removeClass(activeClass).next().addClass(activeClass);
+				if($('.slide'+'.'+activeClass).next().length){
+					$('#down').css('visibility','visible');
+				}
+				else
+					$('#down').css('visibility','hidden');
+				running=false;
+			});
+		}
+		else{
+			$('#gallery').animate({top:'0px'},500,function(){
+				$('.slide'+'.'+activeClass).removeClass(activeClass);
+				$('.slide').first().addClass(activeClass);
+				$('#down').css('visibility','visible');
+				$('#up').css('visibility','hidden');
+				running=false;
+			});
+		}
+		if(stop_animate==true)
+			clearInterval(t);
+	},3000);
+}
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 var temp={
@@ -462,6 +497,7 @@ var Project={
 		$('#render-project_description').html(a.project.description);
 		$('#render-project_customer').html(a.customer.name);
 		$('#render-project_supplier').html(a.supplier.name);
+		$('#pname').html(a.project.name);
 		loadScripts(function(){
 			loadPages(function(){
 				loadModals(function(){
@@ -552,11 +588,12 @@ $(document).ready(function(){
 				var slide=$('<div>',{class:'slide'}).append($('<img>',{}).attr('src',pics[i].src).attr('width','100%').attr('height','100%')).appendTo($('#gallery'));
 			}
 		}
-		var running=false;
 		var activeClass='active-slide';
 		$('.slide').first().addClass(activeClass);
 		$('#gallery-panel').fadeIn();
+		animate();
 		$('#up').click(function(){
+			stop_animate=true;
 			if(running==false)running=true;
 			else return;
 			if($('.slide'+'.'+activeClass).prev().length){
@@ -574,6 +611,7 @@ $(document).ready(function(){
 			}
 		});
 		$('#down').click(function(){
+			stop_animate=true;
 			if(running==false)running=true;
 			else return;
 			if($('.slide'+'.'+activeClass).next().length){
@@ -769,10 +807,7 @@ var Menu={
 						});
 						$(e.target).attr('data-visibility','visible');
 						$('[data-type=project]').click(function(e){
-							history.pushState({},'',location.href.split('?')[0]+'?pid='+$(e.target).attr('data-id'));
-							Project.load($(e.target).attr('data-id'),function(response){
-								Project.render(response);
-							});
+							location.href=location.href+'?pid='+$(e.target).attr('data-id');
 						});
 					});
 				}

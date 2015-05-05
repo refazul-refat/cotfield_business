@@ -159,7 +159,7 @@ Lc={
 						if(!$('#'+$(selector).attr('id')+'-x'+'-'+x).length){
 							$('<div>',{class:'docs-container docs-container-'+i,id:$(selector).attr('id')+'-x'+'-'+x}).append(icon).append(link).appendTo($(selector).parent());
 						}
-						$('body').append('<iframe class="tempviewer tempviewer-'+i+'" id="'+nodot+'" src="http://docs.google.com/gview?url='+files[x]+'&embedded=true" style="margin:5% 5% 0 5%;width:90%; height:100%;position:fixed;display:none;z-index:100000;" frameborder="0"></iframe>');
+						$('body').append('<iframe class="tempviewer tempviewer-'+i+'" id="'+nodot+'" src="http://docs.google.com/gview?url='+files[x]+'&embedded=true" style="margin:5%;width:90%; height:90%;position:fixed;display:none;z-index:100000;" frameborder="0"></iframe>');
 					}
 				}
 			}
