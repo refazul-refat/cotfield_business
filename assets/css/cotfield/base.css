@@ -14,7 +14,8 @@ body{
 	font-family: schoolregular;
 }
 a{
-	color: #8a8a8a;
+	/*color: #8a8a8a;*/
+	color: #333;
 	text-decoration: none;
 	cursor: pointer;
 }

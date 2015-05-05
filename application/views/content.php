@@ -18,6 +18,7 @@
 				position: fixed;
 				font-family: digit;
 				top: 30px;
+				color: #4F9E4F;
 			}
 		</style>
 		<script type='text/javascript'>
@@ -30,7 +31,7 @@
 		</script>
 	</div>
 	<div class='candidate' id='breadcrumb-panel'>
-		<div style='position:fixed;top: 65px;color: #075626;  font-size: 20px;font-family: schoolmedium;'>Projects > <a id='pname'>Project Name</a></div>
+		<div style='position:fixed;top: 65px;color: #D04C47;  font-size: 20px;font-family: schoolmedium;'>Projects > <a id='pname'>Project Name</a></div>
 	</div>
 	<div class='candidate' id='project-panel' style='float:right;width:75%;'>
 		<div id="bootstrap" class="page current">

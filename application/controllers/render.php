@@ -300,6 +300,14 @@ class Render extends CI_Controller {
 					<div class="caption">Landing Report</div>
 					<div id='render-controller_landing_report' class="value"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">Claim Weight</div>
+					<div id='render-controller_claim_weight' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Claim Amount</div>
+					<div id='render-controller_claim_amount' class="value"></div>
+				</div>
 			</div>
 		</div>
 		<?php

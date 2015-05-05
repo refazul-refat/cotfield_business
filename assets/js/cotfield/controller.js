@@ -190,6 +190,17 @@ Controller={
 				});
 			});
 		});
+		$.ajax({
+			url:api_base+'calculate/claim_weight/'+getParameterByName('pid'),
+			dataType:'json',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					$('#render-controller_claim_weight').text(parseFloat(response.claim_weight).toFixed(2)+' '+response.claim_weight_unit);
+					$('#render-controller_claim_amount').text(parseFloat(response.claim_amount).toFixed(2)+' '+response.claim_amount_currency);
+				}
+			}
+		});
 	},
 	loadModal:function(callback){
 		$.ajax({
