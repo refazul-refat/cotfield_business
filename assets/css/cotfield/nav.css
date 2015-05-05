@@ -2,7 +2,7 @@
 {
 	margin: 10px 0px 10px 30px;
 	position: fixed;
-	top: 120px;
+	top: 90px;
 	z-index: 10000;
 }
 #nav .bg
@@ -72,6 +72,7 @@
 	width: 215px;
 	height: 150px;
 	left: 15px;
+	top: -20px;
 }
 
 

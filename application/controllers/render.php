@@ -183,35 +183,41 @@ class Render extends CI_Controller {
 		<div id="document" class="page">
 			<div class="header">Documents<span data-step='document' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
-				<div class="unit-container">
+				<div class="unit-container document">
 					<div class="caption">Commercial Invoice</div>
 					<div id="render-document_commercial_invoice" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container document">
 					<div class="caption">Packing List</div>
 					<div id="render-document_packing_list" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<hr>
+				<br/>
+				<div class="unit-container document">
 					<div class="caption">Bill of Lading</div>
 					<div id="render-document_lading_bill" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container document">
 					<div class="caption">Phytosanitary Certificate</div>
 					<div id='render-document_phytosanitary_certificate' class="value"></div>
 				</div>
-				<div class="unit-container">
+				<hr>
+				<br/>
+				<div class="unit-container document">
 					<div class="caption">Origin Certificate</div>
 					<div id='render-document_origin_certificate' class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container document">
 					<div class="caption">Shipment Advice</div>
 					<div id='render-document_shipment_advice' class="value"></div>
 				</div>
-				<div class="unit-container">
+				<hr>
+				<br/>
+				<div class="unit-container" style='display:inline-block;width:45%;'>
 					<div class="caption">Controller Letter</div>
 					<div id='render-document_controller_letter' class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container" style='display:inline-block;width:45%;'>
 					<div class="caption">Fumigation Letter</div>
 					<div id='render-document_fumigation_letter' class="value"></div>
 				</div>
