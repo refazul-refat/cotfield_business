@@ -157,7 +157,7 @@
 	display:inline-block;
 	width: 45%;
 }
-.unit-container .caption{
+.unit-container.document .caption{
 	width: 60%;
 }
 .doc-links{

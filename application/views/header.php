@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="assets/css/jquery-ui-timepicker-addon.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/dropzone.css" type="text/css">
-		<link rel="stylesheet" href="assets/css/cotfield/base.css" type="text/css">
+		<link rel="stylesheet" href="assets/css/cotfield/base.css?v=<?php echo time();?>" type="text/css">
 		<link rel="stylesheet" href="assets/css/cotfield/nav.css" type="text/css">
 		<link rel="stylesheet" href="assets/css/cotfield/content.css" type="text/css">
 		<script type="text/javascript" src="assets/js/jquery-2.1.3.min.js"></script>
