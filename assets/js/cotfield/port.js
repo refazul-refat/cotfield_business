@@ -190,6 +190,16 @@ Port={
 				});
 			});
 		});
+		$.ajax({
+			url:api_base+'calculate/invoice_amount/'+getParameterByName('pid'),
+			dataType:'json',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					$('#render-port_invoice_amount').text(response.invoice_amount+' '+response.currency);
+				}
+			}
+		});
 	},
 	loadModal:function(callback){
 		$.ajax({

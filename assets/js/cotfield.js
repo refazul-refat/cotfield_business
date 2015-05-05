@@ -227,6 +227,8 @@ function loadSteps(pid,callback){
 }
 function loadPage(hash,callback){
 	console.log(hash,getParameterByName('pid'));
+	$('.current').removeClass('current');
+	$('#'+hash).addClass('current');
 	if(hash=='bootstrap'){
 		window[hash.ucfirst()].loadOf(getParameterByName('pid'),function(r){
 			window[hash.ucfirst()].render(r,function(){
@@ -290,12 +292,14 @@ function quicknav(){
 				$(this).addClass('active-circle');
 				var step=$(this).attr('data-step');
 				var pid=getParameterByName('pid');
+				location.href=location.href.split('#')[0]+'#'+step;
 				loadPage(step,function(){
 					$('.overlay').hide();
 					$('#'+step).fadeIn();
 				});
 			});
 		}
+		$('.circle[data-step="'+$('.current').attr('id')+'"]').addClass('active-circle');
 		resize();
 	});
 }
@@ -728,7 +732,7 @@ $('#prev').click(function(event){
 		$('.current').removeClass('current');
 		$('.page').hide();
 		$('#'+prev).addClass('current');
-		$('.active-circle').removeClass('active-circle').next().addClass('active-circle');
+		$('.active-circle').removeClass('active-circle').prev().addClass('active-circle');
 		$('.overlay').show();
 		
 		location.href=location.href.split('#')[0]+'#'+prev;

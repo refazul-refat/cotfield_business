@@ -123,7 +123,7 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">M/TON</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_quantity">
-									<li class="item"><a data-value="M/TON">M/TON</a></li>
+									<li class="item"><a data-value="MTON">MTON</a></li>
 									<li class="item"><a data-value="LBS">LBS</a></li>
 									<li class="item"><a data-value="KGS">KGS</a></li>
 								</ul>

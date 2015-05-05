@@ -270,6 +270,10 @@ class Render extends CI_Controller {
 					<div id="render-port_invoice_weight" class="value"></div>
 					<div id="render-port_invoice_weight_unit" class="value dependent"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">Invoice Amount</div>
+					<div id="render-port_invoice_amount" class="value"></div>
+				</div>
 			</div>
 		</div>
 		<?php
