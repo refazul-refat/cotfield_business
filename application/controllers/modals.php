@@ -29,15 +29,31 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="customer" class="form-control" name="customer">
-									<option value="1">Advance Trading</option>
-									<option value="2">Al- Haj Karim Textile Mills Ltd.</option>
-									<option value="3">Asia Composite Mills Ltd/ RMT Spinning Mills Ltd.</option>
-									<option value="4">Badar Spinning Mills Ltd./M.M Spinning Mills Ltd.</option>
-									<option value="5">Fariha Spinning Mills.</option>
-									<option value="6">G. R Traders</option>
-									<option value="7">Hajee Hashem Spinning Mills Ltd.</option>
-									<option value="8">Hajrat  Amanat Shah Spinning Mills Ltd.</option>
-									<option value="9">Mosharaf Composite Textile Mills Ltd</option>
+									<option value='1'>Asia Composite Mills Ltd/ RMT Spinning Mills Ltd</option>
+									<option value='2'>Badar Spinning Mills Ltd/ M.M Spinning Mills Ltd</option>
+									<option value='3'>Fariha Spinning Mills</option>
+									<option value='4'>Hajee Hashem Spinning Mills Ltd</option>
+									<option value='5'>Mozaffar Hossain Spinning Mills</option>
+									<option value='6'>Naheed Group</option>
+									<option value='7'>Glory Spinning Ltd</option>
+									<option value='8'>Pacific Spinning Mills Ltd/ ARM Trading</option>
+									<option value='9'>Pakiza Spinning Mills</option>
+									<option value='10'>R.K. Spinning Mills Ltd</option>
+									<option value='11'>Shajahan Spinning Mills Ltd</option>
+									<option value='12'>Sheema Spinning Mills Ltd</option>
+									<option value='13'>Shirin Spinning Mills Ltd/ AB-R Spinning Mills Ltd</option>
+									<option value='14'>Youth Spinning Mills Ltd</option>
+									<option value='15'>Hajrat Amanat Shah Spinning Mills Ltd</option>
+									<option value='16'>Al-Haj Karim Textile Mills Ltd</option>
+									<option value='17'>Shanta Enterprise</option>
+									<option value='18'>Tamishna Spinning Mills Ltd</option>
+									<option value='19'>Alauddin Spinning Mills Ltd (ATM)</option>
+									<option value='20'>Advance Trading</option>
+									<option value='21'>Rahmat Spinning Mills Ltd</option>
+									<option value='22'>Square Textile Ltd</option>
+									<option value='23'>Otto Spinning Ltd</option>
+									<option value='24'>ATM/ Top Spinning Mills Ltd</option>
+									<option value='25'>NZ Textile Mills Ltd</option>
 								</select>
 							</div>
 						</div>
@@ -47,16 +63,21 @@ class Modals extends CI_Controller {
 							</div>
 							<div>
 								<select id="supplier" class="form-control" name="supplier">
-									<option value="1">Olam International Ltd.</option>
-									<option value="2">Paul Rain hart AG. Switzerland</option>
-									<option value="3">Dhancot Fiber (PVT) Kolkata</option>
-									<option value="4">Sunny Trexim (PVT) Ltd. Kolkata</option>
-									<option value="5">DP Cotton, Gujarat</option>
-									<option value="6">Raghunath Agrotech, Adilabad</option>
-									<option value="7">Manjeet Cotton (PVT) Ltd. Aurangabad</option>
-									<option value="8">Agrocorp International PTE Ltd.</option>
-									<option value="9">Panasian Impex Privet Ltd.</option>
-									<option value="10">COTTON CORPORATION OF INDIAN</option>
+									<option value='1'>Olam International Ltd</option>
+									<option value='2'>Paul Rain hart AG. Switzerland</option>
+									<option value='3'>Dhancot Fiber (PVT) Kolkata</option>
+									<option value='4'>Sunny Trexim (PVT) Ltd Kolkata</option>
+									<option value='5'>DP Cotton, Gujarat</option>
+									<option value='6'>Raghunath Agrotech, Adilabad</option>
+									<option value='7'>Manjeet Cotton (PVT) Ltd Aurangabad</option>
+									<option value='8'>Agrocorp International PTE Ltd</option>
+									<option value='9'>Panasian Impex Privet Ltd</option>
+									<option value='10'>COTTON CORPORATION OF INDIAN </option>
+									<option value='11'>CA COTTON LLP, UK</option>
+									<option value='12'>Bhadresh Trading Corporation</option>
+									<option value='13'>Navjyot International</option>
+									<option value='14'>Gujrat Cotton Corporation</option>
+									<option value='15'>Parvin Group</option>
 								</select>
 							</div>
 						</div>
