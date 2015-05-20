@@ -314,20 +314,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Opening Bank</button>
 							</div>
 							<div>
-								<select id="lc_opening_bank" class="form-control" name="lc_opening_bank">
-									<option value="Catholic Syrian Bank">Catholic Syrian Bank</option>
-									<option value="City Union Bank">City Union Bank</option>
-									<option value="Federal Bank">Federal Bank</option>
-									<option value="Jammu and Kashmir Bank">Jammu and Kashmir Bank</option>
-									<option value="U.P Agro Corporation Bank">U.P Agro Corporation Bank</option>
-									<option value="South Indian Bank">South Indian Bank</option>
-									<option value="Bank of India">Bank of India</option>
-									<option value="Bank of Maharashtra">Bank of Maharashtra</option>
-									<option value="Central Bank of India">Central Bank of India</option>
-									<option value="Corporation Bank">Corporation Bank</option>
-									<option value="Indian Overseas Bank">Indian Overseas Bank</option>
-									<option value="Oriental Bank of Commerce">Oriental Bank of Commerce</option>
-								</select>
+								<input type='text' id="lc_opening_bank" class="form-control" name="lc_opening_bank"/>
 							</div>
 						</div>
 						<div class="input-group">
@@ -335,30 +322,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Receiving Bank</button>
 							</div>
 							<div>
-								<select id="lc_receiving_bank" class="form-control" name="lc_receiving_bank">
-									<option value="AB Bank Limited">AB Bank Limited</option>
-									<option value="Bangladesh Commerce Bank Limited">Bangladesh Commerce Bank Limited</option>
-									<option value="Bank Asia Limited">Bank Asia Limited</option>
-									<option value="BRAC Bank Limited">BRAC Bank Limited</option>
-									<option value="Dhaka Bank Limited">Dhaka Bank Limited</option>
-									<option value="Dutch Bangla Bank Limited">Dutch Bangla Bank Limited</option>
-									<option value="Eastern Bank Limited">Eastern Bank Limited</option>
-									<option value="IFIC Bank Limited">IFIC Bank Limited</option>
-									<option value="Jamuna Bank Limited">Jamuna Bank Limited</option>
-									<option value="Mercantile Bank Limited">Mercantile Bank Limited</option>
-									<option value="Midland Bank Limited">Midland Bank Limited</option>
-									<option value="Modhumoti Bank Limited">Modhumoti Bank Limited</option>
-									<option value="Mutual Trust Bank Limited">Mutual Trust Bank Limited</option>
-									<option value="National Bank Limited">National Bank Limited</option>
-									<option value="NCC Bank Limited">NCC Bank Limited</option>
-									<option value="NRB Bank Limited">NRB Bank Limited</option>
-									<option value="NRB Commercial Bank Limited">NRB Commercial Bank Limited</option>
-									<option value="NRB Global Bank Limited">NRB Global Bank Limited</option>
-									<option value="One Bank Limited">One Bank Limited</option>
-									<option value="Prime Bank Limited">Prime Bank Limited</option>
-									<option value="Pubali Bank Limited">Pubali Bank Limited</option>
-									<!--<option value="brac">BRAC</option>-->
-								</select>
+								<input type='text' id="lc_receiving_bank" class="form-control" name="lc_receiving_bank"/>
 							</div>
 						</div>
 						<div class="input-group">
@@ -439,15 +403,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Port of Loading</button>
 							</div>
 							<div>
-								<select id="shipment_loading_port" class="form-control" name="shipment_loading_port">
-									<option value="Port George IV">Port George IV</option>
-									<option value="Port of Geraldton">Port of Geraldton</option>
-									<option value="Geranium Harbour">Geranium Harbour</option>
-									<option value="Port Gregory">Port Gregory</option>
-									<option value="Port Grey">Port Grey</option>
-									<option value="Port Harding">Port Harding</option>
-									<option value="Port Hedland">Port Hedland</option>
-								</select>
+								<input type='text' id="shipment_loading_port" class="form-control" name="shipment_loading_port"/>
 							</div>
 						</div>
 						<div class="input-group">
