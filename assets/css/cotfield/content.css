@@ -215,3 +215,6 @@
 	width: 75%;
 	float: right;
 }
+.ui-autocomplete{
+	z-index:10000;
+}

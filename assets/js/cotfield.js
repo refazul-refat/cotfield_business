@@ -107,6 +107,12 @@ function detectHash(callback){
 }
 function loadScripts(callback){
 	var loaded=0;
+	$.getScript('assets/js/cotfield/customer.js',function(){
+		console.log('--Customer Loaded--');loaded+=1;
+	});
+	$.getScript('assets/js/cotfield/supplier.js',function(){
+		console.log('--Supplier Loaded--');loaded+=1;
+	});
 	$.getScript('assets/js/cotfield/product.js',function(){
 		console.log('--Product Loaded--');loaded+=1;
 	});
@@ -139,7 +145,7 @@ function loadScripts(callback){
 	});
 	var t=setInterval(function(){
 		console.log('--Loaded '+loaded+' Scripts so far--');
-		if(loaded==10){
+		if(loaded==12){
 			console.log('----------All Scripts Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -881,22 +887,26 @@ $('#suppliers').click(function(e){
 	location.href=location.href.split('?')[0]+'?action=suppliers';
 });
 $.getScript('assets/js/cotfield/bootstrap.js',function(){
-	console.log('--Bootstrap Loaded--');
-	Bootstrap.loadModal(function(response){
-		console.log('--Bootstrap Modal Rendered--');
-		$('body').append(response);
-		$('#save-bootstrap').unbind('click');
-		$('#save-bootstrap').click(function(e){
-			Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
-				Customer.assign({object_id:$('#customer').val()},response.id,function(r){
-					Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){
-						location.href=location.href.split('?')[0]+'?pid='+response.id;
+	$.getScript('assets/js/cotfield/customer.js',function(){
+		$.getScript('assets/js/cotfield/supplier.js',function(){
+			console.log('--Bootstrap Loaded--');
+			Bootstrap.loadModal(function(response){
+				console.log('--Bootstrap Modal Rendered--');
+				$('body').append(response);
+				$('#save-bootstrap').unbind('click');
+				$('#save-bootstrap').click(function(e){
+					Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
+						Customer.attempt($('#customers-list').val(),response.id,function(r){
+							Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
+								location.href=location.href.split('?')[0]+'?pid='+response.id;
+							});
+						});
 					});
 				});
+				$('.create_project').click(function(){
+					var modal=$('#bootstrap-modal').modal('show');
+				});
 			});
-		});
-		$('.create_project').click(function(){
-			var modal=$('#bootstrap-modal').modal('show');
 		});
 	});
 });

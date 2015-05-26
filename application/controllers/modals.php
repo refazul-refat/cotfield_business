@@ -28,6 +28,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Customer</button>
 							</div>
 							<div>
+								<!--
 								<select id="customer" class="form-control" name="customer">
 									<option value='1'>Asia Composite Mills Ltd/ RMT Spinning Mills Ltd</option>
 									<option value='2'>Badar Spinning Mills Ltd/ M.M Spinning Mills Ltd</option>
@@ -55,6 +56,24 @@ class Modals extends CI_Controller {
 									<option value='24'>ATM/ Top Spinning Mills Ltd</option>
 									<option value='25'>NZ Textile Mills Ltd</option>
 								</select>
+								-->
+								<input type='text' id='customers-list' class='form-control'/>
+								<script>
+								  $(function() {
+								  	$.ajax({
+								  		url:'http://api.cotfield.com/v1/customers?token=xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z',
+								  		method:'GET',
+								  		dataType:'json',
+								  		statusCode:{
+								  			200:function(response){
+								  				$( "#customers-list" ).autocomplete({
+												  source: response
+												});
+								  			}
+								  		}
+								  	});
+								  });
+								</script>
 							</div>
 						</div>
 						<div class="input-group">
@@ -62,6 +81,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Supplier</button>
 							</div>
 							<div>
+								<!--
 								<select id="supplier" class="form-control" name="supplier">
 									<option value='1'>Olam International Ltd</option>
 									<option value='2'>Paul Rain hart AG. Switzerland</option>
@@ -79,6 +99,24 @@ class Modals extends CI_Controller {
 									<option value='14'>Gujrat Cotton Corporation</option>
 									<option value='15'>Parvin Group</option>
 								</select>
+								-->
+								<input type='text' id='suppliers-list' class='form-control'/>
+								<script>
+								  $(function() {
+								  	$.ajax({
+								  		url:'http://api.cotfield.com/v1/suppliers?token=xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z',
+								  		method:'GET',
+								  		dataType:'json',
+								  		statusCode:{
+								  			200:function(response){
+								  				$( "#suppliers-list" ).autocomplete({
+												  source: response
+												});
+								  			}
+								  		}
+								  	});
+								  });
+								</script>
 							</div>
 						</div>
 					</div>

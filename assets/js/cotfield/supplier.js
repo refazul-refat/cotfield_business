@@ -29,6 +29,26 @@ Supplier={
 			}
 		});
 	},
+	loadByVal:function(value,callback){
+		$.ajax({
+			url:api_base+'suppliers',
+			method:'POST',
+			data:{supplier_name:value,token:token},
+			dataType:'json',
+			statusCode:{
+				201:function(response){
+					console.log('supplier loaded');
+					console.log(response);
+					if(typeof callback==='function')callback(response);
+				},
+				200:function(response){
+					console.log('supplier loaded');
+					console.log(response);
+					if(typeof callback==='function')callback(response);
+				}
+			}
+		});
+	},
 	update:function(id,data,callback){
 		$.extend(data,{token:token,method:'update'});
 		$.ajax({
@@ -74,6 +94,25 @@ Supplier={
 					callback(response);
 				}
 			}
+		});
+	},
+	attempt:function(value,pid,callback){
+		Supplier.loadByVal(value,function(response){
+			console.log(response.id);
+			var object={object_id:response.id};
+			$.extend(object,{token:token});
+			$.ajax({
+				url:api_base+'projects/'+pid+'/'+'supplier',
+				method:'POST',
+				data:object,
+				statusCode:{
+					201:function(response){
+						console.log('');
+						console.log(response);
+						callback(response);
+					}
+				}
+			});
 		});
 	},
 	loadModal:function(callback){
