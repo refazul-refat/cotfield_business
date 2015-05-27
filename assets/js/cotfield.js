@@ -817,7 +817,7 @@ var Menu={
 						});
 						$(e.target).attr('data-visibility','visible');
 						$('[data-type=project]').click(function(e){
-							location.href=location.href+'?pid='+$(e.target).attr('data-id');
+							location.href=location.href.split('?')[0]+'?pid='+$(e.target).attr('data-id');
 						});
 					});
 				}
