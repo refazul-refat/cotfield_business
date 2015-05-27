@@ -895,10 +895,12 @@ $.getScript('assets/js/cotfield/bootstrap.js',function(){
 				$('body').append(response);
 				$('#save-bootstrap').unbind('click');
 				$('#save-bootstrap').click(function(e){
+					$('#save-bootstrap').prop('disabled', true);
 					Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
 						Customer.attempt($('#customers-list').val(),response.id,function(r){
 							Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
 								location.href=location.href.split('?')[0]+'?pid='+response.id;
+								$('#save-bootstrap').prop('disabled', false);
 							});
 						});
 					});

@@ -168,10 +168,7 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default" type="button">Product Quality</button>
 							</div>
 							<div>
-								<select id="product_quality" class="form-control" name="product_quality">
-									<option value="Shankar 6 Organic">Shankar 6 Organic</option>
-									<option value="Shankar 6 Premium">Shankar 6 Premium</option>
-								</select>
+								<input id="product_quality" class="form-control" name="product_quality"/>
 							</div>
 						</div>
 						<div class="input-group">
