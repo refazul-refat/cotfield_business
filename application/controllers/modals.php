@@ -148,6 +148,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Product Origin</button>
 							</div>
+							<input id="product_origin" type="text" class="form-control" value=''>
+							<!--
 							<div>
 								<select id="product_origin" class="form-control" name="product_origin">
 									<option value="India">India</option>
@@ -162,6 +164,7 @@ class Modals extends CI_Controller {
 									<option value="Turkmenistan">Turkmenistan</option>
 								</select>
 							</div>
+							-->
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -229,16 +232,18 @@ class Modals extends CI_Controller {
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Contract Initiate Date</button>
+								<button class="btn btn-default" type="button">Contract Date</button>
 							</div>
 							<input id="contract_initiate_date" class="form-control" data-type="date" type="text">
 						</div>
+						<!--
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Date of Agreement</button>
 							</div>
 							<input id="contract_agreement_date" class="form-control" data-type="date" type="text">
 						</div>
+						-->
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Commission Rate</button>

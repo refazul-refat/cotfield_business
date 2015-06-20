@@ -67,13 +67,15 @@ class Render extends CI_Controller {
 					<div id="render-contract_no" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Contract Initiate Date</div>
+					<div class="caption">Contract Date</div>
 					<div id="render-contract_initiate_date" class="value"></div>
 				</div>
+				<!--
 				<div class="unit-container">
 					<div class="caption">Date of Agreement</div>
 					<div id="render-contract_agreement_date" class="value"></div>
 				</div>
+				-->
 				<div class="unit-container">
 					<div class="caption">Commission Rate</div>
 					<div id="render-contract_commission_rate" class="value"></div>
