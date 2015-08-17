@@ -47,9 +47,8 @@ function dropzone(){
 	dropzone_once=true;
 }
 function datetimepicker(){
-	$( "input[data-type='date']" ).datetimepicker({
+	$( "input[data-type='date']" ).datepicker({
 		dateFormat: 'yy-mm-dd',
-		timeFormat:  "HH:mm",
 		beforeShow: function() {
 			setTimeout(function(){
 				$('.ui-datepicker').css('z-index', 99999999999999);
