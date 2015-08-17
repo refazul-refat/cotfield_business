@@ -139,10 +139,12 @@ class Render extends CI_Controller {
 					<div class="caption">LC Copy</div>
 					<div id="render-lc_copy" class="value"></div>
 				</div>
+				<!--
 				<div class="unit-container">
 					<div class="caption">Maturity Notification</div>
 					<div id="render-lc_maturity_notification" class="value"></div>
 				</div>
+				-->
 			</div>
 		</div>
 		<?php
