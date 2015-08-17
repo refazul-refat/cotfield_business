@@ -135,9 +135,11 @@ function loadScripts(callback){
 	$.getScript('assets/js/cotfield/transshipment.js',function(){
 		console.log('--Transshipment Loaded--');loaded+=1;
 	});
+   /*
 	$.getScript('assets/js/cotfield/port.js',function(){
 		console.log('--Port Loaded--');loaded+=1;
 	});
+   */
 	$.getScript('assets/js/cotfield/controller.js',function(){
 		console.log('--Controller Loaded--');loaded+=1;
 	});
@@ -146,7 +148,7 @@ function loadScripts(callback){
 	});
 	var t=setInterval(function(){
 		console.log('--Loaded '+loaded+' Scripts so far--');
-		if(loaded==11){
+		if(loaded==10){
 			console.log('----------All Scripts Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -163,12 +165,12 @@ function loadPages(callback){
 	Shipment.render(undefined,function(){console.log('--Shipment Rendered--');rendered+=1;});
 	/*Document.render(undefined,function(){console.log('--Document Rendered--');rendered+=1;});*/
 	Transshipment.render(undefined,function(){console.log('--Transshipment Rendered--');rendered+=1;});
-	Port.render(undefined,function(){console.log('--Port Rendered--');rendered+=1;});
+	//Port.render(undefined,function(){console.log('--Port Rendered--');rendered+=1;});
 	Controller.render(undefined,function(){console.log('--Controller Rendered--');rendered+=1;});
 	Payment.render(undefined,function(){console.log('--Payment Rendered--');rendered+=1;});
 	var t=setInterval(function(){
 		console.log('--Loaded '+rendered+' Pages so far--');
-		if(rendered==10){
+		if(rendered==9){
 			console.log('----------All Pages Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -184,12 +186,12 @@ function loadModals(callback){
 	Shipment.loadModal(function(response){console.log('--Shipment Modal Rendered--');$('body').append(response);rendered+=1;});
 	/*Document.loadModal(function(response){console.log('--Document Modal Rendered--');$('body').append(response);rendered+=1;});*/
 	Transshipment.loadModal(function(response){console.log('--Transshipment Modal Rendered--');$('body').append(response);rendered+=1;});
-	Port.loadModal(function(response){console.log('--Port Modal Rendered--');$('body').append(response);rendered+=1;});
+	//Port.loadModal(function(response){console.log('--Port Modal Rendered--');$('body').append(response);rendered+=1;});
 	Controller.loadModal(function(response){console.log('--Controller Modal Rendered--');$('body').append(response);rendered+=1;});
 	Payment.loadModal(function(response){console.log('--Payment Modal Rendered--');$('body').append(response);rendered+=1;});
 	var t=setInterval(function(){
 		console.log('--Loaded '+rendered+' Modals so far--');
-		if(rendered==9){
+		if(rendered==8){
 			console.log('----------All Modals Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -444,6 +446,7 @@ var Config={
          transshipment_number_of_container:{caption:'Number of Container',save_id:'transshipment_number_of_container',type:'string'}
 		}
 	},
+   /*
 	port:{
 		step:8,
 		id:'port',
@@ -455,26 +458,30 @@ var Config={
 			port_invoice_weight_unit:{save_id:'port_invoice_weight_unit',type:'select',options:{}}
 		}
 	},
+   */
 	controller:{
-		step:9,
+		step:8,
 		id:'controller',
-		caption:'Controller',
+		caption:'Controller & Port',
 		fields:{
 			controller_company:{caption:'Controller Company',save_id:'controller_company',type:'string'},
 			controller_weight_finalization_area:{caption:'Weight Finalization Area',save_id:'controller_weight_finalization_area',type:'select',options:{}},
-			controller_final_weight:{caption:'Final Weight',save_id:'controller_final_weight',type:'number'},
+         controller_invoice_weight:{caption:'Invoice Weight',save_id:'controller_invoice_weight',type:'number'},
+			controller_invoice_weight_unit:{save_id:'controller_invoice_weight_unit',type:'select',options:{}},
+			controller_final_weight:{caption:'Landing Weight',save_id:'controller_final_weight',type:'number'},
 			controller_final_weight_unit:{save_id:'controller_final_weight_unit',type:'select',options:{}},
 			controller_landing_report:{save_id:'controller_landing_report',type:'document'}
 		}
 	},
 	payment:{
-		step:10,
+		step:9,
 		id:'payment',
 		caption:'Payment',
 		fields:{
-			payment_supplier_clearance:{caption:'Supplier Clearance',save_id:'payment_supplier_clearance',type:'select',options:{}},
+			payment_notification:{caption:'Payment Notification',save_id:'payment_notification',type:'date'},
+			payment_lc_maturity_notification:{caption:'LC Maturity Notification',save_id:'payment_lc_maturity_notification',type:'date'},
 			payment_receiving_date:{caption:'Receiving Date',save_id:'payment_receiving_date',type:'date'},
-			payment_late_payment:{caption:'Late Payment',save_id:'payment_late_payment',type:'date'},
+			payment_late_payment:{caption:'Late Payment',save_id:'payment_late_payment',type:'select',options:{}},
 			payment_payment_document:{caption:'Payment Document',save_id:'payment_payment_document',type:'document'}
 		}
 	}

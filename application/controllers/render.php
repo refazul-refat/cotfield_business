@@ -314,7 +314,12 @@ class Render extends CI_Controller {
 					<div id="render-controller_weight_finalization_area" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Final Weight</div>
+					<div class="caption">Invoice Weight</div>
+					<div id="render-controller_invoice_weight" class="value"></div>
+					<div id="render-controller_invoice_weight_unit" class="value dependent"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Landing Weight</div>
 					<div id="render-controller_final_weight" class="value"></div>
 					<div id="render-controller_final_weight_unit" class="value dependent"></div>
 				</div>
@@ -323,7 +328,7 @@ class Render extends CI_Controller {
 					<div id='render-controller_landing_report' class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Claim Weight</div>
+					<div class="caption">Short/Gain Weight</div>
 					<div id='render-controller_claim_weight' class="value"></div>
 				</div>
 				<div class="unit-container">
@@ -340,8 +345,12 @@ class Render extends CI_Controller {
 			<div class="header">Payment<span data-step='payment' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
-					<div class="caption">Supplier Clearance</div>
-					<div id='render-payment_supplier_clearance' class="value"></div>
+					<div class="caption">Payment Notification</div>
+					<div id='render-payment_notification' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">LC Maturity Notification</div>
+					<div id='render-payment_lc_maturity_notification' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Receiving Date</div>
@@ -354,6 +363,10 @@ class Render extends CI_Controller {
 				<div class="unit-container">
 					<div class="caption">Payment Document</div>
 					<div id='render-payment_payment_document' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Invoice Amount</div>
+					<div id='render-payment_invoice_amount' class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Commission Amount</div>

@@ -124,7 +124,7 @@ Payment={
 			if(fields.hasOwnProperty(i)){
 				var selector='#render-'+fields[i].save_id;
 				$(selector).html(object[i.strip()]);
-				
+
 				if(fields[i].type=='date'){
 					$(selector).css('display','none');
 					if($('#'+$(selector).attr('id')+'-x').length)
@@ -139,7 +139,7 @@ Payment={
 					for(var x=0;x<files.length;x++){
 						if(files[x]=='' || files[x]==undefined)continue;
 						//console.log(files[x]);
-					
+
 						var extension=files[x].split('.').pop();
 						var filename=GetFilename(files[x]);
 						var nodot=filename.replace(/\W/g, '');
@@ -168,7 +168,7 @@ Payment={
 		$('.edit-button[data-step="payment"]').unbind('click');
 		$('.edit-button[data-step="payment"]').click(function(e){
 			var current=$(this).attr('data-step');
-			
+
 			$('#'+current+'-modal').modal('show');
 			for(var i in Config[current].fields){
 				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
@@ -179,7 +179,7 @@ Payment={
 				var pid=$(modal).attr('data-pid');
 				var that=this;
 				$(that).prop('disabled',true);
-				
+
 				for(var i in Config[current].fields){
 					object[fields[i].save_id]=$('#'+Config[current].fields[i].save_id).val();
 				}
@@ -197,6 +197,16 @@ Payment={
 			statusCode:{
 				200:function(response){
 					$('#render-payment_commission_amount').text(parseFloat(response.commission_amount).toFixed(2)+' '+response.commission_amount_currecny);
+				}
+			}
+		});
+		$.ajax({
+			url:api_base+'calculate/invoice_amount/'+getParameterByName('pid'),
+			dataType:'json',
+			method:'GET',
+			statusCode:{
+				200:function(response){
+					$('#render-payment_invoice_amount').text(parseFloat(response.invoice_amount).toFixed(2)+' '+response.currency);
 				}
 			}
 		});

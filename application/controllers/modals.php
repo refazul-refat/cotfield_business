@@ -180,11 +180,11 @@ class Modals extends CI_Controller {
 							</div>
 							<input id="product_quantity" type="text" class="form-control">
 							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">M/TON</span> <span class="caret"></span></button>
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_quantity">MTON</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_quantity">
-									<li class="item"><a data-value="MTON">MTON</a></li>
-									<li class="item"><a data-value="LBS">LBS</a></li>
-									<li class="item"><a data-value="KGS">KGS</a></li>
+									<li class="item"><a data-value="mton">MTON</a></li>
+									<li class="item"><a data-value="lbs">LBS</a></li>
+									<li class="item"><a data-value="kgs">KGS</a></li>
 								</ul>
 								<input id="product_unit_quantity" type="hidden" value='mton'>
 							</div>
@@ -197,8 +197,8 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USD</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_price_currency">
-									<li class="item"><a data-value="USD">USD</a></li>
-									<li class="item"><a data-value="USC">USC</a></li>
+									<li class="item"><a data-value="usd">USD</a></li>
+									<li class="item"><a data-value="usc">USC</a></li>
 									<!--
 									<li class="item"><a data-value="GBP">GBP</a></li>
 									<li class="item"><a data-value="INR">INR</a></li>
@@ -675,13 +675,13 @@ class Modals extends CI_Controller {
 							</div>
 							<input id="port_invoice_weight" type="text" class="form-control">
 							<div class="input-group-btn">
-								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">Unit</span> <span class="caret"></span></button>
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">MTON</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="port_invoice_weight_unit">
-									<li class="item"><a data-value="M/TONS">M/TONS</a></li>
-									<li class="item"><a data-value="LBS">LBS</a></li>
-									<li class="item"><a data-value="KGS">KGS</a></li>
+									<li class="item"><a data-value="mton">MTON</a></li>
+									<li class="item"><a data-value="lbs">LBS</a></li>
+									<li class="item"><a data-value="kgs">KGS</a></li>
 								</ul>
-								<input id="port_invoice_weight_unit" type="hidden">
+								<input id="port_invoice_weight_unit" type="hidden" value='mton'>
 							</div>
 						</div>
 					</div>
@@ -718,6 +718,21 @@ class Modals extends CI_Controller {
 									<option value="port">Port</option>
 									<option value="warehouse">Warehouse</option>
 								</select>
+							</div>
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Invoice Weight</button>
+							</div>
+							<input id="controller_invoice_weight" type="text" class="form-control">
+							<div class="input-group-btn">
+								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">MTON</span> <span class="caret"></span></button>
+								<ul class="options dropdown-menu dropdown-menu-right" data-target="controller_invoice_weight_unit">
+									<li class="item"><a data-value="mton">MTON</a></li>
+									<li class="item"><a data-value="lbs">LBS</a></li>
+									<li class="item"><a data-value="kgs">KGS</a></li>
+								</ul>
+								<input id="controller_invoice_weight_unit" type="hidden" value='mton'>
 							</div>
 						</div>
 						<div class="input-group">
@@ -765,14 +780,15 @@ class Modals extends CI_Controller {
 					<div class="modal-body">
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Supplier Clearance</button>
+								<button class="btn btn-default" type="button">Payment Notification</button>
 							</div>
-							<div>
-								<select id="payment_supplier_clearance" class="form-control" name="supplier_clearance">
-									<option value="Yes">Yes</option>
-									<option value="No">No</option>
-								</select>
+							<input id="payment_notification" class="form-control" data-type="date" type="text">
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">LC Maturity Notification</button>
 							</div>
+							<input id="payment_lc_maturity_notification" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -784,11 +800,16 @@ class Modals extends CI_Controller {
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Late Payment</button>
 							</div>
-							<input id="payment_late_payment" class="form-control" data-type="date" type="text">
+							<div>
+								<select id="payment_late_payment" class="form-control" name="payment_late_payment">
+									<option value="Yes">Yes</option>
+									<option value="No">No</option>
+								</select>
+							</div>
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Buyer's Bank Payment</button>
+								<button class="btn btn-default" type="button">Payment Document</button>
 							</div>
 							<input id="payment_payment_document" name="payment_payment_document" type="hidden">
 							<form class="dropzone dz-clickable" id="dropzone-payment_payment_document" action="http://api.cotfield.com/v1/upload" data-target="payment_payment_document">
