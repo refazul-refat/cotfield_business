@@ -198,9 +198,12 @@ class Modals extends CI_Controller {
 								<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USD</span> <span class="caret"></span></button>
 								<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_price_currency">
 									<li class="item"><a data-value="USD">USD</a></li>
+									<li class="item"><a data-value="USC">USC</a></li>
+									<!--
 									<li class="item"><a data-value="GBP">GBP</a></li>
 									<li class="item"><a data-value="INR">INR</a></li>
 									<li class="item"><a data-value="BDT">BDT</a></li>
+									-->
 								</ul>
 								<input id="product_unit_price_currency" type="hidden" value="usd">
 							</div>
@@ -344,7 +347,7 @@ class Modals extends CI_Controller {
 							<div>
 								<select id="lc_type" class="form-control" name="lc_type">
 									<option value="Deferred LC">Deferred LC</option>
-									<option value="Site LC">Site LC</option>
+									<option value="Sight LC">Sight LC</option>
 									<option value="Upas LC">Upas LC</option>
 								</select>
 							</div>
@@ -374,12 +377,14 @@ class Modals extends CI_Controller {
 								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 							</form>
 						</div>
+						<!--
 						<div class="input-group">
 							<div class="input-group-btn">
 								<button class="btn btn-default" type="button">Maturity Notification</button>
 							</div>
 							<input id="lc_maturity_notification" class="form-control" data-type="date" type="text">
 						</div>
+						-->
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>

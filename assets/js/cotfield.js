@@ -23,7 +23,7 @@ function dropzone(){
 	$('.dropzone').each(function(e){
 		var id=$(this).attr('id');
 		var target=$(this).attr('data-target');
-		
+
 		var myDropzone = new Dropzone(document.getElementById(id));
 		console.log(myDropzone);
 		myDropzone.on("addedfile", function(file){
@@ -82,7 +82,7 @@ function GetFilename(url){
 	return "";
 }
 function stringToDate(s){
-	var dateParts = s.split(' ')[0].split('-'); 
+	var dateParts = s.split(' ')[0].split('-');
 	var timeParts = s.split(' ')[1].split(':');
 	var d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
 	d.setHours(timeParts[0], timeParts[1], timeParts[2]);
@@ -128,9 +128,11 @@ function loadScripts(callback){
 	$.getScript('assets/js/cotfield/shipment.js',function(){
 		console.log('--Shipment Loaded--');loaded+=1;
 	});
+   /*
 	$.getScript('assets/js/cotfield/document.js',function(){
 		console.log('--Document Loaded--');loaded+=1;
 	});
+   */
 	$.getScript('assets/js/cotfield/transshipment.js',function(){
 		console.log('--Transshipment Loaded--');loaded+=1;
 	});
@@ -145,7 +147,7 @@ function loadScripts(callback){
 	});
 	var t=setInterval(function(){
 		console.log('--Loaded '+loaded+' Scripts so far--');
-		if(loaded==12){
+		if(loaded==11){
 			console.log('----------All Scripts Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -160,14 +162,14 @@ function loadPages(callback){
 	Lc.render(undefined,function(){console.log('--LC Rendered--');rendered+=1;});
 	Import_permit.render(undefined,function(){console.log('--Import Permit Rendered--');rendered+=1;});
 	Shipment.render(undefined,function(){console.log('--Shipment Rendered--');rendered+=1;});
-	Document.render(undefined,function(){console.log('--Document Rendered--');rendered+=1;});
+	/*Document.render(undefined,function(){console.log('--Document Rendered--');rendered+=1;});*/
 	Transshipment.render(undefined,function(){console.log('--Transshipment Rendered--');rendered+=1;});
 	Port.render(undefined,function(){console.log('--Port Rendered--');rendered+=1;});
 	Controller.render(undefined,function(){console.log('--Controller Rendered--');rendered+=1;});
 	Payment.render(undefined,function(){console.log('--Payment Rendered--');rendered+=1;});
 	var t=setInterval(function(){
 		console.log('--Loaded '+rendered+' Pages so far--');
-		if(rendered==11){
+		if(rendered==10){
 			console.log('----------All Pages Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -181,14 +183,14 @@ function loadModals(callback){
 	Lc.loadModal(function(response){console.log('--LC Modal Rendered--');$('body').append(response);rendered+=1;});
 	Import_permit.loadModal(function(response){console.log('--Import Permit Modal Rendered--');$('body').append(response);rendered+=1;});
 	Shipment.loadModal(function(response){console.log('--Shipment Modal Rendered--');$('body').append(response);rendered+=1;});
-	Document.loadModal(function(response){console.log('--Document Modal Rendered--');$('body').append(response);rendered+=1;});
+	/*Document.loadModal(function(response){console.log('--Document Modal Rendered--');$('body').append(response);rendered+=1;});*/
 	Transshipment.loadModal(function(response){console.log('--Transshipment Modal Rendered--');$('body').append(response);rendered+=1;});
 	Port.loadModal(function(response){console.log('--Port Modal Rendered--');$('body').append(response);rendered+=1;});
 	Controller.loadModal(function(response){console.log('--Controller Modal Rendered--');$('body').append(response);rendered+=1;});
 	Payment.loadModal(function(response){console.log('--Payment Modal Rendered--');$('body').append(response);rendered+=1;});
 	var t=setInterval(function(){
 		console.log('--Loaded '+rendered+' Modals so far--');
-		if(rendered==10){
+		if(rendered==9){
 			console.log('----------All Modals Loaded Successfully----------');
 			clearInterval(t);
 			if(typeof callback==='function')callback();
@@ -201,11 +203,11 @@ function loadModals(callback){
 		$('#save-bootstrap').click(function(e){
 			Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
 				Customer.assign({object_id:$('#customer').val()},response.id,function(r){});
-				Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){});			
+				Supplier.assign({object_id:$('#supplier').val()},response.id,function(r){});
 			});
 		});
 	});
-	
+
 	Supplier.loadModal(function(response){
 		$('body').append(response);
 	});
@@ -394,8 +396,7 @@ var Config={
 			lc_type:{caption:'LC Type',save_id:'lc_type',type:'select',options:{}},
 			lc_opening_bank:{caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{}},
 			lc_receiving_bank:{caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{}},
-			lc_copy:{caption:'LC Copy',save_id:'lc_copy',type:'document'},
-			lc_maturity_notification:{caption:'Maturity Notification',save_id:'lc_maturity_notification',type:'date'}
+			lc_copy:{caption:'LC Copy',save_id:'lc_copy',type:'document'}
 		}
 	},
 	shipment:{
@@ -411,6 +412,7 @@ var Config={
 			shipment_discharge_port:{caption:'Port of Discharge',save_id:'shipment_discharge_port',type:'select',type:'select',options:{}}
 		}
 	},
+   /*
 	document:{
 		step:7,
 		id:'document',
@@ -426,8 +428,9 @@ var Config={
 			document_fumigation_letter:{caption:'Fumigation Letter',save_id:'document_fumigation_letter',type:'document'}
 		}
 	},
+   */
 	transshipment:{
-		step:8,
+		step:7,
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
@@ -440,7 +443,7 @@ var Config={
 		}
 	},
 	port:{
-		step:9,
+		step:8,
 		id:'port',
 		caption:'Port',
 		fields:{
@@ -451,7 +454,7 @@ var Config={
 		}
 	},
 	controller:{
-		step:10,
+		step:9,
 		id:'controller',
 		caption:'Controller',
 		fields:{
@@ -463,7 +466,7 @@ var Config={
 		}
 	},
 	payment:{
-		step:11,
+		step:10,
 		id:'payment',
 		caption:'Payment',
 		fields:{
@@ -553,7 +556,7 @@ $(document).ready(function(){
 		$('#'+hash).addClass('current');
 	}
 	if(getParameterByName('pid')!=null){
-		Project.load(getParameterByName('pid'),function(response){Project.render(response);});	
+		Project.load(getParameterByName('pid'),function(response){Project.render(response);});
 	}
 	else if(getParameterByName('action')=='notifications'){
 		$('.overlay').show();
@@ -568,12 +571,12 @@ $(document).ready(function(){
 						var diff=(stringToDate(response[i].deadline) - new Date());
 						var days=parseInt(diff / (1000 * 60 * 60 * 24));
 						var panel=$('<div>',{});
-		
+
 						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
 						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
 						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
 						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
-		
+
 						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
 						$('#notification-panel').append(panel);
 					}
@@ -596,12 +599,12 @@ $(document).ready(function(){
 						var diff=(stringToDate(response[i].deadline) - new Date());
 						var days=parseInt(diff / (1000 * 60 * 60 * 24));
 						var panel=$('<div>',{});
-		
+
 						if(days<2)$(panel).addClass('alert').addClass('alert-danger').attr('role','alert');
 						else if(days<4)$(panel).addClass('alert').addClass('alert-warning').attr('role','alert');
 						else if(days<8)$(panel).addClass('alert').addClass('alert-info').attr('role','alert');
 						else $(panel).addClass('alert').addClass('alert-success').attr('role','alert');
-		
+
 						$(panel).html('You have '+days+' remaining for <a href="?pid='+response[i].pid+'#'+response[i].step+'">'+response[i].step.ucfirst()+' Step of '+response[i].pname+'</a>');
 						$('#notification-panel').append(panel);
 					}
@@ -673,7 +676,7 @@ var Final={
 		datetimepicker();
 		resize();
 		quicknav();
-		
+
 		$('.overlay').hide();
 		$('.modal').modal('hide');
 		$('#project-panel').fadeIn();
@@ -687,16 +690,16 @@ $('#next').click(function(event){
 	var current=$('.current').attr('id');
 	var next=steps[steps.indexOf(current)+1];
 	var pid=getParameterByName('pid');
-	
+
 	if($.inArray(next,loaded_steps)>-1){
 		$('.current').removeClass('current');
 		$('.page').hide();
 		$('#'+next).addClass('current');
 		$('.active-circle').removeClass('active-circle').next().addClass('active-circle');
 		$('.overlay').show();
-		
+
 		location.href=location.href.split('#')[0]+'#'+next;
-		
+
 		loadPage(next,function(){
 			$('.overlay').hide();
 			$('#'+next).fadeIn();
@@ -733,16 +736,16 @@ $('#prev').click(function(event){
 	var current=$('.current').attr('id');
 	var prev=steps[steps.indexOf(current)-1];
 	var pid=getParameterByName('pid');
-	
+
 	if($.inArray(prev,loaded_steps)>-1){
 		$('.current').removeClass('current');
 		$('.page').hide();
 		$('#'+prev).addClass('current');
 		$('.active-circle').removeClass('active-circle').prev().addClass('active-circle');
 		$('.overlay').show();
-		
+
 		location.href=location.href.split('#')[0]+'#'+prev;
-		
+
 		if(prev!='bootstrap'){
 			loadPage(prev,function(){
 				$('.overlay').hide();
@@ -795,7 +798,7 @@ var Menu={
 		});
 	},
 	render:function(a,target){
-		var x=$('<div>',{class:'sublinks',style:'display:block;'}).insertAfter(target).append($('<ul>'));
+		var x=$('<div>',{class:'sublinks',style:'display: block;width: 100%;height: 100px;overflow: hidden;'}).insertAfter(target).append($('<ul>',{style:'overflow: auto;height: 100%;width: 100%;padding-right: 15px;    -webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: content-box;'}));
 		var y=$(x).children(':first');
 		for(var i=0;i<a.length;i++){
 			$('<li><a href="javascript:;" data-id="'+a[i].id+'">'+a[i].name+'</a></li>').appendTo($(y));
@@ -896,7 +899,7 @@ $.getScript('assets/js/cotfield/bootstrap.js',function(){
 				$('#save-bootstrap').unbind('click');
 				$('#save-bootstrap').click(function(e){
 					$('#save-bootstrap').prop('disabled', true);
-					Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val()},function(response){
+					Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val(),folder:$('#suppliers-list').val()},function(response){
 						Customer.attempt($('#customers-list').val(),response.id,function(r){
 							Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
 								location.href=location.href.split('?')[0]+'?pid='+response.id;
