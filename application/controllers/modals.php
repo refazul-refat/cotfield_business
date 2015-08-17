@@ -595,21 +595,21 @@ class Modals extends CI_Controller {
 					<div class="modal-body">
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Original Document Arrival</button>
-							</div>
-							<input id="transshipment_original_document_arrival" class="form-control" data-type="date" type="text">
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Payment Notification</button>
-							</div>
-							<input id="transshipment_payment_notification" class="form-control" data-type="date" type="text">
-						</div>
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Vessel Track No</button>
+								<button class="btn btn-default" type="button">Vessel/BL Track No</button>
 							</div>
 							<input id="transshipment_vessel_track_no" type="text" class="form-control">
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">ETD Date</button>
+							</div>
+							<input id="transshipment_etd_date" class="form-control" data-type="date" type="text">
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">ETA Date</button>
+							</div>
+							<input id="transshipment_eta_date" class="form-control" data-type="date" type="text">
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
@@ -631,9 +631,9 @@ class Modals extends CI_Controller {
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Buyer Notification</button>
+								<button class="btn btn-default" type="button">Number of Container</button>
 							</div>
-							<input id="transshipment_buyer_notification" class="form-control" data-type="date" type="text">
+							<input id="transshipment_number_of_container" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="modal-footer">

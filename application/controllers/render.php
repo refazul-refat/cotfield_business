@@ -247,16 +247,16 @@ class Render extends CI_Controller {
 			<div class="header">Transshipment<span data-step="transshipment" class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
-					<div class="caption">Original Document Arrival</div>
-					<div id="render-transshipment_original_document_arrival" class="value"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Payment Notification</div>
-					<div id="render-transshipment_payment_notification" class="value"></div>
-				</div>
-				<div class="unit-container">
-					<div class="caption">Vessel Track No</div>
+					<div class="caption">Vessel/BL Track No</div>
 					<div id="render-transshipment_vessel_track_no" class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">ETD Date</div>
+					<div id="render-transshipment_etd_date" class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">ETA Date</div>
+					<div id="render-transshipment_eta_date" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Transshipment Date</div>
@@ -267,8 +267,8 @@ class Render extends CI_Controller {
 					<div id="render-transshipment_port" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Buyer Notification</div>
-					<div id="render-transshipment_buyer_notification" class="value"></div>
+					<div class="caption">Number of Container</div>
+					<div id="render-transshipment_number_of_container" class="value"></div>
 				</div>
 			</div>
 		</div>

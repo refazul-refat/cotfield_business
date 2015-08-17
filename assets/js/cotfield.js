@@ -436,12 +436,12 @@ var Config={
 		id:'transshipment',
 		caption:'Transshipment',
 		fields:{
-			transshipment_original_document_arrival:{caption:'Original Document Arrival',save_id:'transshipment_original_document_arrival',type:'date'},
-			transshipment_payment_notification:{caption:'Payment Notification',save_id:'transshipment_payment_notification',type:'date'},
-			transshipment_vessel_track_no:{caption:'Vessel Track No',save_id:'transshipment_vessel_track_no',type:'string'},
+			transshipment_vessel_track_no:{caption:'Vessel/BL Track No',save_id:'transshipment_vessel_track_no',type:'string'},
+			transshipment_etd_date:{caption:'ETD Date',save_id:'transshipment_etd_date',type:'date'},
+			transshipment_eta_date:{caption:'ETA Date',save_id:'transshipment_eta_date',type:'date'},
 			transshipment_date:{caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
 			transshipment_port:{caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{}},
-			transshipment_buyer_notification:{caption:'Buyer Notification',save_id:'transshipment_buyer_notification',type:'date'}
+         transshipment_number_of_container:{caption:'Number of Container',save_id:'transshipment_number_of_container',type:'string'}
 		}
 	},
 	port:{
