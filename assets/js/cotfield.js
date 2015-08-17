@@ -409,7 +409,10 @@ var Config={
 			shipment_partial:{caption:'Partial Shipment',save_id:'shipment_partial',type:'select',options:{}},
 			shipment_transshipment:{caption:'Transshipment',save_id:'shipment_transshipment',type:'select',options:{}},
 			shipment_loading_port:{caption:'Port of Loading',save_id:'shipment_loading_port',type:'select',options:{}},
-			shipment_discharge_port:{caption:'Port of Discharge',save_id:'shipment_discharge_port',type:'select',type:'select',options:{}}
+			shipment_discharge_port:{caption:'Port of Discharge',save_id:'shipment_discharge_port',type:'select',type:'select',options:{}},
+			shipment_document_arrival:{caption:'Document Arrival',save_id:'shipment_document_arrival',type:'date'},
+			shipment_document:{caption:'Shipment Document',save_id:'shipment_document',type:'document'},
+			shipment_courier_details:{caption:'Courier Details',save_id:'shipment_courier_details',type:'string'}
 		}
 	},
    /*

@@ -462,6 +462,27 @@ class Modals extends CI_Controller {
 								</select>
 							</div>
 						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Document Arrival</button>
+							</div>
+							<input id="shipment_document_arrival" class="form-control" data-type="date" type="text">
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Shipment Document</button>
+							</div>
+							<input id="shipment_document" name="shipment_document" type="hidden">
+							<form class="dropzone dz-clickable" id="dropzone-shipment_document" action="http://api.cotfield.com/v1/upload" data-target="shipment_document">
+								<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+							</form>
+						</div>
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="button">Courier Details</button>
+							</div>
+							<input id="shipment_courier_details" type="text" class="form-control">
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>

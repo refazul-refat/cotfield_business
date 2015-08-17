@@ -178,6 +178,18 @@ class Render extends CI_Controller {
 					<div class="caption">Port of Discharge</div>
 					<div id="render-shipment_discharge_port" class="value"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">Document Arrival</div>
+					<div id="render-shipment_document_arrival" class="value"></div>
+				</div>
+				<div class="unit-container document">
+					<div class="caption">Shipment Document</div>
+					<div id='render-shipment_document' class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">Courier Details</div>
+					<div id="render-shipment_courier_details" class="value"></div>
+				</div>
 			</div>
 		</div>
 		<?php
