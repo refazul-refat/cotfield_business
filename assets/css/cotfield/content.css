@@ -68,8 +68,8 @@
 	transition: background 200ms;
 	position: relative;
 	width: 43px;
-	height: 43px;		
-	
+	height: 43px;
+
 }
 #content nav #up:hover
 {
@@ -85,7 +85,7 @@
 	transition: background 200ms;
 	position: relative;
 	width: 43px;
-	height: 43px;		
+	height: 43px;
 }
 .breaker
 {
