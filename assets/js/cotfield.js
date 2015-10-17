@@ -1,6 +1,6 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['bootstrap','product','contract','import_permit','lc','shipment','document','transshipment','port','controller','payment'];
+var steps=['bootstrap','product','contract','import_permit','lc','shipment','transshipment','controller','payment'];
 var loaded_steps=[];
 var dropzone_once=false;
 var running=false;
@@ -90,6 +90,7 @@ Bootstrap=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -133,6 +134,26 @@ Customer=(function(){
    			method:'GET',
    			dataType:'json',
    			statusCode:{
+   				200:function(response){
+   					console.log('customer loaded');
+   					console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				}
+   			}
+   		});
+   	},
+   	loadByVal:function(value,callback){
+   		$.ajax({
+   			url:api_base+'customers',
+   			method:'POST',
+   			data:{customer_name:value,token:token},
+   			dataType:'json',
+   			statusCode:{
+   				201:function(response){
+   					console.log('customer loaded');
+   					console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				},
    				200:function(response){
    					console.log('customer loaded');
    					console.log(response);
@@ -187,6 +208,38 @@ Customer=(function(){
    				}
    			}
    		});
+   	},
+   	attempt:function(value,pid,callback){
+   		Customer.loadByVal(value,function(response){
+   			console.log(response.id);
+   			var object={object_id:response.id};
+   			$.extend(object,{token:token});
+   			$.ajax({
+   				url:api_base+'projects/'+pid+'/'+'customer',
+   				method:'POST',
+   				data:object,
+   				statusCode:{
+   					201:function(response){
+   						console.log('');
+   						console.log(response);
+   						callback(response);
+   					}
+   				}
+   			});
+   		});
+   	},
+   	loadModal:function(callback){
+   		$.ajax({
+   			url:'index.php/modals/customer',
+   			method:'GET',
+   			statusCode:{
+   				200:function(response){
+   					console.log('customer modal loaded');
+   					//console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				}
+   			}
+   		});
    	}
    };
 })();
@@ -214,6 +267,26 @@ Supplier=(function(){
    			method:'GET',
    			dataType:'json',
    			statusCode:{
+   				200:function(response){
+   					console.log('supplier loaded');
+   					console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				}
+   			}
+   		});
+   	},
+   	loadByVal:function(value,callback){
+   		$.ajax({
+   			url:api_base+'suppliers',
+   			method:'POST',
+   			data:{supplier_name:value,token:token},
+   			dataType:'json',
+   			statusCode:{
+   				201:function(response){
+   					console.log('supplier loaded');
+   					console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				},
    				200:function(response){
    					console.log('supplier loaded');
    					console.log(response);
@@ -265,6 +338,38 @@ Supplier=(function(){
    					console.log('');
    					console.log(response);
    					callback(response);
+   				}
+   			}
+   		});
+   	},
+   	attempt:function(value,pid,callback){
+   		Supplier.loadByVal(value,function(response){
+   			console.log(response.id);
+   			var object={object_id:response.id};
+   			$.extend(object,{token:token});
+   			$.ajax({
+   				url:api_base+'projects/'+pid+'/'+'supplier',
+   				method:'POST',
+   				data:object,
+   				statusCode:{
+   					201:function(response){
+   						console.log('');
+   						console.log(response);
+   						callback(response);
+   					}
+   				}
+   			});
+   		});
+   	},
+   	loadModal:function(callback){
+   		$.ajax({
+   			url:'index.php/modals/supplier',
+   			method:'GET',
+   			statusCode:{
+   				200:function(response){
+   					console.log('supplier modal loaded');
+   					//console.log(response);
+   					if(typeof callback==='function')callback(response);
    				}
    			}
    		});
@@ -426,6 +531,7 @@ Contract=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -600,6 +706,7 @@ Controller=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -785,6 +892,7 @@ Lc=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -959,6 +1067,7 @@ Payment=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -1153,6 +1262,7 @@ Port=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -1337,6 +1447,7 @@ Product=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -1511,6 +1622,7 @@ Shipment=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -1685,6 +1797,7 @@ Document=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -1859,6 +1972,7 @@ Import_permit=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -2033,6 +2147,7 @@ Transshipment=(function(){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
+            $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
    			$(modal).find('[data-action=save]').click(function(e){
    				var pid=$(modal).attr('data-pid');
@@ -2720,6 +2835,7 @@ $('#next').click(function(event){
 		var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
 		$(modal).find('[data-action=save]').unbind('click');
 		$(modal).find('[data-action=save]').click(function(e){
+         $(this).prop('disabled',true);
 			var pid=$(modal).attr('data-pid');
 			var fields=Config[current].fields;
 			var object={}
@@ -2729,13 +2845,14 @@ $('#next').click(function(event){
 			window[current.ucfirst()].create(object,function(response){
 				window[current.ucfirst()].assign({object_id:response.id},pid,function(r){
 					location.href=location.href.split('#')[0]+'#'+current;
-					loadSteps(getParameterByName('pid'),function(){
+               loaded_steps.push(current);
+					//loadSteps(getParameterByName('pid'),function(){
 						detectHash(function(hash){
 							loadPage(hash,function(){
 								Final.init();
 							});
 						});
-					});
+					//});
 				});
 			});
 		});
