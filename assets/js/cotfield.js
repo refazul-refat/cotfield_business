@@ -83,6 +83,7 @@ Bootstrap=(function(){
    		return;
    		$('.edit-button[data-step="bootstrap"]').unbind('click');
    		$('.edit-button[data-step="bootstrap"]').click(function(e){
+            return;
    			var current=$(this).attr('data-step');
 
    			$('#'+current+'-modal').modal('show');
@@ -2265,6 +2266,7 @@ Menu=(function(){
    			dataType:'json',
    			statusCode:{
    				200:function(response){
+                  console.log(response);
    					callback(response);
    				}
    			}
@@ -2274,7 +2276,7 @@ Menu=(function(){
    		var x=$('<div>',{class:'sublinks',style:'display: block;width: 100%;height: 100px;overflow: hidden;'}).insertAfter(target).append($('<ul>',{style:'overflow: auto;height: 100%;width: 100%;padding-right: 15px;    -webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: content-box;'}));
    		var y=$(x).children(':first');
    		for(var i=0;i<a.length;i++){
-   			$('<li><a href="javascript:;" data-id="'+a[i].id+'">'+a[i].name+'</a></li>').appendTo($(y));
+   			$('<li><a href="javascript:;" data-id="'+a[i].id+'">'+a[i].name+' ('+a[i].child+') '+'</a></li>').appendTo($(y));
    			$('[data-id='+a[i].id+']').click(function(e){
    				if($(e.target).attr('data-visibility')==undefined && $(e.target).attr('data-status')==undefined){
    					$(e.target).attr('data-status','loading');
@@ -2937,14 +2939,16 @@ $('#suppliers').click(function(e){
 $('#save-bootstrap').unbind('click');
 $('#save-bootstrap').click(function(e){
 	$('#save-bootstrap').prop('disabled', true);
-	Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val(),folder:$('#suppliers-list').val()},function(response){
-		Customer.attempt($('#customers-list').val(),response.id,function(r){
-			Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
-				location.href=location.href.split('?')[0]+'?pid='+response.id;
-				$('#save-bootstrap').prop('disabled', false);
-			});
-		});
-	});
+   Supplier.loadByVal($('#suppliers-list').val(),function(){
+	   Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val(),folder:$('#suppliers-list').val()},function(response){
+   		Customer.attempt($('#customers-list').val(),response.id,function(r){
+   			Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
+   				location.href=location.href.split('?')[0]+'?pid='+response.id;
+   				$('#save-bootstrap').prop('disabled', false);
+   			});
+   		});
+   	});
+   });
 });
 $('.create_project').click(function(){
 	var modal=$('#bootstrap-modal').modal('show');
