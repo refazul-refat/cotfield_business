@@ -2096,15 +2096,14 @@ Project=(function(){
    		});
    	},
    	render:function(a){
-   	console.log('--rendering--');
+   	   console.log('--rendering--');
    		$('#render-project_name').html(a.project.name);
    		$('#render-project_description').html(a.project.description);
    		$('#render-project_customer').html(a.customer.name);
    		$('#render-project_supplier').html(a.supplier.name);
    		$('#pname').attr('href',location.href.split('?')[0]+'?pid='+getParameterByName('pid')).html(a.project.name);
 
-
-			loadSteps(getParameterByName('pid'),function(){
+			loadSteps(a.project,function(){
 				detectHash(function(hash){
 					loadPage(hash,function(){
 						Final.init();
@@ -2480,22 +2479,18 @@ function detectHash(callback){
 	if(typeof callback==='function')callback(hash);
 }
 
-function loadSteps(pid,callback){
-	Project.load(pid,function(response){
-		for(var s=1;s<=response.project.current_step;s++){
-			for(var i in Config){
-				if(Config.hasOwnProperty(i)){
-					if(response.project.current_step>=Config[i].step){
-						if(!($.inArray(i,loaded_steps)>-1))
-							loaded_steps.push(i);
-					}
+function loadSteps(project,callback){
+	for(var s=1;s<=project.current_step;s++){
+		for(var i in Config){
+			if(Config.hasOwnProperty(i)){
+				if(project.current_step>=Config[i].step){
+					if(!($.inArray(i,loaded_steps)>-1))
+						loaded_steps.push(i);
 				}
 			}
 		}
-		//console.log(current_step);
-		//console.log(loaded_steps);
-		if(typeof callback==='function')callback();
-	});
+	}
+	if(typeof callback==='function')callback();
 }
 function loadPage(hash,callback){
 	console.log(hash,getParameterByName('pid'));
@@ -2553,27 +2548,25 @@ function animate(){
 }
 function quicknav(){
 	$('#quick-nav').html('');
-	loadSteps(getParameterByName('pid'),function(){
-		for(var i=0;i<loaded_steps.length;i++){
-			var qnav=$('<div>',{class:'circle'}).attr('title',loaded_steps[i]).attr('data-step',loaded_steps[i]).appendTo($('#quick-nav'));
-			$(qnav).unbind('click');
-			$(qnav).click(function(){
-				$('.page').hide();
-				$('.overlay').show();
-				$('.circle').removeClass('active-circle');
-				$(this).addClass('active-circle');
-				var step=$(this).attr('data-step');
-				var pid=getParameterByName('pid');
-				location.href=location.href.split('#')[0]+'#'+step;
-				loadPage(step,function(){
-					$('.overlay').hide();
-					$('#'+step).fadeIn();
-				});
+	for(var i=0;i<loaded_steps.length;i++){
+		var qnav=$('<div>',{class:'circle'}).attr('title',loaded_steps[i]).attr('data-step',loaded_steps[i]).appendTo($('#quick-nav'));
+		$(qnav).unbind('click');
+		$(qnav).click(function(){
+			$('.page').hide();
+			$('.overlay').show();
+			$('.circle').removeClass('active-circle');
+			$(this).addClass('active-circle');
+			var step=$(this).attr('data-step');
+			var pid=getParameterByName('pid');
+			location.href=location.href.split('#')[0]+'#'+step;
+			loadPage(step,function(){
+				$('.overlay').hide();
+				$('#'+step).fadeIn();
 			});
-		}
-		$('.circle[data-step="'+$('.current').attr('id')+'"]').addClass('active-circle');
-		resize();
-	});
+		});
+	}
+	$('.circle[data-step="'+$('.current').attr('id')+'"]').addClass('active-circle');
+	resize();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2586,7 +2579,10 @@ $(document).ready(function(){
 		$('#'+hash).addClass('current');
 	}
 	if(getParameterByName('pid')!=null){
-		Project.load(getParameterByName('pid'),function(response){Project.render(response);});
+      //First Thing
+		Project.load(getParameterByName('pid'),function(response){
+         Project.render(response);
+      });
 	}
 	else if(getParameterByName('action')=='notifications'){
 		$('.overlay').show();
