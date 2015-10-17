@@ -1090,7 +1090,7 @@
 					</div>
 					<input id="controller_invoice_weight" type="text" class="form-control">
 					<div class="input-group-btn">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">MTON</span> <span class="caret"></span></button>
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-controller_invoice_weight_unit">MTON</span> <span class="caret"></span></button>
 						<ul class="options dropdown-menu dropdown-menu-right" data-target="controller_invoice_weight_unit">
 							<li class="item"><a data-value="mton">MTON</a></li>
 							<li class="item"><a data-value="lbs">LBS</a></li>
@@ -1105,11 +1105,11 @@
 					</div>
 					<input id="controller_final_weight" type="text" class="form-control">
 					<div class="input-group-btn">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-final_weight_unit">Unit</span> <span class="caret"></span></button>
-						<ul class="options dropdown-menu dropdown-menu-right" data-target="final_weight_unit">
-							<li class="item"><a data-value="M/TONS">M/TONS</a></li>
-							<li class="item"><a data-value="LBS">LBS</a></li>
-							<li class="item"><a data-value="KGS">KGS</a></li>
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-controller_final_weight_unit">MTON</span> <span class="caret"></span></button>
+						<ul class="options dropdown-menu dropdown-menu-right" data-target="controller_final_weight_unit">
+							<li class="item"><a data-value="mton">MTON</a></li>
+							<li class="item"><a data-value="lbs">LBS</a></li>
+							<li class="item"><a data-value="kgs">KGS</a></li>
 						</ul>
 						<input id="controller_final_weight_unit" type="hidden">
 					</div>
