@@ -40,7 +40,7 @@ class Render extends CI_Controller {
 					<div id="render-product_origin" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Product Quality</div>
+					<div class="caption">Product Details</div>
 					<div id="render-product_quality" class="value"></div>
 				</div>
 				<div class="unit-container">

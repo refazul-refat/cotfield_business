@@ -168,7 +168,7 @@ class Modals extends CI_Controller {
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Product Quality</button>
+								<button class="btn btn-default" type="button">Product Details</button>
 							</div>
 							<div>
 								<input id="product_quality" class="form-control" name="product_quality"/>

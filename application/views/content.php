@@ -69,7 +69,7 @@
 					<div id="render-product_origin" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Product Quality</div>
+					<div class="caption">Product Details</div>
 					<div id="render-product_quality" class="value"></div>
 				</div>
 				<div class="unit-container">
@@ -564,7 +564,7 @@
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="button">Product Quality</button>
+						<button class="btn btn-default" type="button">Product Details</button>
 					</div>
 					<div>
 						<input id="product_quality" class="form-control" name="product_quality"/>
