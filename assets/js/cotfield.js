@@ -2357,7 +2357,7 @@ Config=(function(){
    		fields:{
    			product_name:{caption:'Product Name',save_id:'product_name',type:'string'},
    			product_origin:{caption:'Product Origin',save_id:'product_origin',type:'select',options:{}},
-   			product_quality:{caption:'Product Quality',save_id:'product_quality',type:'select',options:{}},
+   			product_quality:{caption:'Product Details',save_id:'product_quality',type:'select',options:{}},
    			product_quantity:{caption:'Product Quantity',save_id:'product_quantity',type:'number'},
    			product_unit_quantity:{save_id:'product_unit_quantity',type:'select',options:{}},
    			product_unit_price:{caption:'Product Unit Price',save_id:'product_unit_price',type:'number'},
@@ -2413,7 +2413,7 @@ Config=(function(){
    			shipment_discharge_port:{caption:'Port of Discharge',save_id:'shipment_discharge_port',type:'select',type:'select',options:{}},
    			shipment_document_arrival:{caption:'Document Arrival',save_id:'shipment_document_arrival',type:'date'},
    			shipment_document:{caption:'Shipment Document',save_id:'shipment_document',type:'document'},
-   			shipment_courier_details:{caption:'Courier Details',save_id:'shipment_courier_details',type:'string'}
+   			shipment_courier_details:{caption:'Courier Number',save_id:'shipment_courier_details',type:'string'}
    		}
    	},
       /*

@@ -479,7 +479,7 @@ class Modals extends CI_Controller {
 						</div>
 						<div class="input-group">
 							<div class="input-group-btn">
-								<button class="btn btn-default" type="button">Courier Details</button>
+								<button class="btn btn-default" type="button">Courier Number</button>
 							</div>
 							<input id="shipment_courier_details" type="text" class="form-control">
 						</div>

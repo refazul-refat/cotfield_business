@@ -187,7 +187,7 @@ class Render extends CI_Controller {
 					<div id='render-shipment_document' class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Courier Details</div>
+					<div class="caption">Courier Number</div>
 					<div id="render-shipment_courier_details" class="value"></div>
 				</div>
 			</div>
