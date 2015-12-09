@@ -2399,7 +2399,8 @@ Config=(function(){
    			lc_type:{caption:'LC Type',save_id:'lc_type',type:'select',options:{}},
    			lc_opening_bank:{caption:'Opening Bank',save_id:'lc_opening_bank',type:'select',options:{}},
    			lc_receiving_bank:{caption:'Receiving Bank',save_id:'lc_receiving_bank',type:'select',options:{}},
-   			lc_copy:{caption:'LC Copy',save_id:'lc_copy',type:'document'}
+   			lc_copy:{caption:'LC Copy',save_id:'lc_copy',type:'document'},
+   			lc_amendment_documents:{caption:'LC Documents',save_id:'lc_amendment_documents',type:'document'}
    		}
    	},
    	shipment:{

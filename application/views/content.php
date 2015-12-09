@@ -166,6 +166,10 @@
 					<div class="caption">LC Copy</div>
 					<div id="render-lc_copy" class="value"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">LC Documents</div>
+					<div id="render-lc_amendment_documents" class="value"></div>
+				</div>
 				<!--
 				<div class="unit-container">
 					<div class="caption">Maturity Notification</div>
@@ -771,6 +775,15 @@
 					</div>
 					<input id="lc_copy" name="lc_copy" type="hidden">
 					<form class="dropzone dz-clickable" id="dropzone-lc_copy" action="http://api.cotfield.com/v1/upload" data-target="lc_copy">
+						<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+					</form>
+				</div>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">LC Documents</button>
+					</div>
+					<input id="lc_amendment_documents" name="lc_amendment_documents" type="hidden">
+					<form class="dropzone dz-clickable" id="dropzone-lc_amendment_documents" action="http://api.cotfield.com/v1/upload" data-target="lc_amendment_documents">
 						<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 					</form>
 				</div>
