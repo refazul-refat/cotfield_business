@@ -82,6 +82,10 @@
 					<div id="render-product_unit_price" class="value"></div>
 					<div id="render-product_unit_price_currency" class="value dependent"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">PI Document</div>
+					<div id="render-product_pi_document" class="value"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -603,6 +607,15 @@
 						</ul>
 						<input id="product_unit_price_currency" type="hidden" value="usd">
 					</div>
+				</div>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">PI Document</button>
+					</div>
+					<input id="product_pi_document" name="product_pi_document" type="hidden">
+					<form class="dropzone dz-clickable" id="dropzone-product_pi_document" action="http://api.cotfield.com/v1/upload" data-target="product_pi_document">
+						<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+					</form>
 				</div>
 			</div>
 			<div class="modal-footer">

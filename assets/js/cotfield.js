@@ -1407,6 +1407,7 @@ Product=(function(){
    				}
    				else if(fields[i].type=='document'){
    					$(selector).css('display','none');
+                  console.log(i,i.strip(),object[i.strip()]);
    					var files=object[i.strip()].split(',');
    					$('.docs-container-'+i).remove();
    					$('.tempviewer-'+i).remove();
@@ -2361,7 +2362,8 @@ Config=(function(){
    			product_quantity:{caption:'Product Quantity',save_id:'product_quantity',type:'number'},
    			product_unit_quantity:{save_id:'product_unit_quantity',type:'select',options:{}},
    			product_unit_price:{caption:'Product Unit Price',save_id:'product_unit_price',type:'number'},
-   			product_unit_price_currency:{save_id:'product_unit_price_currency',type:'select',options:{}}
+   			product_unit_price_currency:{save_id:'product_unit_price_currency',type:'select',options:{}},
+            product_pi_document:{caption:'PI Document',save_id:'product_pi_document',type:'document'}
    		}
    	},
    	contract:{
