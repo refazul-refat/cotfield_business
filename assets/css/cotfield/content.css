@@ -1,10 +1,10 @@
 #content{
 	margin-left: 240px;
 	top: 0;
-	right: 0;
+	right: -15px;
 	left: 0;
 	bottom: 0;
-	overflow: hidden;
+	overflow-y: scroll;
 	position: absolute;
 	background: url('images/home_bg_optimized.png') no-repeat center top, url('images/home_bg_optimized_repeat.png') repeat center;
 }
@@ -40,7 +40,7 @@
 }
 .content{
 	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-bottom: 60px;
 	border: 1px dashed #ccc;
 	padding-left: 25px;
 	width: 90%;
