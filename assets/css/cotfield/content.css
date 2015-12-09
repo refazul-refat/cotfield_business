@@ -18,6 +18,7 @@
 	display: inline-block;
 	overflow: hidden;
 	max-height: 140px;
+	max-width: 58%;
 	color: #656565;
 }
 .value.docuemnt{
