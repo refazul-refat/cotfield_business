@@ -106,7 +106,7 @@ table {
  * http://www.opensource.org/licenses/mit-license.php
  */
 body, .login-submit, .login-submit:before, .login-submit:after {
-  
+
 }
 
 body {
@@ -293,7 +293,6 @@ body{
 	-moz-background-size: cover;
 	-o-background-size: cover;
  	background-size: cover;
- 	position:relative;
  	font-family: 'Open Sans', sans-serif;
 
 }
