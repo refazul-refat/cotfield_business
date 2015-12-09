@@ -26,6 +26,7 @@
 }
 .unit-container{
 	margin: 0px 0px;
+	min-height: 25px;
 }
 .dependent{
 	margin-left: 5px;
@@ -155,17 +156,16 @@
 }
 .unit-container.document{
 	display:inline-block;
-	width: 45%;
+	width: 100%;
 }
 .unit-container.document .caption{
-	width: 60%;
+	width: 40%;
 }
 .document .doc-icons{
 	zoom: 0.6;
 }
 .document .docs-container{
 	min-height: 60px;
-	margin-top: -10px;
 }
 .document .doc-links{
 	margin-left: -20px;
