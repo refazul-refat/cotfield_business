@@ -58,7 +58,7 @@
 	</div>
 	<div class='candidate' id='product-panel' style='float:right;width:75%;'>
 		<div id="product" class="page">
-			<div class="header">Product<span data-step='product' class="glyphicon glyphicon-edit edit-button"></span></div>
+			<div class="header">Proforma Invoice<span data-step='product' class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
 				<div class="unit-container">
 					<div class="caption">Product Name</div>
@@ -532,7 +532,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-				<h4 class="modal-title">Product</h4></div>
+				<h4 class="modal-title">Proforma Invoice</h4></div>
 			<div class="modal-body">
 				<div class="input-group">
 					<div class="input-group-btn">
