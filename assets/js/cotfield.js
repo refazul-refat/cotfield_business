@@ -80,16 +80,16 @@ Bootstrap=(function(){
    		$('#project_description').text(object.project.description);
    		$('#project_customer').text(object.customer.name);
    		$('#project_supplier').text(object.supplier.name);
-   		return;
    		$('.edit-button[data-step="bootstrap"]').unbind('click');
    		$('.edit-button[data-step="bootstrap"]').click(function(e){
-            return;
    			var current=$(this).attr('data-step');
 
    			$('#'+current+'-modal').modal('show');
    			for(var i in Config[current].fields){
    				$('#'+Config[current].fields[i].save_id).val($('#render-'+Config[current].fields[i].save_id).text());
    			}
+            $('#customers-list').val($('#render-project_customer').text());
+            $('#suppliers-list').val($('#render-project_supplier').text());
    			var modal=$('#'+current+'-modal').attr('data-pid',getParameterByName('pid')).modal('show');
             $(modal).find('[data-action=save]').prop('disabled',false);
    			$(modal).find('[data-action=save]').unbind('click');
@@ -98,11 +98,12 @@ Bootstrap=(function(){
    				var that=this;
    				$(that).prop('disabled',true);
 
-   				for(var i in Config[current].fields){
-   					object[fields[i].save_id]=$('#'+Config[current].fields[i].save_id).val();
-   				}
-   				Bootstrap.update(object.id,object,function(response){
-   					Bootstrap.render(response);
+               var object={};
+               object.project_name=$('#project_name').val();
+               object.project_description=$('#project_description').val();
+
+   				Project.update(pid,object,function(response){
+   					Project.render(response);
    					$(that).prop('disabled',false);
    					$(modal).modal('hide');
    				});
@@ -2199,6 +2200,22 @@ Project=(function(){
    			}
    		});
    	},
+      update:function(id,data,callback){
+   		$.extend(data,{token:token,method:'update'});
+   		$.ajax({
+   			url:api_base+'projects'+'/'+id,
+   			method:'POST',
+   			data:data,
+   			dataType:'json',
+   			statusCode:{
+   				200:function(response){
+   					console.log('project updated');
+   					console.log(response);
+   					if(typeof callback==='function')callback(response);
+   				}
+   			}
+   		});
+   	},
    	load:function(a,callback){
    		$('.overlay').show();
    		$.ajax({
@@ -2216,8 +2233,8 @@ Project=(function(){
    	   console.log('--rendering--');
    		$('#render-project_name').html(a.project.name);
    		$('#render-project_description').html(a.project.description);
-   		$('#render-project_customer').html(a.customer.name);
-   		$('#render-project_supplier').html(a.supplier.name);
+   		if(a.customer)$('#render-project_customer').html(a.customer.name);
+   		if(a.supplier)$('#render-project_supplier').html(a.supplier.name);
    		$('#pname').attr('href',location.href.split('?')[0]+'?pid='+getParameterByName('pid')).html(a.project.name);
 
 			loadSteps(a.project,function(){
@@ -2955,5 +2972,9 @@ $('#save-bootstrap').click(function(e){
    });
 });
 $('.create_project').click(function(){
+   $('#project_name').val('');
+   $('#project_description').val('');
+   $('#suppliers-list').val('');
+   $('#customers-list').val('');
 	var modal=$('#bootstrap-modal').modal('show');
 });
