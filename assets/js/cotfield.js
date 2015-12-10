@@ -2972,9 +2972,25 @@ $('#save-bootstrap').click(function(e){
    });
 });
 $('.create_project').click(function(){
+   $('#bootstrap-modal').removeAttr('data-pid');
+   $('#bootstrap-modal').removeAttr('data-pid');
    $('#project_name').val('');
    $('#project_description').val('');
    $('#suppliers-list').val('');
    $('#customers-list').val('');
+   $('#save-bootstrap').unbind('click');
+   $('#save-bootstrap').click(function(e){
+   	$('#save-bootstrap').prop('disabled', true);
+      Supplier.loadByVal($('#suppliers-list').val(),function(){
+   	   Project.create({project_name:$('#project_name').val(),project_description:$('#project_description').val(),folder:$('#suppliers-list').val()},function(response){
+      		Customer.attempt($('#customers-list').val(),response.id,function(r){
+      			Supplier.attempt($('#suppliers-list').val(),response.id,function(r){
+      				location.href=location.href.split('?')[0]+'?pid='+response.id;
+      				$('#save-bootstrap').prop('disabled', false);
+      			});
+      		});
+      	});
+      });
+   });
 	var modal=$('#bootstrap-modal').modal('show');
 });
