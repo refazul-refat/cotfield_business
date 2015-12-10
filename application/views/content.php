@@ -603,10 +603,10 @@
 					</div>
 					<input id="product_unit_price" type="text" class="form-control">
 					<div class="input-group-btn">
-						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USD</span> <span class="caret"></span></button>
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span id="caption-product_unit_price_currency">USC</span> <span class="caret"></span></button>
 						<ul class="options dropdown-menu dropdown-menu-right" data-target="product_unit_price_currency">
-							<li class="item"><a data-value="usd">USD</a></li>
 							<li class="item"><a data-value="usc">USC</a></li>
+							<!--<li class="item"><a data-value="usc">USC</a></li>-->
 							<!--
 							<li class="item"><a data-value="GBP">GBP</a></li>
 							<li class="item"><a data-value="INR">INR</a></li>
