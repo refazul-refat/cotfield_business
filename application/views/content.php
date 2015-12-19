@@ -167,7 +167,7 @@
 					<div id="render-lc_copy" class="value"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">LC Documents</div>
+					<div class="caption">LC Amendment</div>
 					<div id="render-lc_amendment_documents" class="value"></div>
 				</div>
 				<div class="unit-container">
@@ -784,7 +784,7 @@
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="button">LC Documents</button>
+						<button class="btn btn-default" type="button">LC Amendment</button>
 					</div>
 					<input id="lc_amendment_documents" name="lc_amendment_documents" type="hidden">
 					<form class="dropzone dz-clickable" id="dropzone-lc_amendment_documents" action="http://api.cotfield.com/v1/upload" data-target="lc_amendment_documents">
