@@ -216,7 +216,7 @@
 					<div id="render-shipment_document_arrival" class="value"></div>
 				</div>
 				<div class="unit-container document">
-					<div class="caption">Shipment Document</div>
+					<div class="caption">NN Document</div>
 					<div id='render-shipment_document' class="value"></div>
 				</div>
 				<div class="unit-container">
@@ -886,7 +886,7 @@
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="button">Shipment Document</button>
+						<button class="btn btn-default" type="button">NN Document</button>
 					</div>
 					<input id="shipment_document" name="shipment_document" type="hidden">
 					<form class="dropzone dz-clickable" id="dropzone-shipment_document" action="http://api.cotfield.com/v1/upload" data-target="shipment_document">
