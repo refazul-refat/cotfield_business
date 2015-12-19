@@ -1,6 +1,6 @@
 var token='xcq52HnEYMDt5nS9vuMs_ol1ZFhJ1P-z';
 var api_base='http://api.cotfield.com/v1/';
-var steps=['bootstrap','product','contract','import_permit','lc','shipment','transshipment','controller','payment'];
+var steps=['bootstrap','contract','product','import_permit','lc','shipment','transshipment','controller','payment'];
 var loaded_steps=[];
 var dropzone_once=false;
 var running=false;
