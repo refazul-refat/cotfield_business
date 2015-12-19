@@ -2380,7 +2380,9 @@ Config=(function(){
    			product_unit_quantity:{save_id:'product_unit_quantity',type:'select',options:{}},
    			product_unit_price:{caption:'Product Unit Price',save_id:'product_unit_price',type:'number'},
    			product_unit_price_currency:{save_id:'product_unit_price_currency',type:'select',options:{}},
-            product_pi_document:{caption:'PI Document',save_id:'product_pi_document',type:'document'}
+            product_pi_document:{caption:'PI Document',save_id:'product_pi_document',type:'document'},
+            product_pi_date:{caption:'PI Date',save_id:'product_pi_date',type:'date'},
+            product_pi_no:{caption:'PI No',save_id:'product_pi_no',type:'string'}
    		}
    	},
    	contract:{

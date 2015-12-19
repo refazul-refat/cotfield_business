@@ -86,6 +86,14 @@
 					<div class="caption">PI Document</div>
 					<div id="render-product_pi_document" class="value"></div>
 				</div>
+				<div class="unit-container">
+					<div class="caption">PI Date</div>
+					<div id="render-product_pi_date" class="value"></div>
+				</div>
+				<div class="unit-container">
+					<div class="caption">PI No</div>
+					<div id="render-product_pi_no" class="value"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -624,6 +632,18 @@
 					<form class="dropzone dz-clickable" id="dropzone-product_pi_document" action="http://api.cotfield.com/v1/upload" data-target="product_pi_document">
 						<div class="dz-default dz-message"><span>Drop files here to upload</span></div>
 					</form>
+				</div>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">PI Date</button>
+					</div>
+					<input id="product_pi_date" class="form-control" data-type="date" type="text">
+				</div>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">PI No</button>
+					</div>
+					<input id="product_pi_no" type="text" class="form-control">
 				</div>
 			</div>
 			<div class="modal-footer">
