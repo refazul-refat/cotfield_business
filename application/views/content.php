@@ -121,6 +121,10 @@
 					<div id="render-contract_commission_rate_unit" class="value dependent"></div>
 				</div>
 				<div class="unit-container">
+					<div class="caption">Point Percentage</div>
+					<div id="render-contract_point_percentage" class="value"></div>
+				</div>
+				<div class="unit-container">
 					<div class="caption">Contract Copy</div>
 					<div id="render-contract_copy" class="value"></div>
 				</div>
@@ -692,6 +696,12 @@
 						</ul>
 						<input id="contract_commission_rate_unit" type="hidden" value='%'>
 					</div>
+				</div>
+				<div class="input-group">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">Point Percentage</button>
+					</div>
+					<input id="contract_point_percentage" type="text" class="form-control">
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">

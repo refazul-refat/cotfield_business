@@ -2395,7 +2395,8 @@ Config=(function(){
    			contract_agreement_date:{caption:'Date of Agreement',save_id:'contract_agreement_date',type:'date'},
    			contract_commission_rate:{caption:'Commission Rate',save_id:'contract_commission_rate',type:'number'},
    			contract_commission_rate_unit:{save_id:'contract_commission_rate_unit',type:'select',options:{'percent':{caption:'%'}}},
-   			contract_copy:{caption:'Contract Copy',save_id:'contract_copy',type:'document'}
+   			contract_copy:{caption:'Contract Copy',save_id:'contract_copy',type:'document'},
+            contract_point_percentage:{caption:'Point Percentage',save_id:'contract_point_percentage',type:'number'}
    		}
    	},
    	import_permit:{
