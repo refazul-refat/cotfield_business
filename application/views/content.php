@@ -121,8 +121,8 @@
 					<div id="render-contract_commission_rate_unit" class="value dependent"></div>
 				</div>
 				<div class="unit-container">
-					<div class="caption">Point Percentage</div>
-					<div id="render-contract_point_percentage" class="value"></div>
+					<div class="caption">Point/10k</div>
+					<div id="render-contract_point_per10k" class="value"></div>
 				</div>
 				<div class="unit-container">
 					<div class="caption">Contract Copy</div>
@@ -699,9 +699,9 @@
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="button">Point Percentage</button>
+						<button class="btn btn-default" type="button">Point/10k</button>
 					</div>
-					<input id="contract_point_percentage" type="text" class="form-control">
+					<input id="contract_point_per10k" type="text" class="form-control">
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
