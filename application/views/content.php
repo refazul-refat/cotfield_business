@@ -1167,7 +1167,7 @@
 				</div>
 				<div class="input-group">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="button">Final Weight</button>
+						<button class="btn btn-default" type="button">Landing Weight</button>
 					</div>
 					<input id="controller_final_weight" type="text" class="form-control">
 					<div class="input-group-btn">
@@ -1177,7 +1177,7 @@
 							<li class="item"><a data-value="lbs">LBS</a></li>
 							<li class="item"><a data-value="kgs">KGS</a></li>
 						</ul>
-						<input id="controller_final_weight_unit" type="hidden">
+						<input id="controller_final_weight_unit" type="hidden" value='mton'>
 					</div>
 				</div>
 				<div class="input-group">
