@@ -287,29 +287,37 @@
 		<div id="transshipment" class="page">
 			<div class="header">Transshipment<span data-step="transshipment" class="glyphicon glyphicon-edit edit-button"></span></div>
 			<div class="content">
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">Vessel/BL Track No</div>
 					<div id="render-transshipment_vessel_track_no" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">ETD Date</div>
 					<div id="render-transshipment_etd_date" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">ETA Date</div>
 					<div id="render-transshipment_eta_date" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">Transshipment Date</div>
 					<div id="render-transshipment_date" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">Transshipment Port</div>
 					<div id="render-transshipment_port" class="value"></div>
 				</div>
-				<div class="unit-container">
+				<div class="unit-container by-sea">
 					<div class="caption">Number of Container</div>
 					<div id="render-transshipment_number_of_container" class="value"></div>
+				</div>
+				<div class="unit-container by-road">
+					<div class="caption">Truck Load Date</div>
+					<div id="render-transshipment_truck_load_date" class="value"></div>
+				</div>
+				<div class="unit-container by-road">
+					<div class="caption">Number of Bales</div>
+					<div id="render-transshipment_number_of_bales" class="value"></div>
 				</div>
 			</div>
 		</div>
@@ -1032,31 +1040,31 @@
 				<button class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
 				<h4 class="modal-title">Transshipment</h4></div>
 			<div class="modal-body">
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">Vessel/BL Track No</button>
 					</div>
 					<input id="transshipment_vessel_track_no" type="text" class="form-control">
 				</div>
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">ETD Date</button>
 					</div>
 					<input id="transshipment_etd_date" class="form-control" data-type="date" type="text">
 				</div>
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">ETA Date</button>
 					</div>
 					<input id="transshipment_eta_date" class="form-control" data-type="date" type="text">
 				</div>
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">Transshipment Date</button>
 					</div>
 					<input id="transshipment_date" class="form-control" data-type="date" type="text">
 				</div>
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">Transshipment Port</button>
 					</div>
@@ -1068,11 +1076,23 @@
 						</select>
 					</div>
 				</div>
-				<div class="input-group">
+				<div class="input-group by-sea">
 					<div class="input-group-btn">
 						<button class="btn btn-default" type="button">Number of Container</button>
 					</div>
 					<input id="transshipment_number_of_container" type="text" class="form-control">
+				</div>
+				<div class="input-group by-road">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">Truck Load Date</button>
+					</div>
+					<input id="transshipment_truck_load_date" class="form-control" data-type="date" type="text">
+				</div>
+				<div class="input-group by-road">
+					<div class="input-group-btn">
+						<button class="btn btn-default" type="button">Number of Bales</button>
+					</div>
+					<input id="transshipment_number_of_bales" type="text" class="form-control">
 				</div>
 			</div>
 			<div class="modal-footer">

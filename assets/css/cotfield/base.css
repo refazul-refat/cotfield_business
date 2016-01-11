@@ -89,3 +89,9 @@ input{
 input[type="text"]{
 	padding-left: 8px;
 }
+.by-sea .by-road{
+	display: none;
+}
+.by-road .by-sea{
+	display: none;
+}

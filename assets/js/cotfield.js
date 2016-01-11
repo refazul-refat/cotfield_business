@@ -1525,6 +1525,13 @@ Shipment=(function(){
    				200:function(response){
    					console.log('shipment updated');
    					console.log(response);
+                  if(response){
+                     console.log('here');
+                     if(response.type.toLowerCase().indexOf('sea')>-1)
+                        $('body').removeClass('by-road').addClass('by-sea');
+                     else if(response.type.toLowerCase().indexOf('road')>-1)
+                        $('body').removeClass('by-sea').addClass('by-road');
+                  }
    					if(typeof callback==='function')callback(response);
    				}
    			}
@@ -2224,6 +2231,12 @@ Project=(function(){
    			dataType:'json',
    			statusCode:{
    				200:function(response){
+                  if(response.shipment){
+                     if(response.shipment.type.toLowerCase().indexOf('sea')>-1)
+                        $('body').addClass('by-sea');
+                     else if(response.shipment.type.toLowerCase().indexOf('road')>-1)
+                        $('body').addClass('by-road');
+                  }
    					callback(response);
    				}
    			}
@@ -2467,7 +2480,9 @@ Config=(function(){
    			transshipment_eta_date:{caption:'ETA Date',save_id:'transshipment_eta_date',type:'date'},
    			transshipment_date:{caption:'Transshipment Date',save_id:'transshipment_date',type:'date'},
    			transshipment_port:{caption:'Transshipment Port',save_id:'transshipment_port',type:'select',options:{}},
-            transshipment_number_of_container:{caption:'Number of Container',save_id:'transshipment_number_of_container',type:'string'}
+            transshipment_number_of_container:{caption:'Number of Container',save_id:'transshipment_number_of_container',type:'string'},
+            transshipment_truck_load_date:{caption:'Truck Load Date',save_id:'transshipment_truck_load_date',type:'date'},
+            transshipment_number_of_bales:{caption:'Number of Bales',save_id:'transshipment_number_of_bales',type:'string'}
    		}
    	},
       /*
