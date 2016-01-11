@@ -7,7 +7,7 @@
 	src: url('ag_schoolbook_regular_a-webfont.ttf');
 }
 *{
-
+	text-transform: uppercase;
 }
 body{
 	margin: 0px;
@@ -85,4 +85,7 @@ a:hover{
 
 input{
 	text-transform: uppercase;
+}
+input[type="text"]{
+	padding-left: 8px;
 }

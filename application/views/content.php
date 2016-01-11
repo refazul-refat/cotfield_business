@@ -591,7 +591,7 @@
 						<button class="btn btn-default" type="button">Product Details</button>
 					</div>
 					<div>
-						<input id="product_quality" class="form-control" name="product_quality"/>
+						<input type='text' id="product_quality" class="form-control" name="product_quality"/>
 					</div>
 				</div>
 				<div class="input-group">
@@ -781,9 +781,9 @@
 					</div>
 					<div>
 						<select id="lc_type" class="form-control" name="lc_type">
-							<option value="Deferred LC">Deferred LC</option>
-							<option value="Sight LC">Sight LC</option>
-							<option value="Upas LC">Upas LC</option>
+							<option value="Deferred LC">DEFERRED LC</option>
+							<option value="Sight LC">SIGHT LC</option>
+							<option value="Upas LC">UPAS LC</option>
 						</select>
 					</div>
 				</div>
@@ -862,8 +862,8 @@
 					</div>
 					<div>
 						<select id="shipment_type" class="form-control" name="shipment_type">
-							<option value="By Road">By Road</option>
-							<option value="By Sea">By Sea</option>
+							<option value="By Road">BY ROAD</option>
+							<option value="By Sea">BY SEA</option>
 						</select>
 					</div>
 				</div>
@@ -873,8 +873,8 @@
 					</div>
 					<div>
 						<select id="shipment_partial" class="form-control" name="shipment_partial">
-							<option value="Allowed">Allowed</option>
-							<option value="Not Allowed">Not Allowed</option>
+							<option value="Allowed">ALLOWED</option>
+							<option value="Not Allowed">NOT ALLOWED</option>
 						</select>
 					</div>
 				</div>
@@ -884,8 +884,8 @@
 					</div>
 					<div>
 						<select id="shipment_transshipment" class="form-control" name="shipment_transshipment">
-							<option value="Allowed">Allowed</option>
-							<option value="Not Allowed">Not Allowed</option>
+							<option value="Allowed">ALLOWED</option>
+							<option value="Not Allowed">NOT ALLOWED</option>
 						</select>
 					</div>
 				</div>
@@ -903,8 +903,9 @@
 					</div>
 					<div>
 						<select id="shipment_discharge_port" class="form-control" name="shipment_discharge_port">
-							<option value="Port of Chittagong">Port of Chittagong</option>
-							<option value="Port of Mongla">Port of Mongla</option>
+							<option value="Port of Chittagong">PORT OF CHITTAGONG</option>
+							<option value="Port of Mongla">PORT OF MONGLA</option>
+							<option value="Port of Benapol">PORT OF BENAPOL</option>
 						</select>
 					</div>
 				</div>
@@ -1061,9 +1062,9 @@
 					</div>
 					<div>
 						<select id="transshipment_port" class="form-control" name="transshipment_port">
-							<option value="Port of Colombo">Port of Colombo</option>
-							<option value="Port of Singapour">Port of Singapour</option>
-							<option value="Port Klang">Port Klang</option>
+							<option value="Port of Colombo">PORT OF COLOMBO</option>
+							<option value="Port of Singapore">PORT OF SINGAPORE</option>
+							<option value="Port Klang">PORT OF KLANG</option>
 						</select>
 					</div>
 				</div>
@@ -1228,8 +1229,8 @@
 					</div>
 					<div>
 						<select id="payment_late_payment" class="form-control" name="payment_late_payment">
-							<option value="Yes">Yes</option>
-							<option value="No">No</option>
+							<option value="Yes">YES</option>
+							<option value="No">NO</option>
 						</select>
 					</div>
 				</div>
